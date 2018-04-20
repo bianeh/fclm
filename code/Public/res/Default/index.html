@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蜂巢联盟-首页</title>
+<meta name="keywords" content="首页">
+<meta name="description" content="首页">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/common.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style type="text/css">
+#bannerout {
+	background-color: #2D76AD;
+	margin-top: 0;
+}
+#bannerout div.width1200 {
+	height: 350px;
+	overflow: hidden;
+}
+#bannerout div.width1200 img {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+#iconout div.width1200 {
+	margin-top: 22px;
+	height: 160px;
+	background-color: #FFFFFF;
+}
+#recommendloginout div.width1200 {
+	margin-top: 22px;
+	height: 270px;
+	background-color: #eeeeee;
+}
+#productlistout div.width1200 {
+	margin-top: 22px;
+	height: 768px;
+	background-color: #EEEEEE;
+}
+#adPositionout div.width1200 {
+	margin-top: 22px;
+	height: 200px;
+	background-color: #FFFFFF;
+}
+#partnerout div.width1200 {
+	margin-top: 22px;
+	height: 168px;
+	background-color: #FFFFFF;
+}
+#partnerout div.width1200 {
+	margin-top: 22px;
+	height: 168px;
+	background-color: #FFFFFF;
+}
+
+/*细节css*/
+
+.iconlist {
+	float: right;
+	width: 210px;
+}
+.picicon {
+	margin-top: 20px;
+}
+.recommend {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	background-color: #ffffff;
+	width: 800px;
+}
+.recommend li {
+	margin: 0;
+	height: 135px;
+	padding: 0 0 0 80px;
+	color: #474749;
+}
+.recommend li:first-child {
+	border-bottom: solid 1px #EEEEEE;
+}
+.immediately {
+	line-height: 134px;
+	height: 135px;
+}
+.immediately a {
+	padding-left: 28px;
+	padding-right: 28px;
+	margin-left: 10px;
+	background-color: #328E95;
+	border-color: #328E95;
+	font-size: 16px;
+}
+#loginRegBlock {
+	background-color: #339097;
+	height: 76px;
+	line-height: 76px;
+}
+#loginRegBlock a {
+	background-color: #339097;
+	padding: 10px 35px;
+	color: #FFFFFF;
+	font-size: 24px;
+}
+#loginRegBlock a:first-child {
+	border-right: 2px solid #FFFFFF;
+}
+#loginRegBlock a:hover {
+	text-decoration: none;
+}
+.productname {
+	width: 380px;
+}
+.productstatus .progress {
+	width: 120px;
+	height: 10px;
+	margin-top: 35px;
+}
+.productname, .productstatus {
+	float: left;
+	height: 40px;
+	line-height: 40px;
+}
+.progress-tips {
+	float: right;
+	margin-top: 30px;
+	color: #9E9E9E;
+	font-size:14px;
+}
+.productdesc {
+	line-height: 46px;
+	height: 46px;
+}
+.yellow {
+	color: #FBB321;
+	font-weight: 700;
+}
+.font-bold {
+	font-weight: 700;
+}
+#partnerout .width1200 h3 {
+	height: 52px;
+	width: 96px;
+	line-height: 52px;
+	margin-left: 30px;
+	border-bottom: 3px solid #339097;
+}
+.partner {
+	padding: 10px 25px 0 25px;
+}
+#loginReg .panel-body {
+	padding-top: 0;
+	padding-left: 22px;
+}
+#loginReg .panel-heading {
+	background-color: #FFFFFF;
+	border-bottom: 0;
+	color: #339098;
+	padding-left: 22px;
+}
+#loginReg .panel-body ul {
+	padding: 0;
+	list-style: none;
+}
+#loginReg .panel-body ul li {
+	line-height: 27px;
+}
+.producttab {
+	width: 800px;
+	background: #FFFFFF;
+}
+.producttab .nav.nav-tabs a {
+	padding: 20px 20px 8px;
+	border: 0;
+	font-size: 24px;
+}
+.producttab .nav-tabs > li.active > a, .producttab .nav-tabs > li.active > a:hover, .producttab .nav-tabs > li.active > a:focus {
+	border: 0;
+	border-bottom: 5px solid #339098;
+}
+.producttab .nav > li > a:hover, .producttab .nav > li > a:focus {
+	background: #ffffff;
+}
+.producttab .nav-tabs {
+	border-bottom: 2px solid #EEEEEE;
+}
+.producttab .tab-content .tab-pane ul {
+	padding: 0;
+	margin: 0;
+}
+.producttab .tab-content .tab-pane ul li {
+	list-style: none;
+	height: 140px;
+	border-bottom: 2px solid #EEEEEE;
+}
+.panel-heading.inventrank {
+	padding: 16px 0 0;
+	border-bottom: 2px solid #EEEEEE;
+	background: #FFFFFF
+}
+.panel-heading.inventrank .panel-title {
+	padding: 14px 20px;
+	font-size: 20px;
+	color: #328F94;
+}
+.panel-body.inventrank-body .row, .panel-body.inventnew-body .row {
+	line-height: 46px;
+	color: #48484A
+}
+.panel-body.inventrank-body .row div:first-child {
+	padding-left: 31px;
+}
+.nav > li > a{
+	color: #464648;
+}
+.no-border {
+	color: #48484A;
+	border: 0;
+	margin-bottom: 0;
+}
+.more {
+	position: absolute;
+	right: 36px;
+	top: 23px;
+	padding: 8px;
+	font-family: "微软雅黑", "黑体";
+}
+.viewmore {
+	position: relative;
+	top: -36px;
+	right: -280px;
+	padding: 8px;
+	font-family: "微软雅黑", "黑体";
+}
+#loginReg .panel-heading {
+	padding-bottom:0;
+}
+</style>
+<body>
+<!--顶部工具条-->
+<div class="out" id="topbarout">
+  <div class="width1200"><span class="glyphicon glyphicon-home"></span> 你好，欢迎来到蜂巢联盟！<img src="images/weichat1.png" width="23" height="19" alt="微信图标"/></div>
+</div>
+<!--顶部工具条end-->
+<!--LOGO和全局导航-->
+<div class="out" id="navout">
+  <div style="margin:0 auto; width:1200px;"> <img title="LOGO" src="images/logo.png" width="170" height="70" alt=""/>
+    <div id="nav">
+      <nav class="navbar">
+        <div class="container-fluid"> 
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <div class="collapse navbar-collapse" id="defaultNavbar1">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">首页</a></li>
+                <li><a href="investment.html">我要投资</a></li>
+                <li><a href="#">安全投资</a></li>
+                <li><a href="#">探索</a></li>
+                <li><a href="#">帮助中心</a></li>
+                <li><a href="user_index.html">个人中心</a></li>
+                <li><a href="#">关于我们</a></li>
+              </ul>
+            </div>
+            <!-- /.navbar-collapse --> 
+          </div>
+        </div>
+        <!-- /.container-fluid --> 
+      </nav>
+    </div>
+  </div>
+</div>
+<!--LOGO和全局导航end-->
+<!--banner图片-->
+<div id="bannerout">
+  <div class="width1200"><img style="display:block;" src="images/banner.png" width="1200" height="351" alt=""/> </div>
+</div>
+<!--banner图片end-->
+<!--优势强调-->
+<div class="out" id="iconout">
+  <div class="width1200">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4"><img src="images/icon1.png" width="130" height="124" alt="" class="picicon"/>
+          <dl class="iconlist">
+            <dt>
+              <h2>我要投资</h2>
+            </dt>
+            <dd>我要投资我要投资我要投资我要投资我要投资我要投资我要投资</dd>
+          </dl>
+        </div>
+        <div class="col-sm-4"><img src="images/icon2.png" width="130" height="124" alt="" class="picicon"/>
+          <dl class="iconlist">
+            <dt>
+              <h2>安全保障</h2>
+            </dt>
+            <dd>我要投资我要投资我要投资我要投资我要投资我要投资我要投资</dd>
+          </dl>
+        </div>
+        <div class="col-sm-4"><img src="images/icon3.png" width="130" height="124" alt="" class="picicon"/>
+          <dl class="iconlist">
+            <dt>
+              <h2>尊贵VIP</h2>
+            </dt>
+            <dd>我要投资我要投资我要投资我要投资我要投资我要投资我要投资</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--优势强调end-->
+<!--推荐产品，登录注册按钮和交易统计-->
+<div class="out" id="recommendloginout">
+  <div class="width1200">
+    <div class="row clearfix" style="height:270px; overflow:hidden;">
+      <div class="col-xs-8 column">
+        <ul class="recommend">
+          <li style="background:url(images/index_newer.png) no-repeat left top;">
+            <div class="row clearfix">
+              <div class="col-xs-9 column">
+                <h3 class="productname">产品名称【000001】</h3>
+                <div class="productstatus">
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                  </div>
+                </div>
+                <span class="progress-tips">40%</span>
+                <div class="clearfix"></div>
+                <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+              </div>
+              <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+            </div>
+          </li>
+          <li style="background:url(images/index_yellow.png) no-repeat left top;;">
+            <div class="row clearfix">
+              <div class="col-xs-9 column">
+                <h3 class="productname">产品名称【000002】</h3>
+                <div class="productstatus">
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 50%;"> </div>
+                  </div>
+                </div>
+                <span class="progress-tips">20%</span>
+                <div class="clearfix"></div>
+                <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+              </div>
+              <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-xs-4 column">
+        <div class="panel panel-default" id="loginReg" style="border:0;">
+          <div id="loginRegBlock"> <a href="login.html"><span class="glyphicon glyphicon-user"></span> 登录</a><a href="register.html"><span class="glyphicon glyphicon-tag"></span> 免费注册</a></div>
+          <div class="panel-heading">
+            <h3 class="panel-title" style="font-size:20px; line-height:30px;"> 实时财务 </h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li> 累计成交金额（元）：<span class="yellow">123123123123</span> </li>
+              <li> 本月成交金额（元）：<span class="yellow">123456789000</span> </li>
+              <li> 昨日成交金额（元）：<span class="yellow">123456789000</span> </li>
+              <li> 今日成交金额（元）：<span class="yellow">123456789000</span> </li>
+              <li> 风险备用金额（元）：<span class="yellow">123456789000</span> </li>
+            </ul>
+            <a class="viewmore" href="#" style="font-size:15px;">查看&gt;&gt;</a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--推荐产品，登录注册按钮和交易统计end-->
+<!--首页产品列表，最新用户和排行-->
+<div class="out" id="productlistout">
+  <div class="width1200">
+    <div class="row clearfix">
+      <div class="col-xs-8 column">
+        <div class="tabbable producttab" id="tabs-154815">
+          <ul class="nav nav-tabs">
+            <li class="active"> <a href="#panel-223390" data-toggle="tab">产品列表</a> </li>
+            <li> <a href="#panel-740354" data-toggle="tab">债券转让</a> </li>
+          </ul>
+          <a class="more" href="#" style="font-size:19px;">更多&gt;&gt;</a>
+          <div class="tab-content">
+            <div class="tab-pane active" id="panel-223390">
+              <ul class="recommend">
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000002】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 50%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">20%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000002】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 50%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">20%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="panel-740354">
+              <ul class="recommend">
+                <li style="background:url(images/xin_icon.png) no-repeat left center;;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000002】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 50%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">20%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000001】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 20%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">40%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+                <li style="background:url(images/xin_icon.png) no-repeat left center;;">
+                  <div class="row clearfix">
+                    <div class="col-xs-9 column">
+                      <h3 class="productname">产品名称【000002】</h3>
+                      <div class="productstatus">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 50%;"> </div>
+                        </div>
+                      </div>
+                      <span class="progress-tips">20%</span>
+                      <div class="clearfix"></div>
+                      <p class="productdesc">预计年化收益：<span class="yellow">12%</span>&nbsp;&nbsp;&nbsp;&nbsp;投资期限：<span class="yellow">24个月</span>&nbsp;&nbsp;&nbsp;&nbsp;借款金额：<span class="yellow">4324543432元</span></p>
+                    </div>
+                    <div class="col-xs-3 column immediately"> <a type="button" class="btn btn-default btn-primary">立即投资</a> </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 column">
+        <div class="row clearfix">
+          <div class="col-xs-12 column">
+            <div class="panel panel-default no-border">
+              <div class="panel-heading inventrank">
+                <h3 class="panel-title"> 最新投资</h3>
+                <a class="more" href="#">更多>></a> </div>
+              <div class="panel-body inventnew-body">
+                <div class="row">
+                  <div class="col-sm-4">用户名</div>
+                  <div class="col-sm-4">投资金额</div>
+                  <div class="col-sm-4">获得收益</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">2</div>
+                  <div class="col-sm-4 font-bold">3</div>
+                  <div class="col-sm-4 font-bold">4</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">2</div>
+                  <div class="col-sm-4 font-bold">3</div>
+                  <div class="col-sm-4 font-bold">4</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">2fdsa</div>
+                  <div class="col-sm-4 font-bold">3fdsa</div>
+                  <div class="col-sm-4 font-bold">4gfd</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">2发发呆</div>
+                  <div class="col-sm-4 font-bold">34324</div>
+                  <div class="col-sm-4 font-bold">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">2发发呆</div>
+                  <div class="col-sm-4 font-bold">34324</div>
+                  <div class="col-sm-4 font-bold">443243</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix" style="margin-top:18px;">
+          <div class="col-xs-12 column">
+            <div class="panel panel-default no-border">
+              <div class="panel-heading inventrank">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> 投资排行 </h3>
+              </div>
+              <div class="panel-body inventrank-body">
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_01.gif) no-repeat; background-position:12px;">张三</div>
+                  <div class="col-sm-3 font-bold">3876876</div>
+                  <div class="col-sm-3">409876</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_02.gif) no-repeat; background-position:12px;">李四</div>
+                  <div class="col-sm-3 font-bold">3</div>
+                  <div class="col-sm-3">4</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_03.gif) no-repeat; background-position:12px;">万科的</div>
+                  <div class="col-sm-3 font-bold">3</div>
+                  <div class="col-sm-3">4</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_04.gif) no-repeat; background-position:12px;">张三是</div>
+                  <div class="col-sm-3 font-bold">3fdsa</div>
+                  <div class="col-sm-3">4gfd</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_05.gif) no-repeat; background-position:12px;">李i三</div>
+                  <div class="col-sm-3 font-bold">34324</div>
+                  <div class="col-sm-3">443243</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-3" style="background:url(images/top_06.gif) no-repeat; background-position:12px;">2赵四</div>
+                  <div class="col-sm-3 font-bold">34324</div>
+                  <div class="col-sm-3">443243</div>
+                  <div class="col-sm-3">443243</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--首页产品列表，最新用户和排行end-->
+<!--广告-->
+<div class="out" id="adPositionout">
+  <div class="width1200"> <img src="images/index_ad1.png" width="1200" height="200" alt=""/> </div>
+</div>
+<!--广告end-->
+<!--合作伙伴-->
+<div class="out" id="partnerout">
+  <div class="width1200">
+    <h3>合作伙伴</h3>
+    <div class="row clearfix partner">
+      <div class="col-xs-3 column text-center"> <img alt="140x140" src="images/partiner_guangfa.png" /> </div>
+      <div class="col-xs-3 column text-center"> <img alt="140x140" src="images/partiner_guangfa.png" /> </div>
+      <div class="col-xs-3 column text-center"> <img alt="140x140" src="images/partiner_guangfa.png" /> </div>
+      <div class="col-xs-3 column text-center"> <img alt="140x140" src="images/partiner_guangfa.png" /> </div>
+    </div>
+  </div>
+</div>
+<!--合作伙伴end-->
+<!--帮助中心-->
+<div class="out" id="aboutout">
+  <div class="width1200"> &nbsp;
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+    </ul>
+  </div>
+</div>
+<!--帮助中心end-->
+<!--版权 和 底部-->
+<div class="out" id="copyrightout">
+  <div class="width1200">Copyright©2016 fengmeng.com.All Rights Reserved V1.8.5 沪ICP:0000000号-1</div>
+</div>
+<!--版权 和 底部end-->
+<script src="js/jquery-1.11.2.min.js"></script> 
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

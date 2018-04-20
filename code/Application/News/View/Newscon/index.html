@@ -1,0 +1,258 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>新闻内容管理</h5><br>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-5" action="{:U('News/Newscon/index')}" method='get'>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">关键字：</label>
+                        <div class="col-sm-7">
+                            <input type="text" name='keyword' placeholder="请输入新闻标题含有的关键字" class="form-control row">
+                        </div>
+                        <div class="col-sm-2 row">
+                            <button class="btn btn-sm btn-primary" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                    <a href="{:U('News/Newscon/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加新闻</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                        <tr>
+                            <th>新闻ID</th>
+                            <th>新闻标题</th>
+                            <th>作者</th>
+                            <th>状态</th>
+                            <th>排序调节</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="news" item="vo">
+                        <tr class="news{$vo.id}" newsid="{$vo.id}" newsweight="{$vo.weight}">
+                            <td><input type="checkbox" onclick="javascript:switchItemChecked()" value = "{$vo.id}" class="fc-item"> {$vo.id}</td>
+                            <td>
+                                <a href="#">{$vo.title}</a>
+                            </td>
+                            <td>{$vo.author}</td>
+                            <td><if condition="$vo.publishstatus eq 1">已发布<else/>待发布</if></td>
+                            <td>
+                                <a href="javascript:void(0);" onClick="moveUpStep('.news{$vo.id}',1)">
+                                    <span class="glyphicon glyphicon-arrow-up" title="向上"></span>
+                                </a>
+                                <a href="javascript:void(0);" onClick="moveDownStep('.news{$vo.id}',1)">
+                                    <span class="glyphicon glyphicon-arrow-down" title="向下"></span>
+                                </a>
+                            </td>
+                            <td>{$vo.time}</td>
+                            <td>
+                                <a class='btn btn-xs btn-primary' target="_blank" href="{:U('Home/News/Detail',['id'=>$vo['id']])}">查看</a>
+                                <a class='btn btn-xs btn-success' href="{:U('News/Newscon/editPage',['id'=>$vo['id']])}">编辑</a>
+                                <a class='btn btn-xs btn-danger' href="javascript:void(0)" onclick="javascript:var url = '{:U('News/Newscon/delete',['id'=>$vo['id']])}';if(confirm('确定要删除吗？'))window.location = url;">删除</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <if condition="count($news) gt 0">
+                            <tr>
+                                <td>
+                                    <button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button>								   
+                                 </td>
+                                                                     <td>
+                                    <button onclick="javascript:batchDelete();" class="btn btn-sm btn-danger">批量删除</button>									   
+                                 </td>
+                                <td colspan="7">
+                                    <div class="pull-right">{$Pageshow}</div>
+                                </td>
+                            </tr>
+                        <else/>
+                            <tr>
+                                <td>
+                                 </td>
+                                 <td>
+                                 </td>
+                                <td colspan="7">
+                                    没有任何内容
+                                </td>
+                            </tr>
+                    </if>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.footable').footable({
+                "paging": {
+                                "enabled": false
+                                },
+                "pageSize": {$pageSize},
+                });
+
+    });
+    
+    checkedList = [];
+    status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+
+    function switchAllChecked(){
+            switch(status){
+                    case '0': allChecked();
+                                    status = '1';
+                                    break;
+
+                    case '1': unAllChecked();
+                                    status = '0';
+                                    break;
+
+                    default: break;
+            }
+    }
+
+    function allChecked(){
+            $("#fc-all").prop("checked", true);
+            var list = $(".fc-item");
+            list.prop("checked", true);
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+	
+    function unAllChecked(){
+            $("#fc-all").prop("checked", false);
+            var list = $(".fc-item");
+            list.prop("checked", false)
+            checkedList = Array();
+    }
+	
+    function switchItemChecked(){
+            checkedList = Array();
+            if( $(this).attr("checked") != false ){
+                    $(this).prop("checked", false);
+                    unItemChecked();
+            }else{
+                    $(this).prop("checked", true);
+                    itemChecked();
+            }
+    }
+	
+    function itemChecked(){
+            var list = $(".fc-item:checked");
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+
+    function unItemChecked(){
+            $("#fc-all").prop("checked", false);
+            var list = $(".fc-item:checked");
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+
+    function checkIfNone(){
+            if(checkedList.length <= 0){
+                    return {status:false , msg: "至少选择一项！"}
+            }else{
+                    return {status:true}
+            }
+    }
+
+    function refreshLoad(){
+            location.reload();
+    }
+    
+    function batchDelete(){
+		var checkStatus = checkIfNone();
+		if(checkStatus.status == false) {
+			alert(checkStatus.msg);
+			return;
+		}
+		$.post("{:U('News/Newscon/batchDelete')}",{'request': checkedList}, function(data){
+					if(data.status == '1') {
+						alert(data.msg);
+						refreshLoad();
+					}else{
+						alert(data.msg);
+					}					
+				}, "json");
+	}
+	
+	function moveUpStep(_class,_number)
+	{
+		var newsidd, newsweight, _newsid,jsontxt, _newsweight, checkdata,orderby, obj = $(_class).prev('tr');
+        
+        newsid = obj.attr("newsid");
+        newsweight = obj.attr("newsweight");
+        _newsid = $(_class).attr("newsid");
+        _newsweight = $(_class).attr("newsweight");
+        if(obj.length == 0){
+            checkdata = '{"'+_newsid+'":"'+_newsweight+'"}';
+        }else{
+            jsontxt = '{"'+newsid+'":"'+_newsweight+'","'+_newsid+'":"'+newsweight+'"}';
+        }
+        $.post("/News/Newscon/positionMove",
+          {
+            jsontxt:jsontxt,
+            checkdata:checkdata,
+            orderby:"ASC"
+          },
+          function(data,status){
+              if(data == 1 && status){
+                    window.location.reload();
+              } else {
+                    alert("调整失败");
+              }
+          });
+	}
+	
+	function moveDownStep(_class,_number){
+		var newsidd, newsweight, _newsid,jsontxt, _newsweight, checkdata,orderby, obj = $(_class).next('tr');
+			newsid = obj.attr("newsid");
+			newsweight = obj.attr("newsweight");
+			_newsid = $(_class).attr("newsid");
+			_newsweight = $(_class).attr("newsweight");
+            if(obj.length == 0){
+                checkdata = '{"'+_newsid+'":"'+_newsweight+'"}';
+            }else{
+                jsontxt = '{"'+newsid+'":"'+_newsweight+'","'+_newsid+'":"'+newsweight+'"}';
+            }
+            $.post("/News/Newscon/positionMove",
+			  {
+				jsontxt:jsontxt,
+                checkdata:checkdata,
+                orderby:"DESC"
+			  },
+			  function(data,status){
+                  if(data == 1 && status){
+                        window.location.reload();
+                  } else {
+                        alert("调整失败");
+                  }
+			  });
+	}
+</script>

@@ -1,0 +1,65 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>角色权限配置</h5>
+							<ol class="breadcrumb pull-right">
+								<li>
+									<a href="{:U('Admin/Role/index')}"><strong>返回上一页</strong></a>
+								</li>
+							</ol>
+                        </div>
+						<div class="ibox-content">
+                            <h3>正在为 "<strong class="text-primary">{$role.name}</strong>" 配置权限</h3>
+							<div class="container">
+								<form class="form-horizontal col-sm-12" action="{:U('Admin/Access/allotNode')}" method="POST">
+								<input type="hidden" name="role_id" value="{$role.id}">
+								<foreach name="nodeList" item="vo">
+									<div class="checkbox" style="margin-left:{$vo.level}em; <if condition='$vo.level eq 3'>float:left;<else />clear:both;</if>">
+										 <label>
+											<input name="access[]" id="{$vo.id}" pid="{$vo.pid}" level="{$vo.level}" value="{$vo.id}@{$vo.level}" type="checkbox" class="checkbox" <if condition="$vo.access eq 1">checked<else /></if> >
+											<if condition="$vo.level eq 1">
+											<strong style="color:green;">[{$vo.title}]</strong>
+											<elseif condition="$vo.level eq 2"/>
+											<strong>{$vo.title}</strong>
+											<else />{$vo.title}
+											</if>								
+										 </label>
+									</div>	
+								</foreach>
+								<div class="clearfix"></div>
+								<hr>
+								<div class="from-group">
+									<button class='btn btn-success'>保存</button>
+								</div>
+							 	</form>						
+						  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+		
+		
+
+    });
+	
+
+
+</script>

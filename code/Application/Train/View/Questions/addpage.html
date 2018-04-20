@@ -1,0 +1,91 @@
+<include file="./Application/Common/View/pageheader.html" xmlns="http://www.w3.org/1999/html"/>
+<style>
+    .input{
+        border:0;outline:none;
+    }
+</style>
+<script type="text/javascript">
+    function a(e) {
+        e.style.border = "1px solid #18A689"
+    }
+    function b(e){
+        e.style.border = "1px solid #e5e6e7"
+    }
+</script>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>添加题目</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Questions/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-12" action="{:U('Train/Questions/add')}" method="POST">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">题目</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="question" class="form-control" placeholder="题目">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">答案</label>
+                            <div class="col-sm-10">
+                                <div id="InputsWrapper">
+                                    <div><input type="text" onfocus="this.style.border='1px solid #18A689';" class= "input" onblur="this.style.border='1px solid #e5e6e7';" style="background-color: #FFFFFF;background-image: none;border: 1px solid #e5e6e7;border-radius: 1px;color: inherit;padding: 6px 12px;-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;width: 400px;font-size: 14px;" name="mytext[]" id="field_1" placeholder="请填写答案"/><a href="#" class="removeclass"></a>(请勾选正确答案:)<input name="rightanswer"  type="radio"/></div>
+                                    <div><input type="text" onfocus="this.style.border='1px solid #18A689';" class= "input" onblur="this.style.border='1px solid #e5e6e7';" style="margin-top:10px;background-color: #FFFFFF;background-image: none;border: 1px solid #e5e6e7;border-radius: 1px;color: inherit;padding: 6px 12px;-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;width: 400px;font-size: 14px;" name="mytext[]" id="field_1" placeholder="请填写答案"/><a href="#" class="removeclass"></a>(请勾选正确答案:)<input name="rightanswer"  type="radio"/></div>
+                                </div>
+                                <div style="margin-top:8px">
+                                <a href="#" id="AddMoreFileBox" class="btn btn-success">添加更多答案</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="" name ="radio" id="radio" />
+                    <div class="clearfix"></div>
+                    <div class="from-group">
+                        <button class='btn btn-success'>添加</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <include file="./Application/Common/View/pagefooter.html" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        var indexx;
+        $("body").on("click","input[name=rightanswer]",function(){
+            indexx = $("input[name=rightanswer]").index(this);
+            $("#radio").val(indexx);
+        });
+
+        $(function(){
+            $( "input[name='expiredate']").datepicker();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var MaxInputs       = 8; //maximum input boxes allowed
+            var InputsWrapper   = $("#InputsWrapper"); //Input boxes wrapper ID
+            var AddButton       = $("#AddMoreFileBox"); //Add button ID
+            var x = InputsWrapper.length; //initlal text box count
+            var FieldCount=1; //to keep track of text box added
+            $(AddButton).click(function (e)  //on add input button click
+            {
+
+                    FieldCount++; //text box added increment
+                    $(InputsWrapper).append('<div><input  type="text"  onfocus="a(this);" onblur="b(this);" class= "input" style="margin-top:6px;background-color: #FFFFFF;background-image: none;border: 1px solid #e5e6e7;border-radius: 1px;color: inherit;padding: 6px 12px;-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;width: 400px;font-size: 14px;" name="mytext[]" id="field_'+ FieldCount +'" placeholder="请填写答案" />(请勾选正确答案:)<input name="rightanswer"  type="radio"/>&nbsp;&nbsp;&nbsp;<a href="#" class="removeclass"><span class="btn btn-success">删除</span></a></div>');
+            });
+            $("body").on("click",".removeclass", function(e){ //user click on remove text
+                    $(this).parent('div').remove(); //remove text box
+            })
+
+        });
+    </script>

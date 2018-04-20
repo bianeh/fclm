@@ -1,0 +1,43 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>风险评测结果</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('AgentTrain/Testonline/resultpage')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+
+            </div>
+            <div class="ibox-content" style="height:400px" >
+                <div style="margin-bottom: 80px">
+                    <span style="font-size: 16px">你的在线考试的分数为：</span>
+                    <span style="color:#dd0000;font-size: 20px">{$result.score}</span>
+                    <span style="font-size:16px">分</span>
+                </div>
+
+
+                <div style="font-size: 16px">
+                    <div> 1、0-5分     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 2、5-10分    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 3、10-15分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 4、15-20分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 5、20-25分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 6、25-30分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 7、35-40分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 8、45-50分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                    <div> 9、50-55分   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>

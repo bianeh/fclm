@@ -1,0 +1,107 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>用户管理</h5><br>
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('Admin/User/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加用户</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>工作编号</th>
+                                    <th>用户名</th>
+                                    <th>Email</th>
+                                    <th>手机</th>
+									<th data-hide="all">公司</th>
+									<th data-hide="all">部门</th>
+                                    <th data-hide="all">职位</th>
+									<th data-hide="all">注册时间</th>
+									<th>账户有效期至</th>
+									<th>上次登录IP</th>
+									<th>上次登录时间</th>
+									<th>状态</th>
+									<th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="users" item="vo">
+	                                <tr>
+	                                    <td>{$vo.jobnumber}</td>
+	                                    <td>{$vo.username}</td>
+	                                    <td>{$vo.email}</td>
+	                                    <td>{$vo.phone}</td>
+										<td class='hide-td'>{$vo.company}</th>
+										<td class='hide-td'>{$vo.department}</td>
+	                                    <td class='hide-td'>{$vo.position}</td>
+										<td class='hide-td'>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+										<td>{$vo.expiredate|date="Y-m-d",###}</td>
+	                                    <td>{$vo.ipaddr}</td>
+	                                    <td>{$vo.lastlogintime|date="Y-m-d H:i:s",###}</td>
+										<switch name="vo.status">
+											<case value="3"><!-- 账户禁用状态-->
+											<td>禁用</td>
+											<td>
+												<a class='btn btn-xs btn-success'' href="{:U('Admin/User/enable',['id'=>$vo['id']])}">启用</a>
+												<a class='btn btn-xs btn-danger'' href="{:U('Admin/User/delete',['id'=>$vo['id']])}">删除</a>
+											</td>	    	
+											</case>
+											<case value="2"><!-- 账户临时禁用状态-->
+											<td>冻结</td>
+											<td>
+												<a class='btn btn-xs btn-success'' href="{:U('Admin/User/enable',['id'=>$vo['id']])}">启用</a>
+												<a class='btn btn-xs btn-danger'' href="{:U('Admin/User/delete',['id'=>$vo['id']])}">删除</a>
+											</td>
+											</case>
+											<case value="1"><!-- 正常状态-->
+											<td>正常</td>
+											<td>
+												<a class='btn btn-xs btn-primary'' href="{:U('Admin/User/editPage',['id'=>$vo['id']])}">编辑</a>
+												<a class='btn btn-xs btn-warning'' href="{:U('Admin/User/temporaryDisable',['id'=>$vo['id']])}">冻结</a>
+												<a class='btn btn-xs btn-danger'' href="{:U('Admin/User/disable',['id'=>$vo['id']])}">禁用</a>
+												<a class='btn btn-xs btn-danger'' href="{:U('Admin/User/delete',['id'=>$vo['id']])}">删除</a>
+											</td>
+											</case>
+											<default />
+											<td>错误</td>
+											<td>错误</td>
+										</switch>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

@@ -1,0 +1,104 @@
+<include file="./Application/Common/View/pageheader.html"/>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>产品发布</h5><br>
+            </div>
+            <div class="ibox-content">
+
+                <form class="form-horizontal col-sm-5" action="{:U('Product/Progress/index')}" method='get'>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">产品编号:</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" name='productno' placeholder="产品编号"
+                                   value="{$Think.get.productno|default=""}" class="form-control"> <span
+                                class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">产品名称:</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" name='name' placeholder="产品名称" value="{$Think.get.name|default=""}"
+                            class="form-control">
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-primary" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <?php $i=0; ?>
+    <foreach name="products" item="vo">
+        <div class="col-sm-3 col-xs-3 col-md-3">
+            <div class="ibox">
+                <div class="ibox-title" style="border-color:#18a689;">
+                    <h4 style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">[{$vo.productno}]{$vo.name}</h4>
+                    <span class="text-info">{$vo.}</span>
+                    <span >{$vo.catagroyDes}</span>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h2 class="text-center">{:number_format($vo['ror']*100,2)}%</h2>
+                            <h4 class="text-center text-muted">年化收益率</h4>
+                        </div>
+                        <div class="col-xs-6">
+                            <h2 class="text-center">{:round(($vo['onlinedate']-time())/(60*60*24))}天</h2>
+                            <h4 class="text-center text-muted">上线倒计时</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <h5 class="text-warning">正在募集</h5>
+
+                    <div class="progress">
+                        <div style="width: {$vo.progress}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="35" role="progressbar" class="progress-bar progress-bar-success">
+                            <span class="sr-only">{$vo.progress}% Complete (success)</span>
+                        </div>
+                    </div>
+                    <p class="text-left" style="position:relative;bottom:15px;">{$vo.usedShare}/{$vo.share}</span> <span class="pull-right">{$vo.progress}%</span></p>
+                </div>
+                <div class="ibox-content" style="background-color:#18a689;padding:7px;margin-top:-30px;">
+                    <h3 class="text-center" style="color:#fff;" >{$vo['onlinedate']|date='Y年m月d日 H点',###} 正式上线</h3>
+                </div>
+            </div>
+        </div>
+        <?php
+		$i++;
+		if($i%4==0){
+		    echo '<div class="clearfix"></div>';
+        }
+        ?>
+
+    </foreach>
+</div>
+
+
+<include file="./Application/Common/View/pagefooter.html"/>
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            }
+        });
+
+    });
+
+</script>

@@ -1,0 +1,189 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>我的反馈</h5>
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('AgentCrm/Feedback/addPage')}" class="btn btn-primary " ><i class="fa fa-plus"></i> 我要反馈</a>
+								<a href="{:U('AgentCrm/Feedback/indexCustomer')}" class="btn btn-primary " ><i class="fa fa-comments-o"></i> 客户反馈</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+									<tr>
+										<!--<th><input type="checkbox" onclick="javascript:switchAllChecked();" id="fc-all"></th> -->
+										<th><button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button></th>							
+										<th>反馈内容</th>
+										<th>回复内容</th>
+										<th data-hide="all">反馈内容</th>
+										<th data-hide="all">回复内容</th>
+										<th>反馈时间</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+                                <tbody>
+                                <foreach name="feeds" item="vo">
+	                                <tr>
+										<td><input type="checkbox" onclick="javascript:switchItemChecked()" value = "{$vo.id}" class="fc-item"></td>
+	                                    <td>
+											<if condition="$vo.isdone eq 1">
+												<if condition="$vo.isread eq 1">
+												<span class="label label-default">有回复</span>
+												<else />
+												<span class="label label-danger">有回复</span>
+												</if>	
+											</if>
+											{$vo.content|substr=0,15}...展开
+										</td>
+										<td>{$vo.replycontent|substr=0,15}...展开</td>
+										<td class='hide-td'>{$vo.content}</td>
+										<td class='hide-td'>{$vo.replytime|date="Y-m-d H:i:s", ###} : {$vo.replycontent}</td>
+										<td>{$vo.createtime|date="Y-m-d H:i:s", ###}</td>
+										<td>
+											<if condition="$vo.isread eq 1">
+											<span class="label label-default">已读</span>
+											<else />
+											<span class="label label-success">未读</span>
+											</if>	
+										</td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+									<td colspan="2">
+                                       <button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button>								   
+									   <button onclick="javascript:handle();" class="btn btn-sm btn-primary">标记已读</button>	
+									</td>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	
+	
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+		
+		$( "input[name='createtime']").datepicker();
+    });
+	
+	<!-- start of public table js -->
+	
+	checkedList = [];
+	status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+	
+	function switchAllChecked(){
+		switch(status){
+			case '0': allChecked();
+					status = '1';
+					break;
+					
+			case '1': unAllChecked();
+					status = '0';
+					break;
+			
+			default: break;
+		}
+	}
+	
+	function allChecked(){
+		$("#fc-all").prop("checked", true);
+		var list = $(".fc-item");
+		list.prop("checked", true);
+		list.each(function(n){
+			var itemId = list.eq(n).val();
+			checkedList.push(itemId);
+		});
+	}
+		
+	function unAllChecked(){
+		$("#fc-all").prop("checked", false);
+		var list = $(".fc-item");
+		list.prop("checked", false)
+		checkedList = Array();
+	}
+	
+	function switchItemChecked(){
+		checkedList = Array();
+		if( $(this).attr("checked") != false ){
+			$(this).prop("checked", false);
+			unItemChecked();
+		}else{
+			$(this).prop("checked", true);
+			itemChecked();
+		}
+	}
+	
+	function itemChecked(){
+		var list = $(".fc-item:checked");
+		list.each(function(n){
+			var itemId = list.eq(n).val();
+			checkedList.push(itemId);
+		});
+	}
+	
+	function unItemChecked(){
+		$("#fc-all").prop("checked", false);
+		var list = $(".fc-item:checked");
+		list.each(function(n){
+			var itemId = list.eq(n).val();
+			checkedList.push(itemId);
+		});
+	}
+	
+	function checkIfNone(){
+		if(checkedList.length <= 0){
+			return {status:false , msg: "至少选择一项！"}
+		}else{
+			return {status:true}
+		}
+	}
+	
+	function refreshLoad(){
+		location.reload();
+	}
+
+	<!-- end of public table js -->
+	
+	function handle(){
+		var checkStatus = checkIfNone();
+		if(checkStatus.status == false) {
+			alert(checkStatus.msg);
+			return;
+		}
+		$.post("{:U('AgentCrm/Feedback/markRead')}",{'request': checkedList}, function(data){
+					if(data.status == '1') {
+						alert(data.msg);
+						refreshLoad();
+					}else{
+						alert(data.msg);
+					}					
+				}, "json");
+	}
+	
+	
+	
+</script>

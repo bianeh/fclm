@@ -1,0 +1,155 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>产品净值管理</h5><br>
+                        </div>
+                        <div class="ibox-content">
+							
+							<form class="form-horizontal col-sm-5" action="{:U('Product/Networth/index')}" method='get'>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品编号:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='productno' placeholder="产品编号" value="{$Think.get.productno|default=""}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品名称:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='name' placeholder="产品名称" value="{$Think.get.name|default=""}" class="form-control">
+	                                </div>
+
+	                                <div class="col-sm-2">
+	                                    <button class="btn btn-sm btn-primary" type="submit">查询</button>
+	                                </div>
+	                            </div>
+	                        </form>
+
+	                        <div class="clearfix"></div>
+						</div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>导入今日净值</span>
+                                    <input type="file" name="file" onchange="readyup()" id="file1" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+                                </span>
+
+                                <!-- <span class='margin-left-20'>总会员数: <span class='color-yellow'>{$totalAgents}</span></span> -->
+
+                                <!-- <span class='margin-left-20'>已认证会员数： <span class='color-yellow'>{$totalPassAgents}</span></span> -->
+                            </div>
+                            
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+
+                                    <th data-toggle="true">产品编号</th>
+                                    <th>姓名</th>
+                                    <th>产品类型</th>
+                                    <th>发行规模</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="products" item="vo">
+	                                <tr>
+	                                    <td>{$vo.productno}</td>
+	                                    <td>{$vo.name}</td>
+	                                    <td>{$vo.catagroyDes}</td>
+	                                    <td>{$vo.issuesize}</td>
+	                                    <td>{$vo.createtime}</td>
+	                                    <td>{$vo.productstatusDes}</td>
+	                                    <td>
+	                                    	<a class='btn btn-success btn-xs' href="{:U("Product/Networth/showNetworth",['id'=>$vo['id']])}" >查看产品净值</a>
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$page}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">更新结果</h4>
+      </div>
+      <div class="modal-body">
+        更新中，请稍等。。。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+
+<script>
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+		function readyup(){
+            ajaxFileUpload();
+        }
+        function ajaxFileUpload() {
+            $('.modal').modal();
+            $.ajaxFileUpload
+            (
+                {
+                    url: '{:U('Product/Networth/importTodayNetworth')}', //用于文件上传的服务器端请求地址
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: 'file1', //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        console.log(data.data);
+                        if(data.status==1){
+                            $('.modal-body').empty();
+                            $('.modal-body').append('<p class="text-success strong">更新成功条数：'+data.success+'</p>');
+                            $('.modal-body').append('<p class="text-error strong">更新失败条数：'+data.failed+'</p>');
+                        }
+                        $.each(data.data,function(i,m){
+                            if(m.status==0){
+                                $('.modal-body').append('<div class="text-warning well-sm">error: 产品编号为 '+m.productno+'   更新出错，错误信息：<b>'+m.error_info+'</b></div>');
+                            }
+                        })
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+
+
+</script>

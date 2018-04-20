@@ -1,0 +1,129 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>产品披露</h5><br>
+                        </div>
+                        <div class="ibox-content">
+                        	<form action="{:U('Product/Product/addDisclosureInfo')}" method="post">
+                        		<input type="hidden" name="productid" value="{$productid}">
+                        		<input type="hidden" name='path' id='path' value="">
+                        		<div class="form-group">
+				                    <label class="col-sm-2 control-label">文件描述</label>
+				                    <div class="col-sm-3">
+				                        <input type="text" name='name' id='name' placeholder="文件描述" value="" class="form-control"> <span class="help-block m-b-none">披露文件的描述,披露文件后缀格式为 jpg,jpeg,xls,xlsx,doc,docx</span>
+                                        <p></p>
+				                    </div>
+				                </div>
+				                <div class="clearfix"></div>
+				                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">添加附件</label>
+				                	<div class="col-sm-7">
+					                	<span class="btn btn-success fileinput-button">
+	                                        <i class="glyphicon glyphicon-plus"></i>
+	                                        <span>点击上传附件</span>
+	                                        <input type="file" name="file" onchange="ajaxFileUpload()" id="file1" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+	                                    </span>
+				                	</div>
+				                </div>
+				                <div class="clearfix"></div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="col-sm-2">
+        				                <button class='btn btn-primary'>添加披露信息</button>
+                                    </div>
+                                </div>
+                        	</form>
+                        	<div class="clearfix"></div>
+                        </div>
+						<div class="ibox-content">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>记录名</th>
+                                    <th>文件</th>
+                                    <th>发行规模</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="lists" item="vo">
+	                                <tr>
+	                                    <td>{$vo.id}</td>
+	                                    <td>{$vo.name}</td>
+	                                    <td><a href="{$vo.path}" target="__blank" >查看附件</a></td>
+	                                    <td>{$vo.createtime}</td>
+	                                    <td>
+											<a class='btn btn-xs btn-warning' href="{:U('Product/Product/deletedDisclosureInfo',['id'=>$vo['id']])}">删除记录</a> 
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$page}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>
+<script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    function ajaxFileUpload() {
+
+
+        $.ajaxFileUpload
+        (
+            {
+                url: '{:U('Product/Product/addFile')}', //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: 'file1', //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    console.log(data);
+                    if(data.status==1){
+                        alert('上传成功');
+                        $('#path').val(data.url);
+						$('#name').val( $('#name').val() +'('+ data.filename+')' );
+
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        )
+        return true;
+    }
+</script>

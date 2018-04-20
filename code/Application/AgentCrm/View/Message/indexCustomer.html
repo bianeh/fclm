@@ -1,0 +1,96 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>消息管理</h5>
+							<ol class="breadcrumb pull-right">
+								<li>
+									<a href="{:U('AgentCrm/Message/index')}"><strong>返回上一页</strong></a>
+								</li>
+							</ol>
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('AgentCrm/Message/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加消息</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>消息内容</th>
+									<th>筛选条件</th>
+                                    <th>客户级别</th>
+                                    <th>发送时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="message" item="vo">
+	                                <tr>
+	                                    <td>{$vo.content}</td>
+										<td>
+											<switch name="vo.levelmatch">
+											    <case value="0">等于</case>
+											    <case value="1">大于</case>
+												<case value="2">大于或等于</case>
+												<case value="3">小于</case>
+												<case value="4">小于或等于</case>
+											    <default />default
+											</switch>
+										</td>
+	                                    <td>{$vo.level_title}</td>
+	                                    <td>{$vo.sendtime}</td>
+	                                    <td>{$vo.status_title}</td>
+	                                    <td>
+			
+											<switch name="vo.status">
+											    <case value="0">
+											    	<a class='btn btn-xs btn-primary'' href="{:U('AgentCrm/Message/editPage',['id'=>$vo['id']])}">编辑</a>
+											    	<a class='btn btn-xs btn-success'' href="{:U('AgentCrm/Message/send',['id'=>$vo['id']])}">发送</a>
+											    </case>
+											    <case value="1">
+											    	<span>无操作</span>
+											    </case>
+												<case value="2">
+											    	<span>无操作</span>
+											    </case>
+											    <default />default
+											</switch>
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

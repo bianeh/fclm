@@ -1,0 +1,77 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>会员详情</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('AgentCrm/Customer/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">
+			
+			<form class="form-horizontal col-sm-12" action="{:U('AgentCrm/Customer/edit')}" method='post'>
+				<input type="hidden" name="id" value="{$agent->id}">
+				<div class="col-sm-5">
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">姓名</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='username' placeholder="用户姓名" value="{$agent->username}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">身份证号码</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='credientialnu' placeholder="身份证号码" value="{$agent->credientialnu}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">手机号码</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='phone' placeholder="手机号码" value="{$agent->phone}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">电子邮箱</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='email' placeholder="电子邮箱" value="{$agent->email}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+				</div>
+				<div class="col-sm-5">
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">会员等级</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="userlevel">
+						        <option value='1'>1 级</option>
+						        <option value='2'>2 级</option>
+						        <option value='3'>3 级</option>
+						        <option value='4'>4 级</option>
+						        <option value='5'>5 级</option>
+						    </select>
+						</div>
+	                </div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-primary'>保存</button>
+				</div>
+            </form>
+
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+</script>

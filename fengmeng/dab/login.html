@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>登录 - 蜂巢联盟</title>
+<meta name="keywords" content="蜂巢联盟登录">
+<meta name="description" content="蜂巢联盟登录，蜂巢联盟登录">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/common.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<!--全局导航开始-->
+<nav class="navbar navbar-define">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      <img src="images/logo.png" alt="LOGO"> </div>
+    <div class="collapse navbar-collapse" id="defaultNavbar1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">蜂巢联盟</a></li>
+        <li><a href="news.html">新闻中心</a></li>
+        <li><a href="product.html">产品服务</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>欢迎您！ 请<a href="#">登录！</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--全局导航开始end-->
+<div class="container-fluid login-banner-outer hidden-xs"> </div>
+<div class="container login-box-outer">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-8 login-box">
+      <div class="panel">
+        <div class="panel-heading"> 用户登录 </div>
+        <div class="panel-body"> 
+        	<!--登录表单-->
+          <form action="" role="form" id="loginform" method="post">
+            <div class="form-group form-group-lg">
+              <input type="text" name="username" placeholder="手机号/邮箱" class="form-control username" />
+            </div>
+            <div class="form-group form-group-lg">
+              <input type="password" name="password" placeholder="密码" class="form-control password" />
+            </div>
+            <div class="form-group form-group-lg row">
+                <div class="col-sm-7 column" style="padding-right:0;">
+                  <input type="text" placeholder="验证码" name="code" class="form-control code"/>
+                </div>
+                <div class="col-sm-5 column">
+                  <button type="button" class="btn btn-block btn-lg send-code">发送验证码</button>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="remember"  />
+                  记住用户名</label>
+                  <a class="reg-a" href="#">忘记密码？</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="button" class="btn btn-lg btn-block login-submit" value="登录"/>
+            </div>
+          </form>
+          	<!--登录表单end-->
+            
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="container-fluid foot-outer">
+  <div class="container">
+    <div class="row">
+      <div class="text-center col-md-6 col-md-offset-3">
+        <h4>Footer 地址：上海市普陀区</h4>
+        <p>Copyright &copy; 2015 &middot; All Rights Reserved &middot; <a href="http://www.fengchao.com/" >蜂巢联盟</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/jquery-1.11.3.min.js"></script> 
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

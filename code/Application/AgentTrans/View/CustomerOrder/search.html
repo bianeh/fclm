@@ -1,0 +1,94 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>搜索结果</h5>
+							<ol class="breadcrumb pull-right">
+								<li>
+									<a href="{:U('AgentTrans/CustomerOrder/index')}"><strong>返回上一页</strong></a>
+								</li>
+							</ol>
+                        </div>
+						<div class="ibox-content">							
+							<form class="form-horizontal col-sm-5" action="{:U('AgentTrans/CustomerOrder/search')}" method='get'>
+								<div class="form-group">
+	                                <label class="col-sm-3 control-label">订单时间：</label>
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='createtime' placeholder="订单时间" value="{$Think.get.createtime|default=""}" class="form-control">
+	                                </div>
+	                                <div class="col-sm-2">
+	                                    <button class="btn btn-sm btn-primary" type="submit">查询</button>
+	                                </div>
+	                            </div>
+	                        </form>
+
+	                        <div class="clearfix"></div>
+						</div>
+						<div class="ibox-content">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+									<th>产品编号</th>
+									<th>购买份额</th>
+									<th>购买单价</th>
+									<th>购时净值</th>
+									<th>购买总价</th>
+									<th>订单状态</th>
+									<th>创建时间</th>
+									<th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="order" item="vo">
+	                                <tr>
+	                                    <td>{$vo.orderno}</td>
+	                                    <td>{$vo.productno}</td>
+	                                    <td>{$vo.share}</td>
+	                                    <td>{$vo.price}</td>
+										<td>{$vo.networth}</td>
+										<td>{$vo.amount}</td>
+										<td><if condition = "$vo.status eq 0">待支付<elseif condition="$vo.status eq 1"/>已支付<else />作废</if></td>
+										<td>{$vo.createtime|date="Y-m-d H:i:s", ###}</td>
+										<td><a class='btn btn-sm btn-primary'' href="{:U('AgentTrans/CustomerOrder/view',['id'=>$vo['id']])}">详情</a></td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+		
+		$( "input[name='createtime']").datepicker();
+
+    });
+
+</script>

@@ -1,0 +1,71 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>产品详情</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('AgentProduct/Market/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                {:json_encode($product)}
+            </div>
+            <div class="ibox-content">
+                <if condition="$product['isbuy'] eq 1">
+                    <span>产品已购买</span>
+                    <else/>
+                    <span>产品未购买</span>
+                </if>
+                <br>
+                <if condition="$product['isdeputy'] eq 1">
+                    <span>产品已代理</span>
+                    <else/>
+                    <span>产品未代理</span>
+                </if>
+                <br/>
+                <if condition="$product['issubscribe'] eq true">
+                    <span>产品已订阅</span>
+
+                    <form action="{:U('AgentProduct/Subscribe/subscribe')}" method="post">
+                        <input type="hidden" name="productid" value="{$product['id']}">
+                        <input type="hidden" name="status" value="0">
+                        <button class="btn btn-xs btn-warning">取消订阅</button>
+                    </form>
+                    <else/>
+                    <form action="{:U('AgentProduct/Subscribe/subscribe')}" method="post">
+                        <input type="hidden" name="productid" value="{$product['id']}">
+                        <input type="hidden" name="status" value="1">
+                        <button class="btn btn-xs btn-primary">订阅产品</button>
+                    </form>
+                    <span>产品未订阅</span>
+                </if>
+                <if condition="$product['iscollect'] eq true">
+                    <span>产品已收藏</span>
+
+                    <form action="{:U('AgentProduct/Collect/unCollect')}" method="post">
+                        <input type="hidden" name="productid" value="{$product['id']}">
+                        <button class="btn btn-xs btn-warning">取消收藏</button>
+                    </form>
+                    <else/>
+                    <form action="{:U('AgentProduct/Collect/collect')}" method="post">
+                        <input type="hidden" name="productid" value="{$product['id']}">
+                        <button class="btn btn-xs btn-primary">收藏产品</button>
+                    </form>
+                    <span>产品未收藏</span>
+                </if>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+
+</script>

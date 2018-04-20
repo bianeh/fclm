@@ -1,0 +1,67 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>服务管理</h5><br>
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('Crm/Service/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加服务记录</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>服务时间</th>
+									<th>服务对象类型</th>
+                                    <th>服务类型</th>
+                                    <th>服务内容</th>
+									<th data-hide="all">服务内容</th>
+									<th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="service" item="vo">
+	                                <tr>
+	                                    <td>{$vo.createtime|date="Y-m-d H:i:s", ###}</td>
+										<td><if condition="$vo.customertype eq 1">IFA会员<elseif condition="$vo.customertype eq 2" />普通客户<else />未标注</if></td>
+	                                    <td><if condition="$vo.type eq 1">电话拜访<elseif condition="$vo.type eq 2" />上门拜访<else />未标注</if></td>
+	                                    <td>{$vo.note|substr=0,45}...[点击展开]</td>
+										<td class='hide-td'>{$vo.note}</td>
+	                                    <td><a class='btn btn-xs btn-primary'' href="{:U('Crm/Service/editPage',['id'=>$vo['id']])}">编辑</a></td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

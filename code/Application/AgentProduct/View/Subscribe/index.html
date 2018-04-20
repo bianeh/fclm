@@ -1,0 +1,110 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<link href="/Public/res/template/css/plugins/switchery/switchery.css" rel="stylesheet">
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>我的订阅</h5><br>
+                        </div>
+						<div class="ibox-content">
+                            <div class="row m-b-sm m-t-sm">
+                                <div class="col-md-1">
+                                    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                                </div>
+                                <div class="col-md-11">
+                                    <form action="{:U('AgentProduct/Subscribe/index')}" >
+                                        <div class="input-group">
+                                            <input type="text" name="productno" value="{$Think.get.productno|default=''}" placeholder="请输入项目编号" class="input-sm form-control"> <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <div class="project-list">
+
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <foreach name="lists" item="vo">
+                                        <tr>
+                                            <td class="project-status">
+                                                <if condition="$vo.status eq 1">
+                                                    <span class="label label-primary">已订阅</span>
+                                                    <else/>
+                                                    <span class="label label-default">未订阅</span>
+                                                </if>
+                                            </td>
+                                            <td class="project-title">
+                                                <a href="{:U("AgentProduct/Market/detail",["id"=>$vo["productid"]])}">[{$vo['productno']}] {$vo['name']}</a>
+                                                <br/>
+                                                <small>创建于 {$vo['createtime']|date="Y-m-d",###}</small>
+                                            </td>
+                                            <td class="project-completion">
+                                            </td>
+                                            <td class="project-actions">
+                                                <input type="checkbox" class="js-switch" {$vo['status']==1?"checked":''} productid='{$vo['productid']}' />
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <if condition="empty($lists)">
+                                    <div class="alert alert-info">还没有您订阅的产品，前去 <a class="alert-link" href="{:U('AgentProduct/Market/index')}">市场</a> 查看 </div>
+                                    <else/>
+                                    <div class="pull-right">{$page}</div>
+                                </if>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/switchery/switchery.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#loading-example-btn').click(function(){
+            location.reload();
+        });
+
+        $('.js-switch').each(function(i,m){
+            new Switchery(m);
+            m.onchange = function(){
+                var status = m.checked?1:0;
+                var productid = $(this).attr('productid');
+                var $this = $(this);
+                $.ajax({
+                    url:"{:U('AgentProduct/Subscribe/subscribe')}",
+                    type:'post',
+                    data:{productid:productid,status:status},
+                    success:function(data){
+                        if(data.status==1){
+                            var statusbox = $this.parent().siblings('.project-status');
+                            statusbox.empty();
+                            if(status==1){
+                                statusbox.append('<span class="label label-primary">已订阅</span>');
+                            }else{
+                                statusbox.append('<span class="label label-default">未订阅</span>');
+                            }
+                        }else{
+                            alert('error...');
+                        }
+                    }
+                })
+            }
+        });
+
+    });
+
+</script>

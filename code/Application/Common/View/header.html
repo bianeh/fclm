@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
+<title>新闻中心 - 蜂巢联盟</title>
+<meta name="keywords" content="新闻中心,蜂巢联盟">
+<meta name="description" content="新闻中心">
+<link href="/Public/res/Btemplate/css/bootstrap.css" rel="stylesheet">
+<link href="/Public/res/Btemplate/css/common.css" rel="stylesheet">
+<if condition="CONTROLLER_NAME == 'Login'">
+    <link href="/Public/res/Btemplate/css/login.css" rel="stylesheet">
+</if>
+
+<!--[if lt IE 9]>
+      <script src="/Public/res/Btemplate/js/html5shiv.min.js"></script>
+      <script src="/Public/res/Btemplate/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--全局导航开始-->
+<nav class="navbar navbar-define">
+  <div class="container"> 
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      <a href="/"><img src="/Public/res/Btemplate/images/logo.png" alt="LOGO"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="defaultNavbar1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">蜂巢联盟</a></li>
+        <li
+            <if condition="CONTROLLER_NAME == 'News'">
+            class="active"
+            </if>
+        ><a href="{:U('Home/News/Index')}">新闻中心</a></li>
+        <li
+            <if condition="CONTROLLER_NAME == 'Product'">
+            class="active"
+            </if>
+        ><a href="{:U('Home/Product/Index')}">产品服务</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>欢迎您！ 请<a href="{:U('Auth/Login/user')}">登录！</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--全局导航开始end-->

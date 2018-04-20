@@ -1,0 +1,28 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>邀请成功</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('Crm/BAgent/index')}"><strong>返回主页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">
+			
+        	<p>恭喜，邀请成功，系统已通过邮件和短信的方式发送了通知链接</p>
+        	<p>您也可以复制以下链接，通过其他方式通知用户</p>
+        	<p>{$link}</p>
+			
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+</script>

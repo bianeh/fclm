@@ -1,0 +1,97 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>活动管理</h5>
+							<br>							
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('AgentCrm/Activity/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加活动</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>                                    
+									<th>活动主题</th>
+									<th>活动时间</th>
+									<th>活动内容</th>
+									<th data-hide="all">活动内容</th>
+                                    <th>强制参与</th>
+									<th>审核</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="Activity" item="vo">
+	                                <tr>
+										<td>{$vo.name}</td>
+	                                    <td>{$vo.begintime|date="Y-m-d H:i:s", ###}至{$vo.endtime|date="Y-m-d H:i:s", ###}</td>
+										<td>{$vo.content|substr=0,25}...[点击展开]</td>
+	                                    <td class='hide-td'>{$vo.content}</td>
+	                                    <td><if condition="$vo.isforce eq 0">否<elseif condition="$vo.isforce eq 1" />是<else />未定义</if></td>
+	                                    <td>
+											<if condition ="$vo.needhelp neq null">
+												<if condition="$vo.approvestatus eq 1"> 审核不通过
+												<elseif condition="$vo.approvestatus eq 2" /> 审核通过
+												<else />等待审核
+												</if>
+											<else />
+												无需平台审核
+											</if>
+										</td>
+										<td>
+											<if condition="$vo.needhelp eq null">
+											<a class='btn btn-xs btn-primary'' href="{:U('AgentCrm/Activity/editPage',['id'=>$vo['id']])}">编辑</a>
+											<else />
+												<if condition="$vo.approvestatus eq null">
+												<a class='btn btn-xs btn-primary'' href="{:U('AgentCrm/Activity/editPage',['id'=>$vo['id']])}">编辑</a>
+												</if>
+											</if>											
+											<a class='btn btn-xs btn-primary'' href="{:U('AgentCrm/Activity/view',['id'=>$vo['id']])}">查看</a>
+											
+											<if condition="$vo.needhelp eq null">
+											<a class='btn btn-xs btn-success'' href="{:U('AgentCrm/Activity/publish',['id'=>$vo['id']])}">发布</a>
+											<else />
+												<if condition="$vo.approvestatus eq 2">
+												<a class='btn btn-xs btn-success'' href="{:U('AgentCrm/Activity/publish',['id'=>$vo['id']])}">发布</a>
+												</if>
+											</if>
+		
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

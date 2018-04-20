@@ -1,0 +1,98 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>角色管理</h5><br>
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('Admin/Role/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加角色</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>角色ID</th>
+                                    <th>角色名称</th>
+                                    <th>角色描述</th>
+									<th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="role" item="vo">
+	                                <tr>
+	                                    <td>{$vo.id}</td>
+	                                    <td>
+										<switch name="vo.level">
+											  <case value="0">
+											    <strong class="text-danger">{$vo.name}</strong>
+											  </case>
+											  <case value="1">
+											    <strong class="text-info">&nbsp;&nbsp;{$vo.name}</strong>
+											  </case>
+											  <case value="2">
+											    <strong class="text-primary">&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</strong>
+											  </case>
+											  <case value="3">
+											    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</span>
+											  </case>
+											  <default /><strong>..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</strong>
+											</switch>
+										</td>
+	                                    <td>{$vo.remark}</td>
+	                                    <td>{$vo.status_title}</td>
+	                                    <td>
+										<if condition="$vo.id eq 1">
+											<span>无操作</span>
+											<else />
+												<switch name="vo.status">
+													<case value="0">
+														<a class='btn btn-xs btn-primary'' href="{:U('Admin/Role/editPage',['id'=>$vo['id']])}">编辑</a>
+														<a class='btn btn-xs btn-success'' href="{:U('Admin/Role/enable',['id'=>$vo['id']])}">启用</a>
+													</case>
+													<case value="1">
+														<a class='btn btn-xs btn-primary'' href="{:U('Admin/Role/editPage',['id'=>$vo['id']])}">编辑</a>
+														<a class='btn btn-xs btn-success'' href="{:U('Admin/Access/allotNodePage',['id'=>$vo['id']])}">权限配置</a>
+														<a class='btn btn-xs btn-danger'' href="{:U('Admin/Role/disable',['id'=>$vo['id']])}">禁用</a>
+													</case>
+													<default />default
+												</switch>
+										</if>											
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

@@ -1,0 +1,159 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>知识回复</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Knowledges/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div style="text-align: center;">
+                        <h1>{$news.title}</h1>
+                    </div>
+                    <div style="font-size:14px;border-bottom: dashed 1px #000">
+                        发布时间：{$news.createtime|date="Y-m-d H:i:s",###}&nbsp;&nbsp;来源：{$news.source}
+                    </div>
+                    <br>
+                    <br>
+                    <div style="font-size:16px" class="form-group">
+                        {$news.content}
+                    </div>
+
+                    <div>
+                        作者：{$news.author}
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <div>
+                        <foreach name="replys" item="vo">
+                            <div style="font-size:14px;">
+                                <div style="font-size:14px;border-top: dashed 1px #000">{$vo.username}的评论:</div>
+                                <span style="font-size:16px">{$vo.content}</span>
+                            </div>
+                            <div   style ="margin-left:94%;" class="reply">
+                                <span  class='btn btn-xs btn-success'>回复</span>
+                            </div>
+
+                            <foreach name="requests" item="v">
+                                <?php
+                                $followid = $v['followid'];
+                                $arr = [];
+                                $arr = $followid;
+                                $id = $vo['id'];
+                                if($followid == $id)
+                                {
+                                ?>
+                                <div class="replytree" style="display: none">
+                                    <h5>{$v.username}的回复:</h5>
+                                    <span style="font-size:16px">{$v.content}</span>
+                                </div>
+                                <?php
+                        }
+                        ?>
+
+                            </foreach>
+                            <?php
+                       if (!in_array($id, $arr))
+                        {
+                        ?>
+                            <div class="replytree" style="display: none">
+                                <form method="get" action="{:U('Train/Knowledges/reply')}" />
+                                <div><lable>回复：</lable></div>
+                                <br>
+                                <div >
+                                    <div>
+                                        <textarea class="form-control" rows="7" name="reply" class="col-sm-12" ></textarea>
+                                    </div>
+                                    <input type="hidden" name="newsid" value="{$vo.id}" />
+                                    <input type ="hidden" name="knowledgeid" value="{$vo.knowledgeid}" />
+                                    <div style="margin-top: 5px"><input style ="width:100px;height:30px" class='btn btn-xs btn-success' type="submit" value="提交"/></div>
+                                </div>
+                                </form>
+                            </div>
+                            <br>
+                            <?php
+                        }
+                        ?>
+                        </foreach>
+                    </div>
+                    <if condition="count($replys) gt 0">
+                        <tr>
+                            <td colspan="7">
+                                <div class="pull-right">{$Pageshow}</div>
+                            </td>
+                        </tr>
+                        <else/>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td colspan="7">
+                                没有任何内容
+                            </td>
+                        </tr>
+                    </if>
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">权重</label>-->
+                    <!--<div class="col-sm-7">-->
+                    <!--<input maxlength="11" type="text" name="weight" value="{$news.weight}" class="form-control" placeholder="数字类型，越大越靠前">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <include file="./Application/Common/View/pagefooter.html" />
+
+    <script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+        function readyup(){
+            ajaxFileUpload();
+        }
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                    {
+                        url: '/News/Newscon//upload', //用于文件上传的服务器端请求地址
+                        secureuri: false, //是否需要安全协议，一般设置为false
+                        fileElementId: 'file1', //文件上传域的ID
+                        dataType: 'json', //返回值类型 一般设置为json
+                        success: function (data, status)  //服务器成功响应处理函数
+                        {
+                            $("#img1").attr("src", data.imgurl);
+                            $(":input[name=thumb]").val(data.imgurl);
+                            if (typeof (data.error) != 'undefined') {
+                                if (data.error != '') {
+                                    alert(data.error);
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        },
+                        error: function (data, status, e)//服务器响应失败处理函数
+                        {
+                            alert(e);
+                        }
+                    }
+            )
+            return false;
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".reply").click(function(){
+                $(this).next(".replytree").toggle();
+            });
+        });
+    </script>

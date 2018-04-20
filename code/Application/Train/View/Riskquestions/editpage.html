@@ -1,0 +1,131 @@
+<include file="./Application/Common/View/pageheader.html" />
+<style>
+    .input{
+        border:0;outline:none;
+    }
+</style>
+<script type="text/javascript">
+    function a(e) {
+        e.style.border = "1px solid #18A689"
+    }
+    function b(e){
+        e.style.border = "1px solid #e5e6e7"
+    }
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>编辑试题题目</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Riskquestions/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-12" action="{:U('Train/Riskquestions/edit')}" method="POST">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="id" value="{$dataparam.id}">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">题目</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="question" value={$question} class="form-control" placeholder="题目">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">答案</label>
+                            <div class="col-sm-11">
+
+                                <div id="InputsWrapper">
+                                    <?php
+                                      for ($i=0; $i < $length; $i++)
+                                           {
+                                       ?>
+                                        <tr>
+                                            <div><input type="text" onfocus="this.style.border='1px solid #18A689';" class= "input" onblur="this.style.border='1px solid #e5e6e7';" style="margin-top:8px;background-color: #FFFFFF;background-image: none;border: 1px solid #e5e6e7;border-radius: 1px;color: inherit;padding: 6px 12px;-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;width: 400px;font-size: 14px;" value={$answers[$i]} name="mytext[]" id="field_1" placeholder="请填写答案"/>&nbsp;&nbsp;评分<input name="textscore[]"  onfocus="this.style.border='1px solid #18A689';" class= "input" onblur="this.style.border='1px solid #e5e6e7';" style="text-align:center;width:40px;border: 1px solid #e5e6e7;color: red" value = {$scores[$i]} type="text" />分&nbsp;<a href="#" class="removeclass"><span class="btn btn-success">删除</span></a></div>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div style="margin-top:8px">
+                                    <a href="#" id="AddMoreFileBox" class="btn btn-success">添加更多答案</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="radio" name="radio" value='{$radioanswer}' />
+                    <input type="hidden" name = "id" value="{$id}" />
+                    <div class="clearfix"></div>
+                    <div class="from-group">
+                        <button class='btn btn-success'>保存</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <include file="./Application/Common/View/pagefooter.html" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+
+        var indexx;
+        $("body").on("click","input[name=rightanswer]",function(){
+            indexx = $("input[name=rightanswer]").index(this);
+//            $("input[type=radio]").attr("checked",indexx);
+//            $("input[name=rightanswer][value='99']").attr("checked",true);
+//            $(":radio[name=rightanswer][value='555']").attr("checked","true");
+//            $(":radio[name=rightanswer][value='b']").attr("checked","true")
+            $("#radio").val(indexx);
+//            alert(indexx);
+        });
+
+
+        $(function(){
+            $( "input[name='expiredate']").datepicker();
+        });
+
+        function switchLevel(){
+            var p_level = $("#parent option:selected").attr("level");
+            var level = parseInt(p_level)+1;
+            $("#level").val(level);
+        }
+    </script><script>
+    $(document).ready(function() {
+
+        var MaxInputs       = 8; //maximum input boxes allowed
+        var InputsWrapper   = $("#InputsWrapper"); //Input boxes wrapper ID
+        var AddButton       = $("#AddMoreFileBox"); //Add button ID
+
+        var x = InputsWrapper.length; //initlal text box count
+        var FieldCount=1; //to keep track of text box added
+
+        $(AddButton).click(function (e)  //on add input button click
+        {
+//            if(x <= MaxInputs) //max input box allowed
+//            {
+            FieldCount++; //text box added increment
+            //add input box
+            $(InputsWrapper).append('<div><input type="text" onfocus="a(this);" onblur="b(this);" class= "input" style="margin-top:6px;background-color: #FFFFFF;background-image: none;border: 1px solid #e5e6e7;border-radius: 1px;color: inherit;padding: 6px 12px;-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;width: 400px;font-size: 14px;" name="mytext[]" id="field_'+ FieldCount +'" placeholder="请填写答案" />&nbsp;&nbsp;评分<input style="width:40px;border: 1px solid #e5e6e7;color:red;text-align: center" onfocus="a(this);" onblur="b(this);" class= "input" name="textscore[]" type="text" />分&nbsp;<a href="#" class="removeclass"><span class="btn btn-success">删除</span></a></div>');
+//                x++; //text box increment
+//            }
+            return false;
+        });
+
+        $("body").on("click",".removeclass", function(e){ //user click on remove text
+//            if( x > 1 ) {
+            $(this).parent('div').remove(); //remove text box
+//                x--; //decrement textbox
+//            }
+            return false;
+        })
+
+    });
+</script>
+

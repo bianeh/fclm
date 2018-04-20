@@ -1,0 +1,86 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>编辑用户</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('Admin/User/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">		
+			<form class="form-horizontal col-sm-12" action="{:U('Admin/User/edit')}" method="POST">
+				<div class="col-sm-8">
+					<input type="hidden" name="id" value="{$user.id}">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">用户名</label>
+						<div class="col-sm-7">
+						  <input type="text" name="username" class="form-control" placeholder="用户名" value="{$user.username}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">工号</label>
+						<div class="col-sm-7">
+						  <input type="text" name="jobnumber" class="form-control" placeholder="工号" value="{$user.jobnumber}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-7">
+						  <input type="text" name="email" class="form-control" placeholder="Email" value="{$user.email}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">手机</label>
+						<div class="col-sm-7">
+						  <input type="text" name="phone" class="form-control" placeholder="手机号" value="{$user.phone}">
+						</div>
+					</div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">角色</label>
+	                    <div class="col-sm-7">
+							<div class="checkbox">
+							<foreach name="role" item="vo">	
+							  <label class="checkbox-inline">
+								<input name="role[]" class="checkbox" type="checkbox" value="{$vo.id}" <if condition="$vo.checked eq 1">checked<else /></if>>{$vo.name}								
+							  </label>
+							</foreach>
+							</div>
+	                    </div>
+	                </div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">账户有效期</label>
+						<div class="col-sm-7">
+						  <input type="text" name="expiredate" class="form-control" placeholder="账户有效期至" value="{$user.expiredate|date="m/d/Y",###}">
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-success'>保存</button>
+				</div>
+            </form>
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function(){
+		$( "input[name='expiredate']").datepicker();
+	 });
+	
+    function switchLevel(){
+		var p_level = $("#parent option:selected").attr("level");
+		var level = parseInt(p_level)+1;
+		$("#level").val(level);
+	}
+</script>

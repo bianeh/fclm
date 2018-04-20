@@ -1,0 +1,73 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>参数管理</h5><br>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                    <a href="{:U('Sysset/Params/addparam')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加参数</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <if condition = "$vo.agentid neq ''"><th>用户ID</th></if>
+                        <th>参数名称</th>
+                        <th>申明内容</th>
+                        <th>申明时间</th>
+                        <th>申明人</th>
+                        <!--<th>修改时间</th>-->
+                        <!--<th>修改人</th>-->
+                        <!--<th>类型</th>-->
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="numbersinfo" item="vo">
+                        <tr>
+                            <if condition = "$vo.agentid neq ''"><td>{$vo.agentid}</td></if>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.value}</td>
+                            <td>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+                            <td>{$vo.createuser}</td>
+                            <!--<td><if condition = "$vo.updatetime == ''"><else />{$vo.updatetime|date="Y-m-d H:i:s",###}</if></td>-->
+                            <!--<td>{$vo.updateuser}</td>-->
+                            <!--<td><if condition = "$vo.type == 0">平台方</if><if condition = "$vo.type == 1">B方</if></td>-->
+                            <td><if condition = "$vo.isdeleted == ''"><span class='btn btn-xs btn-primary'>没有删除</span><else /><span class='btn btn-xs btn-default'>已经删除</span></if></td>
+                            <td>
+                                <a class='btn btn-xs btn-primary'' href="{:U('Sysset/Params/editparam',array('id'=>$vo['id'],'name'=>$vo['name'],'value'=>$vo['value'],'isdeleted'=>$vo['isdeleted']))}">编辑</a>
+                                <if condition = " $vo.isdeleted == '' ">
+                                    <a class='btn btn-xs btn-danger'' href="{:U('Sysset/Params/delete',array('id'=>$vo['id']))}">删除</a>
+                                </if>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="pull-right">{$Pageshow}</div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Application/Common/View/pagefooter.html" />
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            }
+        });
+
+    });
+
+</script>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>登录-蜂巢联盟</title>
+<meta name="keywords" content="登录">
+<meta name="description" content="登录">
+<link href="/Public/res/Default/css/bootstrap.css" rel="stylesheet">
+<link href="/Public/res/Default/css/common.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+#loginout {
+	margin-top: 22px;
+	padding: 0;
+}
+#loginout div.width1200 {
+	background-color: #FFFFFF;
+}
+#loginout .row.clearfix.width1200 .leftbox {
+	text-align: center;
+	height: 530px;
+}
+div.login-img {
+	width: 299px;
+	height: 346px;
+	position: absolute;
+	top: 50%;
+	margin-top: -173px;
+	left: 50%;
+	margin-left: -150px;
+}
+.panel-define {
+	width: 400px;
+	height: 428px;
+	border: 1px solid #EEEEEE;
+	margin-top: 50px;
+}
+.panel-define .panel-heading {
+	background-color: #F4F4F4;
+	height: 82px;
+	text-align: center
+}
+.panel-define .panel-heading .panel-title {
+	font-size: 24px;
+	color: #484A49;
+	margin-top: 19px;
+}
+.panel-define .panel-body{
+	padding:15px 28px;
+}
+
+/*控制登录表单*/
+.panel-define .panel-body .form-group:first-child{
+	margin-top:23px;
+}
+.panel-define input[type=text],.panel-define input[type=password] {
+	padding-left:55px;
+}
+.panel-define input.username{
+	background:url(/Public/res/Default/images/input_icon_user.png) left no-repeat;
+	
+}
+.panel-define input.password{
+	background:url(/Public/res/Default/images/input_icon_pwd.png) left no-repeat;
+	
+}
+.panel-define input.code{
+	background:url(/Public/res/Default/images/input_icon_code.png) left no-repeat;
+	
+}
+input.remember{
+	width:18px;
+	height:18px;
+}
+
+
+/*控制二维码*/
+#QRcode{
+	width:180px;
+	height:242px;
+	opacity:50;
+	margin:30px auto 60px;
+	display:none;
+}
+#QRcode .scan-tip{
+	font-size:19px;
+	line-height:62px;
+	height:62px;
+}
+#QRcode .QRcode_fail{
+	text-align:center;
+	padding-top:42px;
+	font-size:17px;
+	font-weight:700;
+	height:180px;
+	position:relative;
+	top:-242px;
+	background:url(/Public/res/Default/images/erweicode_m.png);
+	display:none;
+}
+#QRcode button[type=button]{
+	background-color:#339097;
+	color:#ffffff;
+	padding-left:25px;
+	padding-right:25px;
+	font-size:17px;
+	margin-top:20px;
+}
+.switchQR{
+	width:36px;
+	height:34px;
+	float:right;
+	margin-top:-24px;
+	margin-right:15px;
+}
+#loginform .form-group.form-group-lg .checkbox .reg-a {
+	float:right;
+	color:#329098;	
+}
+.login-submit{
+	color:#FFFFFF;
+	background:#339097;
+}
+.login-submit:hover{
+	color:#FFFFFF;
+	background:#277076;
+}
+.send-code:hover{
+	background:#c2c2c2;
+}
+</style>
+</head>
+<body>
+
+<include file="./Cpplication/Templates/View/Default/Publics/home_header.html" />
+
+<div  class="out" id="loginout">
+  <div class="row clearfix width1200">
+    <div class="col-sm-7 leftbox">
+      <div class="login-img"><img src="/Public/res/Default/images/login_ads.png" width="299" height="346" alt=""/></div>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-define">
+        <div class="panel-heading">
+          <h3 class="panel-title"> 用户登录 </h3>
+          <div class="switchQR" title="切换码登录方式"><img src="/Public/res/Default/images/erweiclick1.gif" alt="二维码登录"></div>
+        </div>
+        <div class="panel-body">
+          <!--登录表单-->
+          <form action="" role="form" id="loginform" method="post">
+            <div class="form-group form-group-lg">
+              <input type="text" name="username" placeholder="手机号/邮箱" class="form-control username" />
+            </div>
+            <div class="form-group form-group-lg">
+              <input type="password" name="password" placeholder="密码" class="form-control password" />
+            </div>
+            <div class="form-group form-group-lg">
+              <div class="row">
+                <div class="col-sm-7 column" style="padding-right:0;">
+                  <input type="text" placeholder="验证码" name="code" class="form-control code"/>
+                </div>
+                <div class="col-sm-5 column">
+                  <button type="button" class="btn btn-block btn-lg send-code">发送验证码</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-group-lg">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="remember"  />
+                  记住用户名</label>
+                  <a class="reg-a" href="#">忘记密码？</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-lg btn-block login-submit" value="登录"/>
+            </div>
+          </form>
+          <!--登录表单end-->
+          
+          <!--二维码图-->
+          <div id="QRcode">
+          	<img src="/Public/res/Default/images/erweicode.gif" alt="" width="180" height="180">
+            <div class="scan-tip">手机扫描，安全登录</div>
+            <div class="QRcode_fail">
+            二维码已失效
+            <button type="button" class="btn">刷新二维码</button>
+            </div>
+          </div>
+          <!--二维码图end-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--帮助中心-->
+<div class="out" id="aboutout">
+  <div class="width1200"> &nbsp;
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+    </ul>
+  </div>
+</div>
+<!--帮助中心end--> 
+<!--版权 和 底部-->
+<div class="out" id="copyrightout">
+  <div class="width1200">Copyright©2016 fengmeng.com.All Rights Reserved V1.8.5 沪ICP:0000000号-1</div>
+</div>
+<!--版权 和 底部end--> 
+<script src="js/jquery-1.11.2.min.js"></script> 
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var second = 2;//二维码失效时间，秒为单位。
+	var obj = $(".switchQR>img");
+	var display = $("#QRcode").css("display");
+	var show = function (){ 
+				$("#QRcode>.QRcode_fail").show();
+			};
+			
+	var refreshQR = function (){
+			//异步 从服务端获得新二维码
+			$("#QRcode>img").attr("src","/Public/res/Default/images/qrimg2.png");//替换过期二维码
+			
+			$("#QRcode>.QRcode_fail").hide(0,function(){
+					window.setTimeout(show,second*1000); 
+				});
+		}
+		
+	obj.click(function() {
+		
+		if($("#QRcode").is(":visible")){
+			$(".switchQR>img").attr("src","/Public/res/Default/images/erweiclick1.gif");
+			
+		} else {
+			$("#QRcode>.QRcode_fail").hide();
+			$(".switchQR>img").attr("src","/Public/res/Default/images/computer_icon1.gif");
+		}
+		$("#loginform").toggle();
+		$("#QRcode").toggle(0,function(){
+			window.setTimeout(show,second*1000); 
+		});
+    });
+	
+	$("#QRcode>.QRcode_fail>button.btn").click(function() {
+        refreshQR();
+    });
+});
+</script>
+</body>
+</html>

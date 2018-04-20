@@ -1,0 +1,139 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>产品净值详情</h5><br>
+                        </div>
+
+                        <div class="ibox-content" id='charts' style="width:100%;height:400px;">
+
+                        </div>
+                        
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="javascript:void(0)" ooohref="{:U('Product/Networth/importNetworth')}" class="btn btn-primary " disabled='disabled' style="font-size:12px"><i class="fa fa fa-arrow-down"></i> 导入净值</a>
+
+                                <a href="javascript:void(0)" ooohref="{:U('Product/Networth/exportNetworth')}" class="btn btn-primary " disabled='disabled' style="font-size:12px"><i class="fa fa fa-arrow-up"></i> 导出净值</a>
+
+                                <!-- <span class='margin-left-20'>已认证会员数： <span class='color-yellow'>{$totalPassAgents}</span></span> -->
+                            </div>
+                            
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+
+                                    <th data-hide="all">记录ID</th>
+                                    <th>净值</th>
+                                    <th>净值日期</th>
+                                    <th>创建人</th>
+                                    <th>创建时间</th>
+                                    <th>修改人</th>
+                                    <th>修改时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="networths" item="vo">
+	                                <tr>
+	                                    <td>{$vo.id}</td>
+	                                    <td>{$vo.networth}</td>
+	                                    <td>{$vo.datetime}</td>
+	                                    <td>{$vo.createuser}</td>
+	                                    <td>{$vo.createtime}</td>
+	                                    <td>{$vo.updateuser}</td>
+                                        <td>{$vo.updatetime}</td>
+	                                    <td>
+                                            <if condition="$vo.datetime eq date('Y-m-d',time()) ">
+                                                <a class='btn btn-success btn-xs' href="{:U("Product/Networth/editNetworthPage",['id'=>$vo['id']])}" >修改净值</a>
+                                                <else />
+                                                <button disabled="disabled" class='btn btn-error btn-xs' href="{:U("Product/Networth/editNetworthPage",['id'=>$vo['id']])}" >修改净值</button>
+                                            </if>
+
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="8" id='trfooter'>
+                                        <div class="pull-right">{$page}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<script src="/Public/res/echarts/echarts.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+        $('#trfooter').show();
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('charts'));
+
+        // 指定图表的配置项和数据
+        option = {
+            title: {
+                text: '净值走势图'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['邮件营销']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: '净值',
+                type: 'line',
+                showSymbol: true,
+                hoverAnimation: true,
+                data: {$chartsData}
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    });
+
+</script>

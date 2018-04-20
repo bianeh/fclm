@@ -1,0 +1,80 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>知识中心分类管理</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Knowledges/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                    <a href="{:U('Train/Knowledgecat/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加分类</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <th>分类ID</th>
+                        <th>分类名称</th>
+                        <th>分类标识</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="category" item="vo">
+                        <tr id="{$vo.clickNode}" onclick="toggleShow('{$vo.clickNode}')" class="level{$vo.level} {$vo.lastNode}">
+                            <td>{$vo.id}</td>
+                            <td>
+                                <switch name="vo.level">
+                                    <case value="0">
+                                        <strong class="text-danger">{$vo.name}</strong>
+                                    </case>
+                                    <case value="1">
+                                        <strong class="text-info">&nbsp;&nbsp;{$vo.name}</strong>
+                                    </case>
+                                    <case value="2">
+                                        <strong class="text-primary">&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</strong>
+                                    </case>
+                                    <case value="3">
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</span>
+                                    </case>
+                                    <case value="4">
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</span>
+                                    </case>
+                                    <default /><strong>..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.name}</strong>
+                                </switch>
+                            </td>
+                            <td>{$vo.code}</td>
+                            <td>{$vo.time}</td>
+                            <td>
+                                <a class='btn btn-xs btn-success' href="{:U('Train/Knowledgecat/editPage',['id'=>$vo['id']])}">编辑</a>
+                                <a class='btn btn-xs btn-danger' href="javascript:void(0);"  onclick='javascript:var url = "{:U('Train/Knowledgecat/delete',['id'=>$vo['id']])}";if(confirm("确定要删除吗？"))window.location = url;'>删除</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="pull-right">{$Pageshow}</div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+

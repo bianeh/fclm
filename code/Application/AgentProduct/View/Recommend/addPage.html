@@ -1,0 +1,40 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>添加推荐信息</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="javascript:history.back(-1)"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">
+			
+			<form class="form-horizontal col-sm-12" action="{:U('AgentProduct/Recommend/add')}" method='post'>
+				<div class="col-sm-8">
+
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">推荐信息</label>
+
+	                    <div class="col-sm-7">
+	                        <textarea name='content' placeholder="推荐信息" value="" class="form-control" rows="10"></textarea>
+	                    </div>
+	                </div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-success'>添加</button>
+				</div>
+            </form>
+
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />

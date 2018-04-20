@@ -1,0 +1,199 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>题库管理</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Riskquestions/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-5" action="{:U('Train/Riskquestions/index')}" method='get'>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">关键字：</label>
+                        <div class="col-sm-7">
+                            <input type="text" name='keyword' placeholder="请输入题目含有的关键字" class="form-control row">
+                        </div>
+                        <div class="col-sm-2 row">
+                            <button class="btn btn-sm btn-primary" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:rgba(5, 2, 4, 0.13) solid 1px; margin-bottom:10px">
+                    <a href="{:U('Train/Riskquestions/addpage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加题目</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <th>题目ID</th>
+                        <th>题目</th>
+                        <th>答案列表</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="questions" item="vo">
+                        <tr>
+                            <td><input type="checkbox" onclick="javascript:switchItemChecked()" value = "{$vo.id}" class="fc-item"> {$vo.id}</td>
+                            <td>
+                                <a href="#">{$vo.question}</a>
+                            </td>
+                            <td>{$vo.answerlist}</td>
+                            <td><if condition = "$vo.isdeleted == 0"><span class='btn btn-xs btn-primary'>正常</span><else /><span class='btn btn-xs btn-default'>已删除</span></if></td>
+                            <td>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                                <a class='btn btn-xs btn-primary'' href="{:U('Train/Riskquestions/editpage',array('id'=>$vo['id'],'name'=>$vo['name'],'value'=>$vo['value'],'isdeleted'=>$vo['isdeleted']))}">编辑</a>
+                                <if condition = " $vo.isdeleted == 0 ">
+                                    <a class='btn btn-xs btn-danger' href="javascript:void(0)" onclick="javascript:var url = '{:U('Train/Riskquestions/delete',['id'=>$vo['id']])}';if(confirm('确定要删除吗？'))window.location = url;">删除</a>
+                                </if>
+                                <if condition = " $vo.isdeleted == 1 ">
+                                    <a class='btn btn-xs btn-success' href="{:U('Train/Riskquestions/start',array('id'=>$vo['id']))}">启用</a>
+                                </if>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <if condition="count($questions) gt 0">
+                        <tr>
+                            <td>
+                                <button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button>
+                            </td>
+                            <td>
+                                <button onclick="javascript:batchDelete();" class="btn btn-sm btn-danger">删除</button>
+                            </td>
+                            <td colspan="7">
+                                <div class="pull-right">{$Pageshow}</div>
+                            </td>
+                        </tr>
+                        <else/>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td colspan="7">
+                                没有任何内容
+                            </td>
+                        </tr>
+                    </if>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Application/Common/View/pagefooter.html" />
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            },
+            "pageSize": {$pageSize},
+        });
+
+    });
+
+    checkedList = [];
+    status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+
+    function switchAllChecked(){
+        switch(status){
+            case '0': allChecked();
+                status = '1';
+                break;
+
+            case '1': unAllChecked();
+                status = '0';
+                break;
+
+            default: break;
+        }
+    }
+
+    function allChecked(){
+        $("#fc-all").prop("checked", true);
+        var list = $(".fc-item");
+        list.prop("checked", true);
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unAllChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item");
+        list.prop("checked", false)
+        checkedList = Array();
+    }
+
+    function switchItemChecked(){
+        checkedList = Array();
+        if( $(this).attr("checked") != false ){
+            $(this).prop("checked", false);
+            unItemChecked();
+        }else{
+            $(this).prop("checked", true);
+            itemChecked();
+        }
+    }
+
+    function itemChecked(){
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unItemChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function checkIfNone(){
+        if(checkedList.length <= 0){
+            return {status:false , msg: "至少选择一项！"}
+        }else{
+            return {status:true}
+        }
+    }
+
+    function refreshLoad(){
+        location.reload();
+    }
+
+    function batchDelete(){
+        var checkStatus = checkIfNone();
+        if(checkStatus.status == false) {
+            alert(checkStatus.msg);
+            return;
+        }
+        $.post("{:U('Train/Riskquestions/batchDelete')}",{'request': checkedList}, function(data){
+            if(data.status == '1') {
+                alert(data.msg);
+                refreshLoad();
+            }else{
+                alert(data.msg);
+            }
+        }, "json");
+    }
+</script>

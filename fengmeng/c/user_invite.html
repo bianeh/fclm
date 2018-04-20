@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>邀请注册-个人中心-蜂巢联盟</title>
+<meta name="keywords" content="我要投资">
+<meta name="description" content="我要投资">
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="css/common.css" rel="stylesheet" type="text/css">
+<link href="css/user.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+#tabContent1 .tab-pane {
+	padding-top: 25px;
+	padding-right: 25px;
+	padding-left: 25px;
+	padding-bottom: 25px;
+}
+.invite-info .btn.btn-info {
+}
+.invite-code {
+	margin-top: 20px;
+}
+.invite-code .input-group-addon {
+	cursor: pointer;
+}
+#myModal .modal-dialog .modal-content .modal-header {
+	background-color:#eeeeee;
+}
+#myModal .modal-dialog .modal-content .modal-header .close {
+	font-size:60px;
+	height:40px;
+	line-height:40px;
+	margin-top:-10px;
+}
+#myModal .modal-content {
+	width: 740px;
+}
+#myModal .modal-content .send-form{
+	width:500px;
+	margin:0 auto;
+}
+.send-form .form-group label.checkbox-label {
+	font-weight:normal;
+}
+.send-form .form-group input[type=text],.send-form .form-group textarea {
+	display:inline-block;
+	width: 400px;
+}
+#myModal .modal-dialog .modal-content .modal-footer{
+	text-align: left;
+	padding-left: 198px;
+}
+#myModal .modal-dialog .modal-content .modal-footer button{
+	padding:10px 45px;
+}
+
+</style>
+</head>
+<body>
+<!--顶部工具条-->
+<div class="out" id="topbarout">
+  <div class="width1200"><span class="glyphicon glyphicon-home"></span> 你好，欢迎来到蜂巢联盟！<img src="images/weichat1.png" width="23" height="19" alt="微信图标"/></div>
+</div>
+<!--顶部工具条end--> 
+<!--LOGO和全局导航-->
+<div class="out" id="navout">
+  <div style="margin:0 auto; width:1200px;"> <img title="LOGO" src="images/logo.png" width="170" height="70" alt=""/>
+    <div id="nav">
+      <nav class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <div class="collapse navbar-collapse" id="defaultNavbar1">
+              <ul class="nav navbar-nav">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="investment.html">我要投资</a></li>
+                <li><a href="#">安全投资</a></li>
+                <li><a href="#">探索</a></li>
+                <li><a href="#">帮助中心</a></li>
+                <li class="active"><a href="user_index.html">个人中心</a></li>
+                <li><a href="#">关于我们</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+<!--LOGO和全局导航end--> 
+
+<!--个人中心 顶部信息-->
+<div class="out" id="ucenterout">
+  <div class="width1200">
+    <div class="row clearfix">
+      <div class="column col-sm-2"> <img src="images/user/user_safety_03.gif" width="98" height="98" alt=""/> </div>
+      <div class="column col-sm-6 center-colmn">
+        <p>上午好，张三，喝杯茶！让精神抖起来</p>
+        <hr>
+        <p class="user-name-safe-pwd"> <span class="txt">登录名：13088030454&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href="#"><img src="images/user/user_safety_06.png" width="25" height="23" alt=""/></a> <a href="#"><img src="images/user/user_safety_08.gif" width="25" height="23" alt=""/></a> <a href="#"><img src="images/user/user_safety_10.gif" width="25" height="23" alt=""/></a> <span class="delive-line"></span> <span class="txt">安全等级：高 【提升】</span><span class="delive-line"></span> <span class="txt">修改密码</span></p>
+      </div>
+      <div class="column col-sm-4 last-colmn">
+        <button class="btn btn-danger" type="button">我的卡券</button>
+        <button class="btn btn-warning" type="button">充值</button>
+        <button class="btn btn-success" type="button">提现</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--个人中心 顶部信息end-->
+
+<div class="out" id="ucenter-main">
+  <div class="width1200">
+    <div class="row">
+      <div class="column col-sm-3"> 
+        <!--左侧导航开始-->
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseOne"> 风险承受测试 </a> </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body"> 等待整理中...... </div>
+            </div>
+          </div>
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseTwo"> 订单中心 </a> </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul>
+                  <li><a href="#">我的订单</a></li>
+                  <li><a href="#">我的预约</a></li>
+                  <li><a href="#">我的赎回</a></li>
+                  <li><a href="#">转让申请</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseThree"> 产品订阅 </a> </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+              <div class="panel-body"> 等待整理中...... </div>
+            </div>
+          </div>
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseFour"> 产品收藏 </a> </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="panel-body"> 等待整理中...... </div>
+            </div>
+          </div>
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseFive"> 账户设置 </a> </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul>
+                  <li><a href="#">个人信息</a></li>
+                  <li><a href="#">账户安全</a></li>
+                  <li><a href="#">我的级别</a></li>
+                  <li><a href="#">我的积分</a></li>
+                  <li><a href="#">邀请注册</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-define">
+            <div class="panel-heading">
+              <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseSix"> 客户服务 </a> </h4>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul>
+                  <li><a href="#">联系我们</a></li>
+                  <li><a href="#">意见建议</a></li>
+                  <li><a href="#">消费管理</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--左侧导航开始end--> 
+      </div>
+      <div class="column col-sm-9" id="main-r"> 
+        <!--个人右侧主要内容区-->
+        <div role="tabpanel">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#home1" data-toggle="tab" role="tab">邀请注册</a></li>
+            <!--<li><a href="#paneTwo1" data-toggle="tab" role="tab">Tab 2</a></li>-->
+          </ul>
+          <div id="tabContent1" class="tab-content">
+            <div class="tab-pane fade in active" id="home1">
+              <div class="container-fluid invite-info"> 你好！<b class="font-24">liujie</b> 你已成功邀请了 <b class="point-red font-24">3</b> 位用户注册，
+              <a href="javascript:void(0);" onClick="inviteCode();"  title="生成成功通知"  
+			data-container="body" data-toggle="popover" data-placement="top" 
+			data-content="请再次点击”发送邀请”按钮开始发送邮件和短信">点击生成邀请码</a>
+    
+                <button class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">发送邀请</button>
+              </div>
+              <div class="container-fluid invite-code">
+                <div class="input-group input-group-lg"><span class="input-group-addon"  onClick="inviteCode();">生成邀请码</span>
+                  <input type="text" name="invitecode" class="form-control" readonly placeholder="点击“生成邀请码”">
+                  <span class="input-group-addon" data-toggle="modal" data-target="#myModal">发送邀请</span></div>
+              </div>
+              <div class="panel panel-default panel-level-grow">
+                <div class="panel-heading"> 邀请成功记录 </div>
+                <div class="panel-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>注册名</th>
+                        <th>注册时间</th>
+                        <th>奖励积分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="3">没有邀请数据，<a href="#">在线发送邀请</a>可获得邀请成功</td>
+                      </tr>
+                      <tr>
+                        <td>阿三</td>
+                        <td>2017-8-25</td>
+                        <td><b class="point-red">+10</b></td>
+                      </tr>
+                      <tr>
+                        <td>棒子</td>
+                        <td>2017-8-25</td>
+                        <td><b class="point-red">+10</b></td>
+                      </tr>
+                      <tr>
+                        <td>zhangsan</td>
+                        <td>2017-8-25</td>
+                        <td><b class="point-red">+10</b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <h3>温馨提示:</h3>
+              <p class="point-red">1,请不要发送邀请给不熟悉的人避免给你和别人带来不必要的困扰！</p>
+              <p class="point-red">2,记得生成邀请码以便对方使用</p>
+            </div>
+            <!--<div class="tab-pane fade" id="paneTwo1">
+      	      <p>Content 2</p>
+   	        </div>--> 
+            
+            
+            <!-- 发送邀请框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
+                    <h4 class="modal-title" id="myModalLabel">发送邀请</h4>
+                  </div>
+                  <div class="modal-body">
+                  	<form role="form" class="send-form" method="post" action="">
+                    <div class="form-group">
+					 <label>发送类型：</label>
+					   <label class="checkbox-label">
+					     <input type="checkbox" name="sendtype" value="1" id="sendtype_0">
+					     电子邮件</label>
+					   <label class="checkbox-label">
+					     <input type="checkbox" name="sendtype" value="2" id="sendtype_1">
+					     手机短信</label>
+                    </div>
+                    	<div class="form-group">
+                             <label for="callnumber">手机号码：</label><input type="text" class="form-control" placeholder="请输入真实姓名" id="callnumber" />
+                        </div>
+                        <div class="form-group">
+                             <label for="email">邮件列表：</label><input type="text" class="form-control" placeholder="请输入身份证号码" id="email" />
+                        </div>
+                        <div class="form-group">
+                             <label for="user-number">发送内容：</label><textarea name="body" rows="6" class="form-control" placeholder="请输入你邀请介绍内容">hi 我是liujie，邀请你注册蜂巢联盟，注册地址是 http://www.fengcao.com/1234 邀请码：AABBCC1654156</textarea>
+                        </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+                    <button type="button" class="btn btn-primary"> 发送 </button>
+                  </div>
+                </div>
+                <!-- /.modal-content --> 
+              </div>
+              <!-- /.modal --> 
+            </div>
+            <!--发送邀请框end-->
+            
+            
+          </div>
+        </div>
+        <!--个人右侧主要内容区end--> 
+      </div>
+    </div>
+  </div>
+</div>
+<!--帮助中心-->
+<div class="out" id="aboutout">
+  <div class="width1200"> &nbsp;
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+    </ul>
+  </div>
+</div>
+
+<!--帮助中心end--> 
+<!--版权 和 底部-->
+<div class="out" id="copyrightout">
+  <div class="width1200">Copyright©2016 fengmeng.com.All Rights Reserved V1.8.5 沪ICP:0000000号-1</div>
+</div>
+<!--版权 和 底部end--> 
+<script src="js/jquery-1.11.2.min.js" type="text/javascript"></script> 
+<script src="js/bootstrap.js" type="text/javascript"></script> 
+<script type="text/javascript">
+	$(function () { $('#collapseFour').collapse({
+		toggle: false
+	})});
+	$(function () { $('#collapseSix').collapse('show')});
+	$(function () { $('#collapseFive').collapse('show')});
+	$(function () { $('#collapseTwo').collapse('show')});
+	$(function () { $('#collapseThree').collapse('hide')});
+	$(function () { $('#collapseOne').collapse('hide')});
+	
+</script> 
+
+<!--当前页面JavaScript--> 
+<script type="text/javascript">
+inittip();
+var id;
+var timeout = 3000;
+function inviteCode(){
+	if($("input[name=invitecode]").val("AAXX00112"))
+	{
+		$(".invite-info a").popover();
+		id = window.setTimeout("hidetips()",timeout);
+		window.setTimeout("stophide()",timeout);
+	}
+}
+function inittip(){
+	$(".invite-info a").popover();
+}
+function hidetips(){
+	$(".invite-info a").trigger("click");
+}
+function stophide(){
+	window.clearTimeout(id); 
+}
+</script> 
+<!--当前页面JavaScript End-->
+</body>
+</html>

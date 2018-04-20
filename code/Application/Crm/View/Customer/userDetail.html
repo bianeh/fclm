@@ -1,0 +1,137 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>会员详情</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('Crm/Customer/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">
+			
+			<form class="form-horizontal col-sm-12" action="{:U('Crm/Customer/edit')}" method='post'>
+				<input type="hidden" name="id" value="{$agent->id}">
+				<div class="col-sm-5">
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">姓名</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='username' placeholder="用户姓名" value="{$agent->username}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">企业唯一信息用编码</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='credientialnu' placeholder="企业唯一信息用编码" value="{$agent->credientialnu}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">手机号码</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='phone' placeholder="手机号码" value="{$agent->phone}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">电子邮箱</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='email' placeholder="电子邮箱" value="{$agent->email}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">会员等级</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="userlevel">
+						        <option value='1' {$agent->userlevel==1?'selected':''}>1 级</option>
+						        <option value='2' {$agent->userlevel==2?'selected':''}>2 级</option>
+						        <option value='3' {$agent->userlevel==3?'selected':''}>3 级</option>
+						        <option value='4' {$agent->userlevel==4?'selected':''}>4 级</option>
+						        <option value='5' {$agent->userlevel==5?'selected':''}>5 级</option>
+						    </select>
+						</div>
+	                </div>
+				
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">计算机水平</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="computerlevel">
+						        <option value='一般' {$agent->computerlevel == '一般'?'selected':''}>一般</option>
+						        <option value='中等' {$agent->computerlevel == '中等'?'selected':''}>中等</option>
+						        <option value='熟练' {$agent->computerlevel == '熟练'?'selected':''}>熟练</option>
+						        <option value='精通' {$agent->computerlevel == '精通'?'selected':''}>精通</option>
+						    </select>
+						</div>
+	                </div>
+				
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">英文水平</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="englishlevel">
+						        <option value='一般' {$agent->englishlevel == '一般'?'selected':''}>一般</option>
+						        <option value='中等' {$agent->englishlevel == '中等'?'selected':''}>中等</option>
+						        <option value='熟练' {$agent->englishlevel == '熟练'?'selected':''}>熟练</option>
+						        <option value='精通' {$agent->englishlevel == '精通'?'selected':''}>精通</option>
+						    </select>
+						</div>
+	                </div>
+				
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">国家</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="country">
+						        <option value='中国' {$agent->country == '中国'?'selected':''}>中国</option>
+						        <option value='其他国家' {$agent->country == '其他国家'?'selected':''}>其他国家</option>
+						    </select>
+						</div>
+	                </div>
+				
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">学历</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="degree">
+						        <option value='小学' {$agent->degree == '小学'?'selected':''}>小学</option>
+						        <option value='初中' {$agent->degree == '初中'?'selected':''}>初中</option>
+						        <option value='高中' {$agent->degree == '高中'?'selected':''}>高中</option>
+						        <option value='本科' {$agent->degree == '本科'?'selected':''}>本科</option>
+						        <option value='硕士' {$agent->degree == '硕士'?'selected':''}>硕士</option>
+						        <option value='博士' {$agent->degree == '博士'?'selected':''}>博士</option>
+						    </select>
+						</div>
+	                </div>
+				
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">教育</label>
+						<div class="col-sm-9">
+						    <select class="form-control" name="education">
+						        <option value='小学' {$agent->degree == '小学'?'selected':''}>小学</option>
+						        <option value='初中' {$agent->degree == '初中'?'selected':''}>初中</option>
+						        <option value='高中' {$agent->degree == '高中'?'selected':''}>高中</option>
+						        <option value='本科' {$agent->degree == '本科'?'selected':''}>本科</option>
+						        <option value='硕士' {$agent->degree == '硕士'?'selected':''}>硕士</option>
+						        <option value='博士' {$agent->degree == '博士'?'selected':''}>博士</option>
+						    </select>
+						</div>
+	                </div>
+	            </div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-primary'>保存</button>
+				</div>
+            </form>
+
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+</script>

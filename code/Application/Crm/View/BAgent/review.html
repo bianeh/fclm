@@ -1,0 +1,91 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<style>.well{padding:10px 10px;}</style>
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>IFA审核</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('Crm/BAgent/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+       	
+		<div class="ibox-content">
+
+			<div class="row">
+				<b class='col-sm-2' style='text-align: right;padding-top:10px;'>IFA用户名</b>
+				<span class='well col-sm-8'>{$agent->username}</span>
+			</div>
+
+			<div class="row">
+				<b class='col-sm-2' style='text-align: right;padding-top:10px;'>IFA企业唯一信息代码</b>
+				<span class='well col-sm-8'>{$agent->credientialnu}</span>
+			</div>
+
+			<div class="row">
+				<b class='col-sm-2' style='text-align: right;padding-top:10px;'>IFA手机</b>
+				<span class='well col-sm-8'>{$agent->phone}</span>
+			</div>
+
+			<div class="row">
+				<b class='col-sm-2' style='text-align: right;padding-top:10px;'>IFA邮箱</b>
+				<span class='well col-sm-8'>{$agent->email}</span>
+			</div>
+
+			<b>用户提交的资料</b>
+			<hr>
+			<div class="row">
+				<foreach name='reviewImgs' item='vo'>
+					<div class="col-sm-2 text-right strong">{$vo.typename}</div>
+	                <div class="col-sm-6">
+	                    <img src="{$vo.path}" alt="" class='img-responsive reviewimg type1 img-thumbnail'>
+	                </div>
+	                <div class="clearfix"></div>
+                </foreach>
+			</div>			
+			
+			<hr>
+			<form class="form-horizontal col-sm-10" action="{:U('Crm/BAgent/reviewNotPass')}" method='post'>
+				<input type="hidden" name="id" value="{$agent->id}">
+				<div class="col-sm-12">
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">审核意见</label>
+
+	                    <div class="col-sm-10">
+	                    	<textarea class='form-control' name="reviewnote" id="" rows="4" placeholder="请填写审核意见">{$agent->reviewnote}</textarea>
+	                    </div>
+	                </div>
+	            </div>
+ 	           <div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-warning'>审核不通过</button>
+					<a class="btn btn-primary" href='{:U('Crm/BAgent/reviewPass',['id'=>$agent->id])}'>审核通过</a>
+				</div>
+            </form>
+ 	           <div class="clearfix"></div>
+		</div>
+
+    </div>
+</div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

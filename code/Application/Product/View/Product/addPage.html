@@ -1,0 +1,1181 @@
+<include file="./Application/Common/View/pageheader.html" />
+<style>
+	.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{background:#00adc1;color:white;}
+	.nav-tabs > li > a:hover, .nav-tabs > li > a{color:black;}
+    .nodisplay{display:none;}
+</style>
+<div class="row">
+<div class="col-sm-12">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist" id='producttab' >
+	  <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">① 基础信息</a></li>
+	  <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">② 发行信息</a></li>
+	  <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">③ 期限结构</a></li>
+	  <li role="presentation"><a href="#settings" role="tab" data-toggle="tab">④ 产品信息</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<form class="form-horizontal col-sm-12" id="mainform" action="{:U('Product/Product/add')}" method='post' style="padding:0;">
+		<div class="tab-content">
+		  <div role="tabpanel" class="tab-pane active" id="home">
+			<div class="ibox float-e-margins">
+       			<div class="ibox-content">
+   					<div class="form-group">
+	                    <label class="col-sm-3 control-label">产品名称</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="text" name='name' placeholder="产品名称" value="" class="form-control"> <span class="help-block m-b-none">产品名称不能为空</span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                	<label for="" class='col-sm-3 control-label'>是否是预约类产品</label>
+	                	<div class="col-sm-7">
+	                		<label class="radio-inline">
+						        <input type="radio" checked="" value="1" id="appointment" name="appointment" checked>是
+						    </label>
+						    <label class="radio-inline">
+						        <input type="radio" value="0" id="optionsRadios2" name="appointment">否
+						    </label>
+	                	</div>
+	                </div>
+                    <div class="form-group">
+                        <input type="hidden" name="productimg" id='productimg'>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">添加附件</label>
+                            <div class="col-sm-7">
+			                	<span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>点击上传附件</span>
+                                    <input type="file" name="file" onchange="ajaxFileUpload()" id="file1" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3 col-sm-offset-3"><img class='img-thumbnail' id='shortcut' src="" alt=""></div>
+                        </div>
+                    </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">产品类型A</label>
+
+	                    <div class="col-sm-7">
+	                        <select name="catagroyida" id="catagroyida" class='form-control'>
+	                        	<foreach name='aCatagroyList' item='vo'>
+	                        		<option value='{$vo.id}'>{$vo.name}</option>
+	                        	</foreach>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">产品类型B</label>
+
+	                    <div class="col-sm-7">
+	                        <select name="catagroyidb" id="catagroyidb"  class='form-control'>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">产品类型C</label>
+
+	                    <div class="col-sm-7">
+	                        <select name="catagroyidc" id="catagroyidc"  class='form-control'>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">交易结构</label>
+
+	                    <div class="col-sm-7">
+							<textarea name="tradingstructure" id="tradingstructure" cols="" class='form-control' rows="5"></textarea>
+	                        <span class="help-block m-b-none">交易结构100个字,<span id='tradingstructure_left'>还剩余100字</span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">产品规模</label>
+
+	                    <div class="col-sm-7">
+	                        <input type="number" step='0.01' max='99999999999' min='0' name='productscale' id='productscale' placeholder="" value="0.00" class="form-control"> <span class="help-block m-b-none">最大11位，保留两位小数</span>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">产品形态</label>
+
+	                    <div class="col-sm-7">
+							<textarea name="productform" id="productform" cols="" class='form-control' rows="5"></textarea>
+	                        <span class="help-block m-b-none">产品形态100个字,<span id='productform_left'>还剩余100字</span></span>
+	                    </div>
+	                </div>
+	                <div class="from-group">
+						<a  class='nextstep btn btn-primary' data-num='1'>下一步</a>
+						<button class='btn btn-success'>保存产品</button>
+					</div>
+                    <div class="summary nodisplay alert alert-danger"></div>
+	       		</div>
+	       	</div>
+		  </div>
+		  <div role="tabpanel" class="tab-pane fade" id="profile">
+				<div class="ibox float-e-margins">
+	       			<div class="ibox-content">
+	       				<div class="form-group">
+		                    <label class="col-sm-3 control-label">发行人</label>
+
+		                    <div class="col-sm-7">
+		                    	<input type='text' name="publisher" id="publisher" class='form-control' >
+		                        <span class="help-block m-b-none">发行人30个字,<span id='publisher_left'>还剩余30字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">托管人</label>
+
+		                    <div class="col-sm-7">
+								<input type='text' name="custodian" id="custodian" class='form-control' >
+		                        <span class="help-block m-b-none">托管人30个字,<span id='custodian_left'>还剩余30字</span></span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">发行规模</label>
+
+		                    <div class="col-sm-7">
+		                        <input type="number" step='0.01' max='99999999999' min='0' name='issuesize' id='issuesize' placeholder="0.00" value="0.00" class="form-control"> <span class="help-block m-b-none">最大11位，保留两位小数</span>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">最低投资额</label>
+
+		                    <div class="col-sm-7">
+		                        <input type="number" step='0.01' max='99999999999' min='0' name='minimuminvestmentamount' id='minimuminvestmentamount' placeholder="0.00" value="0.00" class="form-control"> <span class="help-block m-b-none">最大11位，保留两位小数</span>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">递增单位</label>
+
+		                    <div class="col-sm-7">
+		                        <input type="number" step='0.01' max='99999999999' min='0' name='increasingunit' id='increasingunit' placeholder="0.00" value="0.00" class="form-control"> <span class="help-block m-b-none">最大11位，保留两位小数</span>
+		                    </div>
+		                </div>
+						<div class="from-group">
+							<a  class='nextstep btn btn-primary' data-num='2'>下一步</a>
+							<button class='btn btn-success'>保存产品</button>
+						</div>
+                        <div class="summary nodisplay alert alert-danger"></div>
+	       			</div>
+	       		</div>
+		  </div>
+		  <div role="tabpanel" class="tab-pane fade" id="messages">
+				<div class="ibox float-e-margins">
+	       			<div class="ibox-content">
+	       				<div class="form-group">
+		                    <label class="col-sm-3 control-label">产品期限</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='1' max='300' min='0' name='producttermmonth' id='producttermmonth' placeholder="0" value="0" class="form-control">
+			                        <span class="input-group-addon">月</span>
+		                    	</div>
+		                    </div>
+		                    <div class="col-sm-3">
+			                    <div class="input-group">
+			                        <input type="number" step='1' max='30' min='0' name='producttermday' id='producttermday' placeholder="0" value="0" class="form-control"> 
+			                        <span class="input-group-addon">日</span>
+			                    </div>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">合同数量</label>
+
+		                    <div class="col-sm-7">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='1' max='300' min='0' name='contractquantity' id='contractquantity' placeholder="0" value="0" class="form-control">
+			                        <span class="input-group-addon">份</span>
+		                    	</div>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">成立规模</label>
+
+		                    <div class="col-sm-7">
+		                        <input type="number" step='0.01' max='99999999999' min='0' name='establishmentscale' id='establishmentscale' placeholder="0.00" value="0.00" class="form-control"> <span class="help-block m-b-none">最大11位，保留两位小数</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">风险评级</label>
+
+		                    <div class="col-sm-7">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='1' max='300' min='0' name='riskrating' id='riskrating' placeholder="0" value="" class="form-control">
+		                    	</div>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                	<label for="" class='col-sm-3 control-label'>销售等级</label>
+		                	<div class="col-sm-7">
+		                		<select name="saleslevel" id="saleslevel" class='form-control'>
+		                			<option value="1">等级1</option>
+		                			<option value="2">等级2</option>
+		                			<option value="3">等级3</option>
+		                			<option value="4">等级4</option>
+		                			<option value="5">等级5</option>
+		                			<option value="6">等级6</option>
+		                		</select>
+		                	</div>
+		                </div>
+
+		                <div class="form-group">
+		                	<label for="" class='col-sm-3 control-label'>产品类型（公募/私募）</label>
+		                	<div class="col-sm-7">
+		                		<select name="producttype" id="producttype" class='form-control'>
+		                			<option value="1">等级1</option>
+		                			<option value="2">等级2</option>
+		                			<option value="3">等级3</option>
+		                			<option value="4">等级4</option>
+		                			<option value="5">等级5</option>
+		                			<option value="6">等级6</option>
+		                		</select>
+		                	</div>
+		                </div>
+
+		                <div class="form-group">
+		                	<label for="" class='col-sm-3 control-label'>是否合格投资人仅见</label>
+		                	<div class="col-sm-7">
+		                		<label class="radio-inline">
+							        <input type="radio" checked="" value="1" id="optionsRadios1" name="qualifiedinvestors" checked>是
+							    </label>
+							    <label class="radio-inline">
+							        <input type="radio" value="0" id="optionsRadios2" name="qualifiedinvestors">否
+							    </label>
+		                	</div>
+		                </div>
+
+		                <div class="form-group">
+		                	<label for="" class='col-sm-3 control-label'>是否适应海外投资人</label>
+		                	<div class="col-sm-7">
+		                		<label class="radio-inline">
+							        <input type="radio" checked="" value="1" id="optionsRadios1" name="overseasinvestors" checked>是
+							    </label>
+							    <label class="radio-inline">
+							        <input type="radio" value="0" id="optionsRadios2" name="overseasinvestors">否
+							    </label>
+		                	</div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                	<label for="" class='col-sm-3 control-label'>是否允许赎回</label>
+		                	<div class="col-sm-7">
+		                		<label class="radio-inline">
+							        <input type="radio" checked="" value="1" id="optionsRadios1" name="abletoredeem" checked>是
+							    </label>
+							    <label class="radio-inline">
+							        <input type="radio" value="0" id="optionsRadios2" name="abletoredeem">否
+							    </label>
+		                	</div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                	<label for="" class='col-sm-3 control-label'>是否可以申购</label>
+		                	<div class="col-sm-7">
+		                		<label class="radio-inline">
+							        <input type="radio" checked="" value="1" id="optionsRadios1" name="abletobuy" checked>是
+							    </label>
+							    <label class="radio-inline">
+							        <input type="radio" value="0" id="optionsRadios2" name="abletobuy">否
+							    </label>
+		                	</div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">封闭期</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='1' max='300' min='0' name='closedperiodmonth' id='closedperiodmonth' placeholder="0" value="" class="form-control">
+			                        <span class="input-group-addon">月</span>
+		                    	</div>
+		                    </div>
+		                    <div class="col-sm-3">
+			                    <div class="input-group">
+			                        <input type="number" step='1' max='30' min='0' name='closedperiodday' id='closedperiodday' placeholder="0" value="" class="form-control"> 
+			                        <span class="input-group-addon">日</span>
+			                    </div>
+		                    </div>
+		                </div>
+
+						<div class="form-group ">
+							<label class="col-sm-3 control-label">份额</label>
+
+							<div class="col-sm-4">
+								<div class="input-group">
+
+									<input type="number" step='1' max='99999999999' min='0' name='share' id='share' placeholder="0" value="" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<label class="col-sm-3 control-label">净值</label>
+
+							<div class="col-sm-4">
+								<div class="input-group">
+
+									<input type="number" step='0.0001' max='300' min='0' name='networth' id='networth' placeholder="0.0000" value="" class="form-control">
+								</div>
+							</div>
+						</div>
+
+		                <div class="form-group ">
+		                    <label class="col-sm-3 control-label">预期收益率</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='ror' id='ror' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='ror_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">佣金比例</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='commissionratio' id='commissionratio' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='commissionratio_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">认购费</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='subscriptionfee' id='subscriptionfee' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='subscriptionfee_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">业绩报酬</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='performancereward' id='performancereward' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='performancereward_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">管理费</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='managementexpense' id='managementexpense' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='managementexpense_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">赎回费</label>
+
+		                    <div class="col-sm-4">
+		                    	<div class="input-group">
+		                    		
+		                        	<input type="number" step='0.01' max='300' min='0' name='redemptionfee' id='redemptionfee' placeholder="0.00" value="0.00" class="form-control">
+			                        <span class="input-group-addon">%</span>
+		                    	</div><span class="help-block m-b-none" id='redemptionfee_actual'>实际：0.00%</span>
+		                    </div>
+		                </div>
+
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">上线日期</label>
+
+		                    <div class="col-sm-4">
+	                        	<input type="" name='onlinedate' id='onlinedate' placeholder="yyyy-mm-dd" value="" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">成立日</label>
+
+		                    <div class="col-sm-4">
+	                        	<input type="" name='establishmentday' id='establishmentday' placeholder="yyyy-mm-dd" value="" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">开放日</label>
+
+		                    <div class="col-sm-4">
+	                        	<input type="" name='openday' id='openday' placeholder="yyyy-mm-dd" value="" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">到期日</label>
+
+		                    <div class="col-sm-4">
+	                        	<input type="" name='duedate' id='duedate' placeholder="yyyy-mm-dd" value="" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">终止日</label>
+
+		                    <div class="col-sm-4">
+	                        	<input type="" name='terminationday' id='terminationday' placeholder="yyyy-mm-dd" value="" class="form-control">
+		                    </div>
+		                </div>
+		                <div class="from-group">
+							<a  class='nextstep btn btn-primary' data-num='3'>下一步</a>
+							<button class='btn btn-success'>保存产品</button>
+						</div>
+                        <div class="summary nodisplay alert alert-danger"></div>
+	       			</div>
+	       		</div>
+		  </div>
+		  <div role="tabpanel" class="tab-pane fade" id="settings">
+				<div class="ibox float-e-margins">
+	       			<div class="ibox-content">
+	       				<div class="form-group">
+		                    <label class="col-sm-3 control-label">收益分配方式</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="distributionmethod" id="distributionmethod" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">收益分配方式100个字,<span id='distributionmethod_left'>还剩余100字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group fixed-product">
+		                    <label class="col-sm-3 control-label">交易对手</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="tradingrivals" id="tradingrivals" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">交易对手500个字,<span id='tradingrivals_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group fixed-product">
+		                    <label class="col-sm-3 control-label">投资标的</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="investmenttargets" id="investmenttargets" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">投资标的500个字,<span id='investmenttargets_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group fixed-product">
+		                    <label class="col-sm-3 control-label">资产保证</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="assetguarantee" id="assetguarantee" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">资产保证500个字,<span id='assetguarantee_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">成立条件</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="establishedconditions" id="establishedconditions" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">成立条件100个字,<span id='establishedconditions_left'>还剩余100字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+		                    <label class="col-sm-3 control-label">备注信息</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="note" id="note" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">备注信息500个字,<span id='note_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">投资团队</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="investmentteam" id="investmentteam" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">投资团队500个字,<span id='investmentteam_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">投资策略</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="investmentstrategy" id="investmentstrategy" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">投资策略500个字,<span id='investmentstrategy_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">投资流程</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="investmentprocess" id="investmentprocess" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">投资流程500个字,<span id='investmentprocess_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="form-group float-product">
+		                    <label class="col-sm-3 control-label">投资业绩</label>
+
+		                    <div class="col-sm-7">
+								<textarea name="investmentperformance" id="investmentperformance" cols="" class='form-control' rows="5"></textarea>
+		                        <span class="help-block m-b-none">投资业绩500个字,<span id='investmentperformance_left'>还剩余500字</span></span>
+		                    </div>
+		                </div>
+		                <div class="from-group">
+							<button class='btn btn-success'>保存产品</button>
+						</div>
+                        <div class="summary nodisplay alert alert-danger"></div>
+	       			</div>
+	       		</div>
+		  </div>
+		</div>
+	</form>
+</div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<link rel="stylesheet" href="//cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="//cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="/Public/res/template/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/Public/res/template/js/plugins/validate/messages_zh.min.js"></script>
+
+<script>
+
+$('#mainform').validate({
+    showErrors:function(errorMap,errorList) {
+        if(this.numberOfInvalids() ==0){
+            $('.summary').addClass('c');
+        }else{
+            $('.summary').removeClass('nodisplay');
+            var html = '<ul>';
+            for(var i in errorList){
+                html += '<li>'+errorList[i].message+'</li>';
+            }
+            var imgerror = 0;
+            if($('#productimg').val() == '' || $('#productimg').val().length<10){
+                //html += '<li>'+'请上传产品图片'+'</li>';
+                //imgerror = 1;
+            }
+            html+='</ul>';
+            console.log(errorList);
+            console.log(errorMap);
+            $(".summary").html("您提交的表单中有" + (this.numberOfInvalids()+imgerror) + " 个错误。错误如下："+html);
+        }
+        this.defaultShowErrors();
+    },
+    messages:{
+        name:{
+            required:'请填写产品名称',
+            minlength:'产品名称最少需要5字',
+            maxlength:'产品名称最多100字'
+        },
+        productimg:{
+            required:'请上传产品图片',
+            min:'请上传产品图片'
+        },
+        tradingstructure:{
+            required:'请填写交易结构',
+            minlength:'交易结构最少需要5字',
+            maxlength:'交易结构最多100字'
+        },
+        productscale:{
+            required:'请填写产品规模'
+        },
+        productform:{
+            required:'请填写产品形态',
+            minlength:'产品形态最少需要5字',
+            maxlength:'产品形态最多100字'
+        },
+        publisher:{
+            required:'请填写发行人',
+            minlength:'发行人最少需要3字',
+            maxlength:'发行人最多30字'
+        },
+        custodian:{
+            required:'请填写托管人',
+            minlength:'托管人最少需要3字',
+            maxlength:'托管人最多30字'
+        },
+        issuesize:{
+            required:'请填写发行规模',
+            min:'发行规模最小为0',
+            max:'发行规模最大值不能超过99999999999'
+        },
+        minimuminvestmentamount:{
+            required:'请填写最低投资额',
+            min:'最低投资额最小为0',
+            max:'最低投资额最大值不能超过99999999999'
+        },
+        increasingunit:{
+            required:'请填写递增单位',
+            min:'递增单位最小为0',
+            max:'递增单位最大值不能超过99999999999'
+        },
+        producttermmonth:{
+            required:'请填写产品期限(月)',
+            min:'产品期限(月)最小为0',
+            max:'产品期限(月)最大值不能超过300'
+        },
+        producttermday:{
+            required:'请填写产品期限(日)',
+            min:'产品期限(日)最小为0',
+            max:'产品期限(日)最大值不能超过300'
+        },
+        contractquantity:{
+            required:'请填写合同数量',
+            min:'合同数量最小为0',
+            max:'合同数量最大值不能超过300'
+        },
+        establishmentscale:{
+            required:'请填写成立规模',
+            min:'成立规模最小为0',
+            max:'成立规模最大值不能超过99999999999'
+        },
+        closedperiodmonth:{
+            required:'请填写封闭期(月)',
+            min:'封闭期(月)最小为0',
+            max:'封闭期(月)最大值不能超过300'
+        },
+        closedperiodday:{
+            required:'请填写封闭期(日)',
+            min:'封闭期(日)最小为0',
+            max:'封闭期(日)最大值不能超过300'
+        },
+        share:{
+            required:'请填写份额',
+            min:'份额最小为0',
+            max:'份额最大值不能超过99999999999'
+        },
+        networth:{
+            required:'请填写净值',
+            min:'净值最小为0',
+            max:'净值最大值不能超过300'
+        },
+        ror:{
+            required:'请填写预期收益率',
+            min:'预期收益率最小为0',
+            max:'预期收益率最大值不能超过300'
+        },
+        commissionratio:{
+            required:'请填写佣金比例',
+            min:'佣金比例最小为0%',
+            max:'佣金比例最大值不能超过100%'
+        },
+        subscriptionfee:{
+            required:'请填写认购费',
+            min:'认购费最小为0',
+            max:'认购费最大值不能超过300'
+        },
+        performancereward:{
+            required:'请填写业绩报酬',
+            min:'业绩报酬最小为0',
+            max:'业绩报酬最大值不能超过1'
+        },
+        managementexpense:{
+            required:'请填写管理费',
+            min:'管理费最小为0',
+            max:'管理费最大值不能超过1'
+        },
+        redemptionfee:{
+            required:'请填写赎回费',
+            min:'赎回费最小为0',
+            max:'赎回费最大值不能超过1'
+        },
+        distributionmethod:{
+            required:'请填写收益分配方式',
+            minlength:'收益分配方式最少需要10字',
+            maxlength:'收益分配方式最多100字'
+        },
+        tradingrivals:{
+            required:'请填写交易对手',
+            minlength:'交易对手最少需要10字',
+            maxlength:'交易对手最多500字'
+        },
+        investmenttargets:{
+            required:'请填写投资标的',
+            minlength:'投资标的最少需要10字',
+            maxlength:'投资标的最多500字'
+        },
+        assetguarantee:{
+            required:'请填写资产保证',
+            minlength:'资产保证最少需要10字',
+            maxlength:'资产保证最多500字'
+        },
+        establishedconditions:{
+            required:'请填写成立条件',
+            minlength:'成立条件最少需要10字',
+            maxlength:'成立条件最多100字'
+        },
+        note:{
+            required:'请填写备注信息',
+            minlength:'备注信息最少需要10字',
+            maxlength:'备注信息最多500字'
+        },
+        investmentteam:{
+            required:'请填写投资团队',
+            minlength:'投资团队最少需要10字',
+            maxlength:'投资团队最多500字'
+        },
+        investmentstrategy:{
+            required:'请填写投资策略',
+            minlength:'投资策略最少需要10字',
+            maxlength:'投资策略最多500字'
+        },
+        investmentprocess:{
+            required:'请填写投资流程',
+            minlength:'投资流程最少需要10字',
+            maxlength:'投资流程最多500字'
+        },
+        investmentperformance:{
+            required:'请填写投资业绩',
+            minlength:'投资业绩最少需要10字',
+            maxlength:'投资业绩最多500字'
+        }
+    },
+    rules:{
+        name:{
+            required:true,
+            minlength:5,
+            maxlength:100
+        },
+        productimg:{
+            required:true,
+            min:10
+        },
+        tradingstructure:{
+            required:true,
+            minlength:5,
+            maxlength:100
+        },
+        productscale:{
+            required:true
+        },
+        productform:{
+            required:true,
+            minlength:5,
+            maxlength:100
+        },
+        publisher:{
+            required:true,
+            minlength:3,
+            maxlength:30
+        },
+        custodian:{
+            required:true,
+            minlength:3,
+            maxlength:30
+        },
+        issuesize:{
+            required:true,
+            min:0,
+            max:99999999999
+        },
+        minimuminvestmentamount:{
+            required:true,
+            min:0,
+            max:99999999999
+        },
+        increasingunit:{
+            required:true,
+            min:0,
+            max:99999999999
+        },
+        producttermmonth:{
+            required:true,
+            min:0,
+            max:300
+        },
+        producttermday:{
+            required:true,
+            min:0,
+            max:300
+        },
+        contractquantity:{
+            required:true,
+            min:0,
+            max:300
+        },
+        establishmentscale:{
+            required:true,
+            min:0,
+            max:99999999999
+        },
+        closedperiodmonth:{
+            required:true,
+            min:0,
+            max:300
+        },
+        closedperiodday:{
+            required:true,
+            min:0,
+            max:300
+        },
+        share:{
+            required:true,
+            min:0,
+            max:99999999999
+        },
+        networth:{
+            required:true,
+            min:0,
+            max:300
+        },
+        ror:{
+            required:true,
+            min:0,
+            max:100
+        },
+        commissionratio:{
+            required:true,
+            min:0,
+            max:100
+        },
+        subscriptionfee:{
+            required:true,
+            min:0,
+            max:300,
+        },
+        performancereward:{
+            required:true,
+            min:0,
+            max:1
+        },
+        managementexpense:{
+            required:true,
+            min:0,
+            max:1
+        },
+        redemptionfee:{
+            required:true,
+            min:0,
+            max:1
+        },
+        onlinedate:{
+            required:true,
+            dateISO:true
+        },
+        establishmentday:{
+            required:true,
+            dateISO:true
+        },
+        openday:{
+            required:true,
+            dateISO:true
+        },
+        duedate:{
+            required:true,
+            dateISO:true
+        },
+        terminationday:{
+            required:true,
+            dateISO:true
+        },
+        distributionmethod:{
+            required:true,
+            minlength:10,
+            maxlength:100
+        },
+        tradingrivals:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        investmenttargets:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        assetguarantee:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        establishedconditions:{
+            required:true,
+            minlength:10,
+            maxlength:100
+        },
+        note:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        investmentteam:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        investmentstrategy:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        investmentprocess:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        },
+        investmentperformance:{
+            required:true,
+            minlength:10,
+            maxlength:500
+        }
+
+    }
+});
+
+	var dateSet = [
+		'#onlinedate',
+		'#establishmentday',
+		'#openday',
+		'#duedate',
+		'#terminationday',
+	];
+	for(var i=0;i<dateSet.length;i++){
+		(function(i){
+			$(dateSet[i]).datepicker($.datepicker.regional[ "zh-TW" ]);
+			$(dateSet[i]).change(function(){
+				$(dateSet[i]).datepicker('option','dateFormat','yy-mm-dd');
+			})
+		})(i);
+	}
+
+	var charsSet = [
+		{
+			id:'#tradingstructure',
+			num:100,
+			leftElementId:'#tradingstructure_left',
+		},
+		{
+			id:'#productform',
+			num:100,
+			leftElementId:'#productform_left',
+		},
+		{
+			id:'#publisher',
+			num:30,
+			leftElementId:'#publisher_left',
+		},
+		{
+			id:'#custodian',
+			num:30,
+			leftElementId:'#custodian_left',
+		},
+		{
+			id:'#distributionmethod',
+			num:100,
+			leftElementId:'#distributionmethod_left',
+		},
+		{
+			id:'#tradingrivals',
+			num:500,
+			leftElementId:'#tradingrivals_left',
+		},
+		{
+			id:'#investmenttargets',
+			num:500,
+			leftElementId:'#investmenttargets_left',
+		},
+		{
+			id:'#assetguarantee',
+			num:500,
+			leftElementId:'#assetguarantee_left',
+		},
+		{
+			id:'#establishedconditions',
+			num:100,
+			leftElementId:'#establishedconditions_left',
+		},
+		{
+			id:'#note',
+			num:500,
+			leftElementId:'#note_left',
+		},
+		{
+			id:'#investmentteam',
+			num:500,
+			leftElementId:'#investmentteam_left',
+		},
+		{
+			id:'#investmentstrategy',
+			num:500,
+			leftElementId:'#investmentstrategy_left',
+		},
+		{
+			id:'#investmentprocess',
+			num:500,
+			leftElementId:'#investmentprocess_left',
+		},
+		{
+			id:'#investmentperformance',
+			num:500,
+			leftElementId:'#investmentperformance_left',
+		}
+	];
+	for(var i=0;i<charsSet.length;i++){
+		(function(i){
+			console.log(i);
+			$(charsSet[i].id).bind('input propertychange',function(){
+				var left = charsSet[i].num - $(this).val().length;
+				if(left>=0){
+					$(charsSet[i].leftElementId).html( '<span>'+'还剩余'+left+'字'+'</span>' )
+				}else{
+					$(charsSet[i].leftElementId).html( '<span class="text-danger">'+'已超出'+Math.abs(left)+'字'+'</span>' )
+				}
+			})
+		})(i);
+	}
+
+	var NumberSet = [
+		'#productscale',
+		'#issuesize',
+		'#minimuminvestmentamount',
+		'#increasingunit'
+	];
+	for(var i in NumberSet){
+		(function(i){
+			$(NumberSet[i]).blur(function(){
+				value = $(this).val();
+				$(this).val(value.replace(/^(\d{1,11})(\.\d\d)(.*)$/u,'$1$2'));
+			})
+		})(i);
+	}
+
+	var PercentSet = [
+		'#ror',
+		'#commissionratio',
+		'#subscriptionfee',
+		'#performancereward',
+		'#managementexpense',
+		'#redemptionfee',
+	];
+	for(var i in PercentSet){
+		(function(i){
+			var selecter = PercentSet[i];
+			var selecterTarget = selecter+'_actual';
+			$(selecter).bind('input propertychange',function(){
+				var value = $(this).val();
+				$(selecterTarget).text('实际：'+value+'%');
+			})
+		})(i);
+	}
+
+	//$('#catagroyida')
+	function getCatagroyB(){
+		aCataId = $('#catagroyida').val();
+		$.ajax({
+			url:'{:U('Product/Catagroy/getBList')}',
+			data:{a_id:aCataId},
+			type:'post',
+			success:function(ret){
+				console.log(ret);
+				setOptions('#catagroyidb',ret.data);
+			}
+		})
+	}
+
+	function getCatagroyC(){
+		aCataId = $('#catagroyida').val();
+		bCataId = $('#catagroyidb').val();
+		$.ajax({
+			url:'{:U('Product/Catagroy/getCList')}',
+			data:{a_id:aCataId,b_id:bCataId},
+			type:'post',
+			success:function(ret){
+				console.log(ret);
+				setOptions('#catagroyidc',ret.data);
+			}
+		})
+	}
+
+	function setOptions(selecterId,data){
+		$(selecterId).empty();
+		console.log(data);
+		for(var i in data){
+			$(selecterId).append('<option value='+data[i].id+'>'+data[i].name+'</option>');
+		}
+	}
+
+	setTimeout(function(){
+		getCatagroyB();
+	},500);
+	setTimeout(function(){
+		getCatagroyC();
+	},1000);
+
+	$('.float-product').hide();
+	$('.fixed-product').show();
+	$('#catagroyida').change(function(){
+		getCatagroyB();
+		setTimeout(function(){
+			getCatagroyC();
+		},500);
+		//不是固定类的
+		if($(this).val() != 1){
+			$('.float-product').show();
+			$('.fixed-product').hide();
+		}else{
+			$('.float-product').hide();
+			$('.fixed-product').show();
+		}
+	})
+
+	$('#catagroyidb').change(function(){
+		getCatagroyC();
+	})
+
+    $('.nextstep').click(function(e){
+        e.preventDefault();
+
+        if($('#mainform').valid() == false){
+            return false;
+        }
+
+        var selecter = '#producttab li:eq('+$(this).attr('data-num')+') a';
+        $(selecter).tab('show');
+    })
+
+
+
+</script>
+			
+<script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    function ajaxFileUpload() {
+
+
+        $.ajaxFileUpload
+        (
+            {
+                url: '{:U('Product/Product/uploadProductImg')}', //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: 'file1', //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    console.log(data);
+                    if(data.status==1){
+                        alert('上传成功');
+                        $('#productimg').val(data.url);
+						$('#shortcut').attr('src', data.url );
+
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        )
+        return true;
+    }
+</script>

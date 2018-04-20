@@ -1,0 +1,110 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>修改主题</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Malls/Apps/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-12" action="{:U('Malls/Apps/edit')}" method="post" enctype="multipart/form-data">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">主题编码</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="code" value="{$results.code}" class="form-control" placeholder="主题编码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">主题名称</label>
+                            <div class="col-sm-7">
+                                <input type="text" value="{$results.name}"  name="name" class="form-control" placeholder="主题名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">英文名</label>
+                            <div class="col-sm-7">
+                                <input type="text" id="englishname" name="englishname" class="form-control" value="{$results.path}" placeholder="英文名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">缩略图</label>
+                            <div class="col-sm-7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Add files...</span>
+                                    <input type="file" name="file" onchange="readyup()" id="file1" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+                                </span>(130px*130px)
+                                <!--<input type="button" class='btn btn-success' id="upfile" value="上传" />-->
+                                <p style=" width: 100%;"><img id="img1" alt="等待上传图片" src="{$results.thumburl}" height="130" width="130" style="border: 1px solid #FCFCFC;" /></p>
+                                <input type="hidden" value="{$results.thumburl}" name="thumb" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否免费</label>
+                            <div class="col-sm-7">
+                                <input <if condition=" $results.isfree == 1" >checked = 'checked'</if>type="checkbox" name="isfree" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" value="{$results.id}" />
+                    <div class="clearfix"></div>
+                    <div class="from-group">
+                        <button class='btn btn-success'>修改</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <include file="./Application/Common/View/pagefooter.html" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+    <script>
+        $(function(){
+            $( "input[name='expiredate']").datepicker();
+        });
+    </script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+        function readyup(){
+            ajaxFileUpload();
+        }
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                {
+                    url: '/Malls/Theme//upload', //用于文件上传的服务器端请求地址
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: 'file1', //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        $("#img1").attr("src", data.imgurl);
+                        $(":input[name=thumb]").val(data.imgurl);
+                        if (typeof (data.error) != 'undefined') {
+                            if (data.error != '') {
+                                alert(data.error);
+                            } else {
+                                alert(data.msg);
+                            }
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+    </script>

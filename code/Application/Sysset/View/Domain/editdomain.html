@@ -1,0 +1,67 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>编辑参数数据</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Sysset/Domain/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-12" action="{:U('Sysset/Params/edit')}" method="POST">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="id" value="{$dataparam.id}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">参数名称</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="name" class="form-control" placeholder="参数名称" value="{$dataparam.name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">申明内容</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="value" class="form-control" placeholder="申明内容" value="{$dataparam.value}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-7">
+                                <if condition = "$dataparam.isdeleted == 1">
+                                    <input type="checkbox" name="isdeleted" checked="checked" >是否删除
+                                </if>
+                                <if condition = "$dataparam.isdeleted == ''">
+                                    <input type="checkbox" name="isdeleted"  >是否删除
+                                </if>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="from-group">
+                        <button class='btn btn-success'>保存</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <include file="./Application/Common/View/pagefooter.html" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function(){
+            $( "input[name='expiredate']").datepicker();
+        });
+
+        function switchLevel(){
+            var p_level = $("#parent option:selected").attr("level");
+            var level = parseInt(p_level)+1;
+            $("#level").val(level);
+        }
+    </script>

@@ -1,0 +1,105 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>产品披露</h5><br>
+                        </div>
+						<div class="ibox-content">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>披露信息编号</th>
+                                    <th>披露文件描述</th>
+                                    <th>披露附件</th>
+                                    <th>创建时间</th>
+                                    <th>您的附加说明信息</th>
+                                    <th data-hide="all">您的附加说明信息</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="lists" item="vo">
+	                                <tr>
+	                                    <td>{$vo.id}</td>
+	                                    <td>{$vo.name}</td>
+	                                    <td><a href="{$vo.path}" target="__blank" >查看附件</a></td>
+	                                    <td>{$vo.createtime|date="Y-m-d",###}</td>
+                                        <td date-hide="all">{:empty($vo['comment'])?'暂无，请添加说明':'点击查看详情';}</td>
+                                        <td date-hide="all">{$vo.comment|default='暂无，请添加说明'}</td>
+	                                    <td>
+                                            <if condition="empty($vo['bid'])">
+                                                <a class='btn btn-xs btn-warning' href="{:U('AgentProduct/Disclosure/addPage',['id'=>$vo['id'],'bproductid'=>$bproductid])}">添加附加说明</a>
+                                                <else />
+                                                <a class="btn btn-xs btn-primary" href="{:U('AgentProduct/Disclosure/editPage',['id'=>$vo['bid'],'bproductid'=>$bproductid])}">修改</a>
+                                            </if>
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$page}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>
+<script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    function ajaxFileUpload() {
+
+
+        $.ajaxFileUpload
+        (
+            {
+                url: '{:U('Product/Product/addFile')}', //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: 'file1', //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    console.log(data);
+                    if(data.status==1){
+                        alert('上传成功');
+                        $('#path').val(data.url);
+						$('#name').val( $('#name').val() +'('+ data.filename+')' );
+
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        )
+        return true;
+    }
+</script>

@@ -1,0 +1,192 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>新闻回收站</h5><br>
+            </div>
+            
+            <div class="ibox-content">
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                        <tr>
+                            <th>新闻ID</th>
+                            <th>新闻标题</th>
+                            <th>作者</th>
+                            <th>发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="news" item="vo">
+                        <tr>
+                            <td><input type="checkbox" onclick="javascript:switchItemChecked()" value = "{$vo.id}" class="fc-item"> {$vo.id}</td>
+                            <td>
+                                <a href="#">{$vo.title}</a>
+                            </td>
+                            <td>{$vo.author}</td>
+                            <td>{$vo.time}</td>
+                            <td>
+                                <a class='btn btn-xs btn-danger' href="javascript:void(0)" onclick="javascript:var url = '{:U('News / Newscon / clear',['id'=>$vo['id']])}'; if (confirm('确定要删除吗？'))window.location = url;">清空</a>
+                                <a class='btn btn-xs btn-danger' href="{:U('News/Newscon/recovery',['id'=>$vo['id']])}">恢复</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <if condition="count($news) gt 0">
+                        <tr>
+                            <td>
+                                <button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button>								   
+                            </td>
+                            <td>
+                                <button onclick="javascript:batchRecovery();" class="btn btn-sm btn-danger">批量恢复</button>
+                                <button onclick="javascript:batchClear();" class="btn btn-sm btn-danger">批量清空</button>									   
+                            </td>
+                            <td colspan="7">
+                                <div class="pull-right">{$Pageshow}</div>
+                            </td>
+                        </tr>
+                        <else/>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td colspan="7">
+                                没有任何内容
+                            </td>
+                        </tr>
+                    </if>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.footable').footable({
+                "paging": {
+                                "enabled": false
+                                },
+                "pageSize": {$pageSize},
+                });
+
+    });
+    
+    checkedList = [];
+    status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+
+    function switchAllChecked(){
+            switch(status){
+                    case '0': allChecked();
+                                    status = '1';
+                                    break;
+
+                    case '1': unAllChecked();
+                                    status = '0';
+                                    break;
+
+                    default: break;
+            }
+    }
+
+    function allChecked(){
+            $("#fc-all").prop("checked", true);
+            var list = $(".fc-item");
+            list.prop("checked", true);
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+
+    function unAllChecked(){
+            $("#fc-all").prop("checked", false);
+            var list = $(".fc-item");
+            list.prop("checked", false)
+            checkedList = Array();
+    }
+
+    function switchItemChecked(){
+            checkedList = Array();
+            if( $(this).attr("checked") != false ){
+                    $(this).prop("checked", false);
+                    unItemChecked();
+            }else{
+                    $(this).prop("checked", true);
+                    itemChecked();
+            }
+    }
+
+    function itemChecked(){
+            var list = $(".fc-item:checked");
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+
+    function unItemChecked(){
+            $("#fc-all").prop("checked", false);
+            var list = $(".fc-item:checked");
+            list.each(function(n){
+                    var itemId = list.eq(n).val();
+                    checkedList.push(itemId);
+            });
+    }
+
+    function checkIfNone(){
+            if(checkedList.length <= 0){
+                    return {status:false , msg: "至少选择一项！"}
+            }else{
+                    return {status:true}
+            }
+    }
+
+    function refreshLoad(){
+            location.reload();
+    }
+    
+    function batchClear(){
+		var checkStatus = checkIfNone();
+		if(checkStatus.status == false) {
+			alert(checkStatus.msg);
+			return;
+		}
+		$.post("{:U('News/Newscon/clears')}",{'request': checkedList}, function(data){
+			if(data.status == '1') {
+				alert(data.msg);
+				refreshLoad();
+			}else{
+				alert(data.msg);
+			}					
+		}, "json");
+	}
+    function batchRecovery(){
+        var checkStatus = checkIfNone();
+        if(checkStatus.status == false) {
+            alert(checkStatus.msg);
+            return;
+        }
+        $.post("{:U('News/Newscon/batchRecovery')}",{'request': checkedList}, function(data){
+            if(data.status == '1') {
+                alert(data.msg);
+                refreshLoad();
+            }else{
+                alert(data.msg);
+            }                   
+        }, "json");
+    }
+</script>

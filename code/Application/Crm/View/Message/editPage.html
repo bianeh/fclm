@@ -1,0 +1,98 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>编辑消息</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('Crm/Message/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">		
+			<form class="form-horizontal col-sm-12" action="{:U('Crm/Message/edit')}" method="POST">
+				<div class="col-sm-8">
+	                <div class="form-group">
+						<input type="hidden" name="id" value="{$message.id}">
+	                    <label class="col-sm-3 control-label">消息内容</label>
+	                    <div class="col-sm-7">
+	                        <textarea name="message" rows="5" class='form-control' >{$message.content}</textarea>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">IFA级别匹配方式</label>
+	                    <div class="col-sm-7">	           
+	                        <select name="levelmatch" onchange="javascript:mkdesc();" id="levelmatch" class='form-control'>
+	                        	<option value="0" label="等于" <if condition ="$message.levelmatch eq 0"> selected="selected" </if> >等于</option>
+	                        	<option value="1" label="大于" <if condition ="$message.levelmatch eq 1"> selected="selected" </if>>大于</option>
+								<option value="2" label="大于或等于" <if condition ="$message.levelmatch eq 2"> selected="selected" </if>>大于或等于</option>
+								<option value="3" label="小于" <if condition ="$message.levelmatch eq 3"> selected="selected" </if>>小于</option>
+								<option value="4" label="小于或等于" <if condition ="$message.levelmatch eq 4"> selected="selected" </if>>小于或等于</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">IFA级别</label>
+	                    <div class="col-sm-7">	           
+	                        <select name="level" onchange="javascript:mkdesc();" id="level" class='form-control'>
+	                        	<option value="1" label="新秀" <if condition ="$message.level eq 1"> selected="selected" </if> >新秀</option>
+	                        	<option value="2" label="少侠" <if condition ="$message.level eq 2"> selected="selected" </if> >少侠</option>
+								<option value="3" label="大侠" <if condition ="$message.level eq 3"> selected="selected" </if> >大侠</option>
+								<option value="4" label="掌门" <if condition ="$message.level eq 4"> selected="selected" </if> >掌门</option>
+								<option value="5" label="宗师" <if condition ="$message.level eq 5"> selected="selected" </if> >宗师</option>
+								<option value="6" label="盟主" <if condition ="$message.level eq 6"> selected="selected" </if> >盟主</option>
+	                        </select>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">发送方式</label>
+	                    <div class="col-sm-7">
+							<div class="checkbox">
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['web']" value="1" <if condition="$sendtype.web neq '000'">checked</if> > 站内信
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['email']" value="2" <if condition="$sendtype.email neq '000'">checked</if> > 邮件
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['sms']" value="4" <if condition="$sendtype.sms neq '000'">checked</if> > 短信
+								</label>
+							</div>
+	                    </div>
+	                </div>
+					<div class="form-group">
+						<p class="text-success" id="leveldesc">*此消息将发给级别 <strong></strong> 的IFA</p>
+					</div>					
+				</div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-success'>保存</button>
+				</div>
+            </form>
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script>
+	$(document).ready(function(){
+	
+		var levelmatch = $("#levelmatch option:selected").attr("label");
+		var level = $("#level option:selected").attr("label");
+		var leveldesc = levelmatch+level;
+		$("#leveldesc strong").html(leveldesc);
+	});
+	
+    function mkdesc(){
+		var levelmatch = $("#levelmatch option:selected").attr("label");
+		var level = $("#level option:selected").attr("label");
+		var leveldesc = levelmatch+level;
+		$("#leveldesc strong").html(leveldesc);
+	}
+</script>

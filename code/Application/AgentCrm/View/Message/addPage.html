@@ -1,0 +1,89 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>添加消息</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('AgentCrm/Message/indexCustomer')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">		
+			<form class="form-horizontal col-sm-12" action="{:U('AgentCrm/Message/add')}" method="POST">
+				<div class="col-sm-8">
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">消息内容</label>
+	                    <div class="col-sm-7">
+	                        <textarea name="message" rows="5" class='form-control' placeholder="此处填写消息内容"></textarea>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">客户级别匹配方式</label>
+	                    <div class="col-sm-7">	           
+	                        <select name="levelmatch" onchange="javascript:mkdesc();" id="levelmatch" class='form-control'>
+	                        	<option value="0" label="等于">等于</option>
+	                        	<option value="1" label="大于">大于</option>
+								<option value="2" label="大于或等于" selected="selected">大于或等于</option>
+								<option value="3" label="小于">小于</option>
+								<option value="4" label="小于或等于">小于或等于</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">客户级别</label>
+	                    <div class="col-sm-7">	           
+	                        <select name="level" onchange="javascript:mkdesc();" id="level" class='form-control'>
+	                        	<option value="1" label="小白" selected="selected">小白</option>
+	                        	<option value="2" label="书童">书童</option>
+								<option value="3" label="秀才">秀才</option>
+								<option value="4" label="举人">举人</option>
+								<option value="5" label="进士">进士</option>
+								<option value="6" label="状元">状元</option>
+	                        </select>
+	                    </div>
+	                </div>
+					<div class="form-group">
+	                    <label class="col-sm-3 control-label">发送方式</label>
+	                    <div class="col-sm-7">
+							<div class="checkbox">
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['web']" value="1" checked > 站内信
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['email']" value="2" checked > 邮件
+								</label>
+								<label class="checkbox-inline">
+								  <input type="checkbox" name="method['sms']" value="4" checked > 短信
+								</label>
+							</div>
+	                    </div>
+	                </div>
+					<div class="form-group">
+						<p class="text-success" id="leveldesc">*此消息将发给级别 <strong>大于或等于小白</strong> 的IFA</p>
+					</div>					
+				</div>
+				<div class="clearfix"></div>
+				<div class="from-group">
+					<button class='btn btn-success'>添加</button>
+				</div>
+            </form>
+            <div class="clearfix"></div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script>
+    function mkdesc(){
+		var levelmatch = $("#levelmatch option:selected").attr("label");
+		var level = $("#level option:selected").attr("label");
+		var leveldesc = levelmatch+level;
+		$("#leveldesc strong").html(leveldesc);
+	}
+</script>

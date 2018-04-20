@@ -1,0 +1,90 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>产品发布</h5><br>
+                        </div>
+                        <div class="ibox-content">
+							
+							<form class="form-horizontal col-sm-5" action="{:U('Product/Product/index')}" method='get'>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品编号:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='productno' placeholder="产品编号" value="{$Think.get.productno|default=""}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品名称:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='name' placeholder="产品名称" value="{$Think.get.name|default=""}" class="form-control">
+	                                </div>
+
+	                                <div class="col-sm-2">
+	                                    <button class="btn btn-sm btn-primary" type="submit">查询</button>
+	                                </div>
+	                            </div>
+	                        </form>
+
+	                        <div class="clearfix"></div>
+						</div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('Product/Product/addPage')}" class="btn btn-primary " style="font-size:12px"><i class="fa fa fa-plus"></i> 新增产品</a>
+
+                                <!-- <span class='margin-left-20'>总会员数: <span class='color-yellow'>{$totalAgents}</span></span> -->
+
+                                <!-- <span class='margin-left-20'>已认证会员数： <span class='color-yellow'>{$totalPassAgents}</span></span> -->
+                            </div>
+                        	<div class="row">
+								<?php $i=0; ?>
+                            	<foreach name="products" item="vo">
+								  <div class="col-sm-3 col-xs-3 col-md-3">
+								    <div class="thumbnail">
+								      <img src='{$vo.productimg}' class='img-responsive'  alt="...">
+								      <div class="caption">
+								        <h3 style='display: inline-block;height:3em;line-height:1.5;width:100%;overflow: hidden;'>[{$vo.productno}]{$vo.name}</h3>
+								        <p style='display: inline-block;height:15px;overflow: hidden;'>{$vo.catagroyDes}</p>
+								        <p>发行规模:{$vo.issuesize}</p>
+								        <p><a class='btn btn-xs btn-primary' href="{:U('Product/Product/editPage',['id'=>$vo['id']])}">编辑</a>
+										  <a class='btn btn-xs btn-primary' href="{:U('Product/Product/statusPage',['id'=>$vo['id']])}">产品状态</a>
+								    	<a class='btn btn-xs btn-primary' href="{:U('Product/Product/productInfoDisclosurePage',['id'=>$vo['id']])}">产品披露</a>
+								      </div>
+								    </div>
+								  </div>
+									<?php
+								   		$i++;
+								   		if($i%4==0){
+								   			echo '<div class="clearfix"></div>';
+								   		}
+								   ?>
+                        		
+	                            </foreach>
+							</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

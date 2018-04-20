@@ -1,0 +1,63 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>App申请管理</h5><br>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <if condition = "$vo.agentid neq ''"><th>用户ID</th></if>
+                        <th>agentid</th>
+                        <th>创建时间</th>
+                        <th>申请内容</th>
+                        <th>需要上线时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="applys" item="vo">
+                        <tr>
+                            <td>{$vo.agentid}</td>
+                            <td>{$vo.createtime|date="Y-m-d H:i:s",###}</td>
+                            <td>{$vo.note}</td>
+                            <td>{$vo.requireonlinetime|date="Y-m-d H:i:s",###}</td>
+
+                            <td>{$vo.status}</td>
+                            <td>
+                                <a class='btn btn-xs btn-primary'>编辑</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="pull-right">{$Pageshow}</div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Application/Common/View/pagefooter.html" />
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            }
+        });
+
+    });
+
+</script>

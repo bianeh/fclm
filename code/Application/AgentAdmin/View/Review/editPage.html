@@ -1,0 +1,89 @@
+<include file="./Application/Common/View/pageheader.html" />
+	<style>
+     .reviewimg{max-width:;}   
+    </style>
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>审核资料填写</h5>
+                        </div>
+                        <div class="ibox-content">
+							 <p>{$agent['username']}</p>
+							 <p><span>账户ID:</span> <span>{$agent['id']}</span></p>
+							 <p><span>注册时间:</span> <span>{:date('Y-m-d',$agent['createtime'])}</span></p>
+                             <p><span>企业证件号码:</span> <span>{$agent['credientialnu']}</span></p>
+                             <p><span>注册手机号码:</span> <span>{$agent['phone']}</span></p>
+                             <p><span>注册邮箱号码:</span> <span>{$agent['email']}</span></p>
+                        </div>
+						
+                        <hr>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-2">身份证</div>
+                                <div class="col-sm-2">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>点击上传</span>
+                                        <input type="file" name="file" onchange="ajaxFileUpload(1,'file1')" id="file1" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+                                    </span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <img src="{$type1src}" alt="" class='img-responsive reviewimg type1 img-thumbnail'>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr>    
+
+                                <div class="col-sm-2">企业证件</div>
+                                <div class="col-sm-2">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>点击上传</span>
+                                        <input type="file" name="file" onchange="ajaxFileUpload(2,'file2')" id="file2" multiple="" id="upfile" style="display: block; position:absolute; margin-top: -27px; margin-left: -13px; width: 113px; height: 34px; opacity: 0">
+                                    </span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <img src="{$type2src}" alt="" class='img-responsive reviewimg type2 img-thumbnail'>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+        function ajaxFileUpload(type,id) {
+            $.ajaxFileUpload
+            (
+                {
+                    url: '{:U('AgentAdmin/Review/addImg')}?type='+type, //用于文件上传的服务器端请求地址
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: id, //文件上传域的ID
+                    dataType: 'json', //返回值类型 一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        console.log(data);
+                        if(data.status==1){
+                            alert('success');
+                            var selecter = '.type'+type;
+                            $(selecter).attr('src',data.imgurl);
+                        }else{
+                            alert('error');
+                        }
+                    },
+                    error: function (data, status, e)//服务器响应失败处理函数
+                    {
+                        alert(e);
+                    }
+                }
+            )
+            return false;
+        }
+    </script>

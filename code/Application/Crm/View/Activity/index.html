@@ -1,0 +1,83 @@
+<include file="./Application/Common/View/pageheader.html" />
+<style type="text/css">
+	.ibox-title h5 strong{
+		margin-right:3em;
+		cursor:pointer;
+	}
+	.ibox-title h5 strong a{
+		color:#000;
+		text-decoration:none;
+	}
+</style>	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>
+								<strong style="color: #5cc3ca; border-bottom: 2px solid #5cc3ca"> 平台活动 </strong>
+								<strong> <a href="{:U('Crm/Activity/indexIFA')}">IFA活动审核 </a></strong>
+							</h5>
+							<br>							
+                        </div>
+						<div class="ibox-content">
+							<div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                                <a href="{:U('Crm/Activity/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加活动</a>
+                            </div>
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>                                    
+									<th>活动主题</th>
+									<th>活动时间</th>
+									<th>活动内容</th>
+									<th data-hide="all">活动内容</th>
+                                    <th>强制参与</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="Activity" item="vo">
+	                                <tr>
+										<td>{$vo.name}</td>
+	                                    <td>{$vo.begintime|date="Y-m-d H:i:s", ###}至{$vo.endtime|date="Y-m-d H:i:s", ###}</td>
+										<td>{$vo.content|substr=0,25}...[点击展开]</td>
+	                                    <td class='hide-td'>{$vo.content}</td>
+	                                    <td><if condition="$vo.isforce eq 0">否<elseif condition="$vo.isforce eq 1" />是<else />未定义</if></td>
+	                                    <td>
+											<a class='btn btn-xs btn-primary'' href="{:U('Crm/Activity/editPage',['id'=>$vo['id']])}">编辑/查看</a>
+											<a class='btn btn-xs btn-success'' href="{:U('Crm/Activity/publish',['id'=>$vo['id']])}">发布</a>
+	                                    </td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

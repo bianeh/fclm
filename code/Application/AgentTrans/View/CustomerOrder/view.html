@@ -1,0 +1,58 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单详情</h5>
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{:U('AgentTrans/CustomerOrder/index')}"><strong>返回上一页</strong></a>
+                </li>
+            </ol>
+        </div>
+        <div class="ibox-content">		
+			<table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false" id="orderInfo">
+				<tbody>
+					<tr><td><span>订单编号: </span><strong>{$order.orderno}</strong></td></tr>
+					<tr><td><span>产品编号: </span><strong>{$order.productno}</strong></td></tr>
+					<tr><td><span>产品名称: </span><strong>{$order.name}</strong></td></tr>
+					<!-- 销售类型 -->
+					<if condition="$order.type eq 23">
+					<tr><td><span>销售类型: </span><strong>自持有售出</strong></td></tr>
+					<elseif condition="$order.type eq 13" />
+					<tr><td><span>销售类型: </span><strong>代理售出</strong></td></tr>
+					<else/>
+					</if>
+					<tr><td><span>用户ID: </span><strong>{$order.buyerid}</strong></td></tr>
+					<tr><td><span>购买份额: </span><strong>{$order.share}</strong></td></tr>
+					<tr><td><span>买入净值: </span><strong>{$order.networth}</strong></td></tr>
+					<tr><td><span>买入单价: </span><strong>¥ {$order.price}</strong></td></tr>
+					<tr><td><span>买入总价: </span><strong>¥ {$order.amount}</strong></td></tr>
+					<tr><td><span>订单状态: </span><strong><if condition="$order.status eq 0">待付款<elseif condition="$order.status eq 1"/>已付款<else/>作废</if></strong></td></tr>
+					<tr><td><span>创建时间: </span><strong>{$order.createtime|date="Y-m-d H:i:s", ###}</strong></td></tr>
+					<tr><td><span>支付状态: </span><strong><if condition="$order.paystatus eq 0">未付款<else/>已付款</if></strong></td></tr>
+					<tr><td><span>支付方式: </span><strong><if condition="$order.paystatus eq 0">无<else/>{$order.paytype}</if></strong></td></tr>
+					<tr><td><span>支付时间: </span><strong><if condition="$order.paystatus eq 0">无<else/>{$order.paytime|date="Y-m-d H:i:s" , ###}</if></strong></td></tr>
+				</tbody>
+			</table>
+            <div class="clearfix"></div>
+			<div>
+                 <a href="{:U('AgentTrans/CustomerOrder/index')}" class="btn btn-primary " >返回</a>
+				 <a onclick="javascript:printOrder();" class="btn btn-primary " >打印</a>
+            </div>
+		</div>
+		
+
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
+<script src="/Public/js/jquery.jqprint-0.3.js"></script>
+<script>
+    function  printOrder(){
+        $("#orderInfo").jqprint();
+    }
+</script>

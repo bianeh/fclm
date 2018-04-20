@@ -1,0 +1,53 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>产品状态</h5><br>
+                </div>
+
+				<div class="ibox-content">
+					<div class="media">
+					  <a class="pull-left media-left media-middle" href="#">
+					    <img src="/Public/img/productimg.jpg" alt="" class='img-rounded img-responsive'>
+					  </a>
+					  <div class="media-body">
+					    <h2 class="media-heading">{$product['name']}</h2><br/>
+						<h3>产品到期状态:<span class='text-info'>{$product['dueStatusDes']}</span></h3>
+						<h3>到期日：{:date('Y-m-d',$product['duedate'])}</h3>
+							<h3>产品成立日：<span class="'text-info">{:date('Y-m-d',$product['establishmentday'])}</span></h3>
+					    <h3>产品上架状态:<switch name="product.productstatus">
+								<case value="0">
+									<span class='text-info'>未上架</span>
+									<br/><br/><a class='btn btn-lg btn-success' href="{:U('Product/Product/publish',['id'=>$product['id']])}">上架</a>
+								</case>
+								<case value="1">
+									<span class='text-info'>已上架</span>
+									<br/><br/><a class='btn btn-lg btn-warning' href="{:U('Product/Product/unPublish',['id'=>$product['id']])}">下架</a>
+								</case>
+								<case value="2">
+									<span class='text-info'>已下架</span>
+									<br/><br/><a class='btn btn-lg btn-success' href="{:U('Product/Product/publish',['id'=>$product['id']])}">上架</a>
+								</case>
+							</switch>
+						</h3>
+					  </div>
+					</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>

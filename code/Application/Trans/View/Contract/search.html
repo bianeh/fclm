@@ -1,0 +1,125 @@
+<include file="./Application/Common/View/pageheader.html" />
+<style type="text/css">
+	.ibox-title h5 strong{
+		margin-right:3em;
+		cursor:pointer;
+	}
+</style>	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>合同管理</h5>
+							<ol class="breadcrumb pull-right">
+								<li>
+									<a href="{:U('Trans/Contract/index')}"><strong>返回上一页</strong></a>
+								</li>
+							</ol>
+                        </div>
+						<div class="ibox-content">							
+							<form class="form-horizontal col-sm-5" action="{:U('Trans/Contract/search')}" method='get'>
+								<div class="form-group">
+	                                <label class="col-sm-3 control-label">合同编号：</label>
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='contractsno' placeholder="合同编号" value="{$Think.get.contractsno|default=""}" class="form-control">
+	                                </div>
+	                            </div>
+								<div class="form-group">
+	                                <label class="col-sm-3 control-label">合同状态：</label>
+	                                <div class="col-sm-7">
+										<select class="form-control" name="status" placeholder="合同状态" >
+										  <option value="all"<if condition="$Think.get.status eq 'all' "> selected</if> >全部</option>
+										  <option value="0"  <if condition="$Think.get.status eq 0 "> selected</if> >乙方合同未申请</option>
+										  <option value="1"  <if condition="$Think.get.status eq 1 "> selected</if> >乙方合同已申请</option>
+										  <option value="2"  <if condition="$Think.get.status eq 2 "> selected</if> >甲方合同确认并打印</option>
+										  <option value="3"  <if condition="$Think.get.status eq 3 "> selected</if> >甲方合同已邮寄</option>
+										  <option value="4"  <if condition="$Think.get.status eq 4 "> selected</if> >乙方合同已确认</option>
+										  <option value="-1" <if condition="$Think.get.status eq -1"> selected</if> >作废合同</option>
+										</select>
+	                                </div>
+	                                <div class="col-sm-2">
+	                                    <button class="btn btn-sm btn-primary" type="submit">查询</button>
+	                                </div>
+	                            </div>
+	                        </form>
+
+	                        <div class="clearfix"></div>
+						</div>
+						<div class="ibox-content">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                                <thead>
+                                <tr>
+                                    <th>合同编号</th>
+									<th>订单编号</th>
+									<th>甲方</th>
+									<th>甲方类型</th>
+									<th>乙方</th>
+									<th>乙方类型</th>
+									<th>合同申请时间</th>
+									<th>合同状态</th>
+									<th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="contracts" item="vo">
+	                                <tr>
+	                                    <td>{$vo.contractsno}</td>
+	                                    <td>{$vo.orderno}</td>
+	                                    <td>甲方</td>
+										<td><if condition="$vo.firstpartytype eq 1"> 平台
+											<elseif condition="$vo.firstpartytype eq 2" /> IFA
+											<elseif condition="$vo.firstpartytype eq 3" /> 终端客户
+											<else />错误
+											</if></td>
+	                                    <td>乙方</td>
+										<td><if condition="$vo.secondpartytype eq 1"> 平台
+											<elseif condition="$vo.secondpartytype eq 2" /> IFA
+											<elseif condition="$vo.secondpartytype eq 3" /> 终端客户
+											<else />错误
+											</if></td>
+										<td>{$vo.applytime|date="Y-m-d", ###}</td>
+										<td><if condition="$vo.status eq 0"> 乙方合同未申请
+											<elseif condition="$vo.status eq 1" /> 乙方合同已申请
+											<elseif condition="$vo.status eq 2" /> 甲方合同确认并打印
+											<elseif condition="$vo.status eq 3" /> 甲方合同已邮寄
+											<elseif condition="$vo.status eq 4" /> 乙方合同已确认
+											<elseif condition="$vo.status eq -1" /> 作废
+											<else />错误
+											</if></td>
+										<td>
+											<a class='btn btn-sm btn-primary' href="{:U('Trans/Contracts/view',['id'=>$vo['id']])}">详情</a>
+										</td>
+	                                </tr>
+	                            </foreach>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="pull-right">{$Pageshow}</div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+</script>

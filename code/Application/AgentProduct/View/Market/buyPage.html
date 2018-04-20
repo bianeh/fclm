@@ -1,0 +1,139 @@
+<include file="./Application/Common/View/pageheader.html" />
+
+<div class="row">
+	<div class="col-sm-9">
+		<div class="wrapper wrapper-content animated fadeInUp">
+			<div class="ibox">
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="m-b-md">
+								<!--<a href="project_detail.html#" class="btn btn-white btn-xs pull-right">购买产品</a>-->
+								<h2>{$product['name']}</h2>
+							</div>
+							<dl class="dl-horizontal">
+								<dt>状态：</dt>
+								<dd><span class="label label-primary">预约中</span>
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<dl class="dl-horizontal">
+
+								<dt>发行人：</dt>
+								<dd>{$product['publisher']}</dd>
+								<dt>托管人：</dt>
+								<dd>{$product['custodian']}</dd>
+								<dt>发行规模：</dt>
+								<dd>{$product['issuesize']}</dd>
+								<dt>预期收益率：</dt>
+								<dd>{$product['ror']*100}%</dd>
+							</dl>
+						</div>
+						<div class="col-sm-7" id="cluster_info">
+							<dl class="dl-horizontal">
+
+								<dt>最后更新：</dt>
+								<dd>{$product['createtime']|date='Y-m-d',###}</dd>
+								<dt>上线日期：</dt>
+								<dd>{$product['onlinedate']|date='Y-m-d',###}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<dl class="dl-horizontal">
+								<dt>当前进度</dt>
+								<dd>
+									<div class="progress progress-striped active m-b-sm">
+										<div style="width: {:empty($product['process'])?0:$product['process'];}%;" class="progress-bar"></div>
+									</div>
+									<small>当前项目募集进度 <strong>{:empty($product['process'])?0:$product['process'];}%</strong></small>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="wrapper wrapper-content project-manager">
+			<h4>交易规模</h4>
+			<p class="small">
+				{$product['productscale']}
+			</p>
+		</div>
+	</div>
+	<div class="col-sm-9">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="row">
+                        <dl class="dl-horizontal">
+                            <dt>最少购买金额：</dt>
+                            <dd>￥{$product['minimuminvestmentamount']}</dd>
+                            <dt>递增单位：</dt>
+                            <dd>￥{$product['increasingunit']}</dd>
+                            <dt>剩余可购买份数：</dt>
+                            <dd>{$product['leftShare']}</dd>
+							<dt>剩余可购买金额：</dt>
+							<dd>￥{$product['maxBuyAmount']}</dd>
+                        </dl>
+                        <form id="orderForm" action="{:U('AgentProduct/Market/makeOrder')}" method="post">
+							<input type="hidden" name="aproductid" value="{$product['id']}">
+							<div class="form-group">
+                                <label class="col-sm-2 control-label">交易金额</label>
+                                <div class="col-sm-6">
+                                    <input id="totalamout" name="totalamount"  min="{$product['minimuminvestmentamount']}" step="{$product['increasingunit']}" max="{$product['maxBuyAmount']}" class="form-control"  type="number" value="{$product['minimuminvestmentamount']}" required>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <br/>
+							<dl class="dl-horizontal">
+								<dt>购买的份额：</dt>
+								<dd id="buyshare"></dd>
+								<dt>手续费：</dt>
+								<dd id="buyfee"></dd>
+								<dt>佣金：</dt>
+								<dd id="commissionfee"></dd>
+							</dl>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div class="form-group">
+                                <button class="btn btn-primary col-sm-offset-3">立即购买</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="./Application/Common/View/pagefooter.html" />
+<script src="/Public/res/template/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/Public/res/template/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+	var product = {:json_encode($product)};
+    $.validator.setDefaults({
+        /*submitHandler: function() {
+            $('#orderForm').submit();
+        }*/
+    });
+    $("#orderForm").validate();
+    $('#totalamout').change(function(){
+		calculateFee();
+    });
+	var calculateFee = function(){
+		var amount = $('#totalamout').val();
+		$('#buyshare').text( Math.round((amount * (1-product.buy_fee-product.commissionratio)) / product.networth)  );
+		$('#buyfee').text( "￥" + Math.round(amount * product.buy_fee,2) );
+		$('#commissionfee').text( "￥" + Math.round(amount * product.commissionratio,2) );
+	};
+	calculateFee();
+
+</script>

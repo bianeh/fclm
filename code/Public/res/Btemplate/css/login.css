@@ -1,0 +1,131 @@
+@charset "utf-8";
+/* CSS Document */
+
+.login-banner-outer {
+	height: 550px;
+	background-image: url(../images/login_banner.jpg);
+	background-repeat: no-repeat;
+}
+.login-box {
+	height: 470px;
+	margin-top: 20px;
+	width: 100%;
+	padding:0;
+	background-color:#FFFFFF;
+	padding-left:3%;
+	padding-right:3%;
+	border:0px;
+}
+.login-box-outer {
+	height: 500px;
+	margin-top: 0px;
+}
+.login-box .panel{
+	border:1px solid #BFBFBF;
+	-webkit-box-shadow:0 0 2px 3px #eee;  
+	-moz-box-shadow:0 0 2px 3px #eee; 
+	box-shadow:0 0 2px 3px #eee;
+}
+.login-box .panel .panel-heading {
+	height:65px;
+	line-height:45px;
+	background-color:#F4F4F4;
+	text-align:center;
+	font-size:26px;
+}
+#loginform .form-group.form-group-lg.row {
+	margin-right:0px;
+}
+#loginform .form-group.form-group-lg.row .col-sm-5{
+	padding-right:0px;
+}
+#loginform .form-group.form-group-lg.row .col-sm-5 .btn{
+	width:100%;
+	margin-top:15px;
+}
+#loginform .form-group.form-group-lg.row .col-sm-5 .btn,input[type=button],input[type=submit]{
+	background-color:#339097;
+	color:#FFFFFF;
+}
+input[type=button]:hover,input[type=submit]:hover{
+	color:#ffffff;
+}
+#loginform .form-group{
+	margin-bottom:20px;
+}
+.panel input.username{
+	background:url(../images/input_icon_user.png) left no-repeat;
+	
+}
+.panel input.password{
+	background:url(../images/input_icon_pwd.png) left no-repeat;
+	
+}
+.panel input.code{
+	background:url(../images/input_icon_code.png) left no-repeat;
+	
+}
+.panel input.username,.panel input.password,.panel input.code{
+	padding-left:55px;
+}
+@media (min-width:768px) {
+	.login-box {
+		height: 423px;
+		margin-top: 60px;
+		width: 360px;
+		border:2px solid #BFBFBF;
+		padding-left:0;
+		padding-right:0;
+		margin-left:53%;
+	}
+	.login-box-outer {
+		height: 550px;
+		margin-top: -550px;
+	}
+	.login-box .panel{
+		border:0px;
+		-webkit-box-shadow:none;  
+		-moz-box-shadow:none; 
+		box-shadow:none;
+	}
+	.login-box .panel .panel-heading {
+		height:85px;
+		line-height:65px;
+	}
+	#loginform .form-group.form-group-lg.row {
+		margin-right:-15px;
+	}
+	#loginform .form-group.form-group-lg.row .col-sm-5{
+		padding-right:15px;
+	}
+	#loginform .form-group.form-group-lg.row .col-sm-5 .btn{
+		
+		width:100%;
+		margin-top:0px;
+	}
+	input[type=button]:hover,input[type=submit]:hover{
+	color:#ffffff;
+	}
+}
+@media (min-width:992px) {
+	.login-box {
+		height: 423px;
+		margin-top: 60px;
+		width: 343px;
+		border:2px solid #BFBFBF;
+		padding-left:0;
+		padding-right:0;
+		margin-left:610px;
+	}
+}
+@media (min-width:1200px) {
+	.login-box {
+		height: 423px;
+		margin-top: 60px;
+		width: 400px;
+		border:2px solid #BFBFBF;
+		padding-left:0;
+		padding-right:0;
+		margin-left:810px;
+	}
+}

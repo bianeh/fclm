@@ -1,0 +1,107 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>我的产品</h5><br>
+                        </div>
+                        <div class="ibox-content">
+							
+							<form class="form-horizontal col-sm-5" action="{:U('AgentProduct/Market/index')}" method='get'>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品编号:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='productno' placeholder="产品编号" value="{$Think.get.productno|default=""}" class="form-control"> <span class="help-block m-b-none"><!-- 请输入您注册时所填的E-mail --></span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-3 control-label">产品名称:</label>
+
+	                                <div class="col-sm-7">
+	                                    <input type="text" name='name' placeholder="产品名称" value="{$Think.get.name|default=""}" class="form-control">
+	                                </div>
+
+	                                <div class="col-sm-2">
+	                                    <button class="btn btn-sm btn-primary" type="submit">查询</button>
+	                                </div>
+	                            </div>
+	                        </form>
+
+	                        <div class="clearfix"></div>
+						</div>
+						<div class="ibox-content">
+
+                            <div class="row">
+                                <?php $i=0; ?>
+                                <foreach name="products" item="vo">
+                                    <if condition="$vo.isbuy eq 1">
+                                    <div class="col-sm-3 col-xs-3 col-md-3">
+                                        <div class="thumbnail">
+                                            <img src='{$vo.productimg}' class='img-responsive'  alt="...">
+                                            <div class="caption">
+                                                <h3 style='display: inline-block;height:3em;line-height:1.5;width:100%;overflow: hidden;'>[{$vo.productno}]{$vo.name}</h3>
+                                                <p style='display: inline-block;height:15px;overflow: hidden;'>{$vo.catagroyDes}</p>
+                                                <p>发行规模:{$vo.issuesize}</p>
+                                                <p>
+                                                    <span class="badge">已购买产品</span>
+                                                </p>
+                                                <p>
+                                                    <switch name="vo.bproductstatus">
+                                                        <case value="0|2">
+                                                            <a class="btn btn-xs btn-primary" href="{:U("AgentProduct/Agent/editPage",['id'=>$vo['id']])}">编辑</a>
+                                                            <a class="btn btn-xs btn-primary" href="{:U("AgentProduct/Agent/publish",['id'=>$vo['id']])}">上架</a>
+                                                        </case>
+                                                        <case value="1">
+                                                            <a class="btn btn-xs btn-warning" href="{:U("AgentProduct/Agent/unPublish",['id'=>$vo['id']])}">下架</a>
+                                                        </case>
+                                                    </switch>
+                                                    <a class="btn btn-xs btn-warning" href="{:U('AgentProduct/Disclosure/disclosurePage',['id'=>$vo['id']])}">信息披露</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                        $i++;
+                                        if($i%4==0){
+                                            echo '<div class="clearfix"></div>';
+                                    }
+                                    ?>
+                                    </if>
+                                </foreach>
+                                <if condition="empty($products)">
+                                    <div class="alert alert-info">还没有您购买or代理的产品，前去 <a href="{:U('AgentProduct/Market/index')}">市场</a> 查看 </div>
+                                </if>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+        $('.daili-button').click(function(){
+            var con = confirm('您确认要代理此产品么？代理成功后将不能自己持有');
+            if(!con) {
+                return false;
+            }
+        })
+
+    });
+
+</script>

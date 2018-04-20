@@ -1,0 +1,22 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>在线风险测试考试</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('AgentAdmin/Risk/invite')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content" style="text-align: center;height: 600px">
+                <div style="font-size: 18px;font-weight: bold;margin-top: 110px;margin-bottom: 10px">在线风险测试系统考试欢迎您！</div>
+                <div style="margin-bottom: 10px"><if condition="$username !=''">{$username}{$jobnumber}邀请你参加在线考试!是否进入？<else/>您还没有收到在线考试邀请！</if></div>
+                <div><if condition="$username !=''"><a href="{:U('AgentAdmin/Risk/index')}"><input class ="btn btn-sm btn-primary" type="button" value="立即进入" /></a><else/><a href="{:U('AgentAdmin/Risk/invite')}"><input class ="btn btn-sm btn-primary" type="button" value="立即进入" /></a></if> &nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('Home/index/dashboard')}"><input class ="btn btn-sm btn-white" style="color:#5cc3ca;border-color:#5cc3ca" type="button" value="稍后进入"/></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Application/Common/View/pagefooter.html" />
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>

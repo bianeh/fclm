@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>fengmeng 注册</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/Public/res/template/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/Public/res/template/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/Public/res/template/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/Public/res/template/css/animate.css" rel="stylesheet">
+    <link href="/Public/res/template/css/style.css?v=4.1.0" rel="stylesheet">
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <style>.nodisplay{display: none;}</style>
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                
+                <h3 class="">Fengmeng</h3>
+
+            </div>
+            <h3>欢迎注册 Fengmeng</h3>
+            <p>创建一个新账户</p>
+            <form id='step1form' class="m-t" role="form" >
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="请输入您的邀请码" required="" id='invitecode'>
+                </div>
+                <div class="form-group text-left">
+                    <div class="checkbox i-checks">
+                        <label class="no-padding">
+                            <input type="checkbox" id='agreementcheckboxl'><i></i> 我同意注册协议
+                        </label>
+                        <a href="{:U('Auth/Register/useragreement')}">注册协议</a>
+                    </div>
+                </div>
+                <button id='step1' class="btn btn-default block full-width m-b" disabled="disabled">下一步</button>
+
+                <p class="text-muted text-center"><small>已经有账户了？</small><a href="{:U('Auth/Login/user')}">点此登录</a>
+                </p>
+
+            </form>
+
+            <form id='step2form' class="m-t nodisplay" role="form" >
+                <input type="hidden" name="invitecode" id='invitecode2' value=''>
+                <input type="hidden" name="passport" id='passport2' value=''>
+                <div class="form-group text-left">
+                    <label>您的预留姓名</label>
+                    <input type="text" class="form-control" placeholder="请输入您的预留手机号码" required="" id='name' name="name" >
+                </div>
+                <div class="form-group text-left">
+                    <label>您的预留身份证号码</label>
+                    <input type="number" class="form-control" placeholder="请输入您的预留手机号码" required="" id='credientialno' name="'credientialno">
+                </div>
+                <div class="form-group text-left">
+                    <label>您的预留手机号码</label>
+                    <input type="number" class="form-control" placeholder="请输入您的预留手机号码" required="" id='phone' name="phone">
+                </div>
+                <div class="form-group text-left">
+                    <label>您的预留手机Email号码</label>
+                    <input type="email" class="form-control" placeholder="请输入您的预留邮箱" required="" id='email' name="'email">
+                </div>
+                <div class="form-group text-left">
+                    <label>密码</label>
+                    <input type="password" class="form-control" placeholder="请输入密码" required="" id='password' value="">
+                </div>
+                <div class="form-group text-left">
+                    <label>确认密码</label>
+                    <input type="password" class="form-control" placeholder="请再次输入密码" required="" id='repassword' value="" >
+                </div>
+                
+                <button id='step2' class="btn btn-primary block full-width m-b">注册</button>
+
+                <p class="text-muted text-center"><small>已经有账户了？</small><a href="{:U('Auth/Login/user')}">点此登录</a>
+                </p>
+
+            </form>
+
+            <form id='step3form' class="m-t nodisplay" role="form" action="{:U('Auth/Login/user')}" method='get'>
+                <h4>恭喜您，注册成功</h4>
+                <p>您现在可以去登陆了</p>
+                <button class='btn btn-primary block full-width m-b'>去登陆</button> 
+            </form>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/Public/res/template/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/Public/res/template/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- iCheck -->
+    <script src="/Public/res/template/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        var data = {
+            passport:'{$inviteInfo->hash}',
+        };
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('.i-checks').iCheck('uncheck');
+            $('.i-checks').on('ifChecked',function(){
+                $('#step1').removeClass('btn-default').addClass('btn-primary');
+                $('#step1').removeAttr('disabled');
+            })
+            $('.i-checks').on('ifUnchecked',function(){
+                $('#step1').removeClass('btn-primary').addClass('btn-default');
+                $('#step1').attr('disabled','disabled');
+            })
+
+            //step1=>step2
+            $('#step1').click(function(){
+                data.invitecode = $('#invitecode').val();
+
+                $.ajax({
+                    url:"{:U('Auth/Register/checkInvitecode')}",
+                    data:{passport:data.passport,invitecode:data.invitecode},
+                    success:function(ret){
+                        if(ret.status==1){
+                            //验证成功
+                            $('#step1form').hide();
+                            $('#step2form').removeClass('nodisplay').addClass('animated fadeInDown');
+                            $('#invitecode2').val(data.invitecode);
+                            $('#passport2').val(data.passport);
+                        }else{
+                            //验证失败
+                            alert('邀请码错误，请重试。');
+                        }
+                    }
+                })
+                return false;
+            })
+
+            $('#step2').click(function(){
+                if($('#password').val()!=$('#repassword').val()){
+                    alert('两次输入的密码不相同');
+                    return false;
+                }
+                if($('#password').val().length <6){
+                    alert('密码长度最少6位');
+                    return false;
+                }
+
+                var password = $('#password').val();
+                var name = $('#name').val();
+                var credientialno = $('#credientialno').val();
+                var phone = $('#phone').val();
+                var email = $('#email').val();
+                $.ajax({
+                    url:"{:U('Auth/Register/doRegister')}",
+                    data:{passport:data.passport,invitecode:data.invitecode,password:password,name:name,credientialno:credientialno,phone:phone,email:email},
+                    type:'post',
+                    success:function(ret){
+                        if(ret.status==1){
+                            //注册成功
+                            $('#step2form').hide();
+                            $('#step3form').removeClass('nodisplay').addClass('animated fadeInDown');
+                        }else{
+                            //注册失败
+                            alert(ret.errorinfo);
+                        }
+                    }
+                })
+                return false;
+            })
+        });
+    </script>
+
+</body>
+
+</html>

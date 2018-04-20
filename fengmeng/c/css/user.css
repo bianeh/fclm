@@ -1,0 +1,189 @@
+@charset "utf-8";
+/* CSS Document */
+/*用户中心顶部信息*/
+#ucenterout {
+	background-color: #406B8F;
+}
+#ucenterout .width1200{
+	background:url(../images/user/user_banner.png);
+}
+#ucenterout>.width1200>.row:first-child>.column{
+	height: 182px;
+}
+#ucenterout>.width1200>.row:first-child>.column:first-child,#ucenterout>.width1200>.row>.last-colmn{
+	text-align:center;
+	line-height:182px;
+}
+#ucenterout .width1200 .row .column.last-colmn {
+	text-align: left;
+	padding-left: 59px;
+}
+#ucenterout>.width1200>.row>.center-colmn{
+	padding:55px 0 0;
+	font-size:15px;
+}
+
+#ucenterout>.width1200>.row>.center-colmn>hr{
+	margin:11px 0 0;
+}
+
+#ucenterout>.width1200>.row>.center-colmn>p{
+	padding-left:35px;
+	color:#ffffff;
+	display:inline-block;
+}
+.user-name-safe-pwd>span.delive-line{
+	border-left:#ffffff 1px solid;
+	margin:0 15px;
+	height:50px;
+	display:inline-block;
+}
+p.user-name-safe-pwd{
+	padding-top:3px;
+}
+p.user-name-safe-pwd>span.txt{
+	height:50px;
+	line-height:40px;
+	margin-top:-100px;
+	vertical-align:top;
+}
+p.user-name-safe-pwd img{
+	display:inline-block;
+	vertical-align:top;
+	margin-top:10px;
+}
+/*用户中心左侧导航*/
+.panel-define {
+	border-top:0px;
+}
+.panel-group .panel + .panel, .panel-define{
+	margin-top:0px;
+}
+.panel-define .panel-heading{
+	background-color: #339097;
+	color: #ffffff;
+	height: 60px;
+	text-align:center;
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+}
+.panel-define .panel-heading .panel-title{
+	line-height:40px;
+}
+.panel-define .panel-body ul{
+	padding-left: 50px;
+	list-style:none;
+}
+.panel-define .panel-body ul li{
+	height: 28px;
+}
+#ucenter-main{
+	margin-top: 18px;
+}
+#accordion{
+	margin-bottom:0;
+}
+.panel-define .panel-heading h4 a {
+	padding-top: 10px;
+	padding-right: 30px;
+	padding-left: 32px;
+	padding-bottom: 10px;
+}
+#ucenter-main>.width1200>.row>.col-sm-3 {
+	padding-right:0px;
+	width:225px;
+}
+#ucenter-main>.width1200>.row>.col-sm-9 {
+	padding-left:0px;
+	margin-left:15px;
+}
+/*右侧主内容区基本框架控制*/
+#main-r{
+	padding:0;
+	background-color:#ffffff;
+}
+#main-r>div[role=tabpanel]>ul{
+	border-bottom:2px solid #EEEEEE;
+}
+#main-r>div[role=tabpanel]>ul>li{
+	margin-top:9px;
+}
+#main-r>div[role=tabpanel]>ul>li:first-child{
+	margin-left:0px;
+}
+#main-r>div[role=tabpanel]>ul>li>a{
+	font-size: 18px;
+	border-width: 0px;
+	padding-bottom: 13px;
+	border-bottom: 5px;
+	color:#333333;
+}
+#main-r>div[role=tabpanel]>ul>li>a:hover{
+	color:#333333;
+	border-bottom: 4px solid #339097;
+	background-color:inherit;
+}
+
+#main-r>div[role=tabpanel]>ul>li.active>a{
+	font-size: 18px;
+	border-width: 0px;
+	padding-bottom: 12px;
+	border-bottom: 5px solid #339097;
+}
+
+#tabContent1 .tab-pane {
+	padding-top: 25px;
+	padding-right: 25px;
+	padding-left: 25px;
+	padding-bottom: 25px;
+}
+.level-info {
+	border: 1px solid #eeeeee;
+}
+
+.point-red{
+	color:red;
+}
+.font-24{
+	font-size:24px;
+}
+#tabContent1 .tab-pane .panel {
+	margin-top: 22px;
+}
+.panel-level-grow tbody tr td[colspan="3"] {
+	text-align:center;
+	color:#ACA6A6;
+}
+.panel .table tbody tr {
+	height: 42px;
+	line-height: 42px;
+}
+.panel .table thead tr th{
+	color:#59585E;
+}
+
+
+/*共用 表单控制，引用个人信息表单*/
+.user-info .form-group input[type=text],.user-info .form-group select, .user-info .form-group input[type=password] {
+	display:inline-block;
+	width: 320px;
+	height:40px;
+	font-size:15px;
+}
+.user-info .form-group textarea{
+	display:inline-block;
+	width: 500px;
+	font-size:15px;
+}
+.user-info .form-group button{
+	padding: 8px 30px;
+}
+.user-info .form-group label{
+	text-align:right;
+	width:146px;
+}
+.user-info .form-group .checkbox-label {
+	width: 70px;
+	text-align:center;
+	font-weight: normal;
+}

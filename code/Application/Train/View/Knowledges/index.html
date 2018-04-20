@@ -1,0 +1,230 @@
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="/Public/res/template/plugins/layer/layer.js"></script>
+<include file="./Application/Common/View/pageheader.html" />
+<script>
+    function func3(id) {
+        var id = id;
+    //询问框
+    layer.confirm('确定要删除？', {
+        btn: ['确定','放弃'] //按钮
+    }, function(){
+        var url = '{:U('Train/Knowledges/delete')}?id='+id;
+        window.location = url;
+    }, function(){
+        var url = '{:U('Train/Knowledges/index')}';
+        window.location = url;
+    });
+}
+    function func4(id) {
+        var id = id;
+        layer.confirm('确定要删除？',{
+            btn: ['确定','放弃'] //按钮
+        }, function(){
+            var url = '{:U('Train/Knowledges/delete',['id'=>id])}';
+            window.location = url;
+        }, function(){
+            var url = '{:U('Train/Knowledges/delete')}';
+            window.location = url;
+        });
+    }
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>知识中心管理</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('Train/Knowledges/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-5" action="{:U('Train/Knowledges/index')}" method='get'>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">关键字：</label>
+                        <div class="col-sm-7">
+                            <input type="text" name='keyword' placeholder="请输入知识标题含有的关键字" class="form-control row">
+                        </div>
+                        <div class="col-sm-2 row">
+                            <button class="btn btn-sm btn-primary" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="ibox-content" >
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                    <a href="{:U('Train/Knowledges/addPage')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 添加知识</a>
+                    <a href="{:U('Train/Knowledgecat/index')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 分类管理</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" style="font-size:14px" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                        <th>作者</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="news" item="vo">
+                        <tr>
+                            <td><input type="checkbox" onclick="javascript:switchItemChecked()" value = "{$vo.id}" class="fc-item"> {$vo.id}</td>
+                            <td>
+                                <a style="position: relative" href="#">{$vo.title}<if condition="$vo.count gt 0">({$vo.count}条新评论~~~)<em style="position:absolute;top: -15px;right: -20px;display:block;background: url(/Public/res/template/img/new3.png) no-repeat;width: 35px;height: 18px;"></em></if></a>
+                            </td>
+                            <td>{$vo.author}</td>
+                            <td><if condition="$vo.publishstatus eq 1">已发布<else/>待发布</if></td>
+                            <td>{$vo.time}</td>
+                            <td>
+                                <a class='btn btn-xs btn-primary' href="{:U('Train/Knowledges/editPage',['id'=>$vo['id']])}">查看</a>
+                                <a class='btn btn-xs btn-success' href="{:U('Train/Knowledges/editPage',['id'=>$vo['id']])}">编辑</a>
+                                <a style="position: relative" class='btn btn-xs btn-warning' href="{:U('Train/Knowledges/replyPage',['id'=>$vo['id']])}">回复</a>
+                                <a class='btn btn-xs btn-danger' href="javascript:void(0)" value = "{$vo.id}" id="func3" onclick="func3({$vo.id});">删除</a>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <if condition="count($news) gt 0">
+                        <tr>
+                            <td>
+                                <button onclick="javascript:switchAllChecked();" class="btn btn-sm btn-primary">全选/取消</button>
+                            </td>
+                            <td>
+                                <button onclick="javascript:batchDelete();" class="btn btn-sm btn-danger">删除</button>
+                            </td>
+                            <td colspan="7">
+                                <div class="pull-right">{$Pageshow}</div>
+                            </td>
+                        </tr>
+                        <else/>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td colspan="7">
+                                没有任何内容
+                            </td>
+                        </tr>
+                    </if>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            },
+            "pageSize": {$pageSize},
+        });
+
+    });
+
+    checkedList = [];
+    status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+
+    function switchAllChecked(){
+        switch(status){
+            case '0': allChecked();
+                status = '1';
+                break;
+
+            case '1': unAllChecked();
+                status = '0';
+                break;
+
+            default: break;
+        }
+    }
+
+    function allChecked(){
+        $("#fc-all").prop("checked", true);
+        var list = $(".fc-item");
+        list.prop("checked", true);
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unAllChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item");
+        list.prop("checked", false)
+        checkedList = Array();
+    }
+
+    function switchItemChecked(){
+        checkedList = Array();
+        if( $(this).attr("checked") != false ){
+            $(this).prop("checked", false);
+            unItemChecked();
+        }else{
+            $(this).prop("checked", true);
+            itemChecked();
+        }
+    }
+
+    function itemChecked(){
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unItemChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function checkIfNone(){
+        if(checkedList.length <= 0){
+            return {status:false , msg: "至少选择一项！"}
+        }else{
+            return {status:true}
+        }
+    }
+
+    function refreshLoad(){
+        location.reload();
+    }
+
+    function batchDelete(){
+        var checkStatus = checkIfNone();
+        if(checkStatus.status == false) {
+            alert(checkStatus.msg);
+            return;
+        }
+        $.post("{:U('Train/Knowledges/batchDelete')}",{'request': checkedList}, function(data){
+            if(data.status == '1') {
+                alert(data.msg);
+                refreshLoad();
+            }else{
+                alert(data.msg);
+            }
+        }, "json");
+    }
+</script>

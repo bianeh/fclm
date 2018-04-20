@@ -1,0 +1,140 @@
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="/Public/res/template/plugins/layer/layer.js"></script>
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>查看知识</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('AgentTrain/Knowledges/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+            </div>
+            <div class="ibox-content">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div style="text-align: center"><h1>{$news.title}</h1></div>
+                        <div style="font-size:14px;border-bottom: dashed 1px #000">
+                        发布时间：{$news.createtime|date="Y-m-d H:i:s",###}&nbsp;&nbsp;来源：{$news.source}
+                        </div>
+                        <br>
+                        <br>
+                        <div style="font-size:16px" class="form-group">
+                            {$news.content}
+                        </div>
+                        <div>
+                            作者：{$news.author}
+                            <div style="padding-left:90%;">
+                                    <a href="javascript:void()" onclick="zan()" id ="thumb" class="btn btn-info">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>点赞
+                                    </a>
+                            </div>
+
+                            <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+                            <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="col-sm-12">
+                            <foreach name="replys" item="vo">
+                                <div style="font-size:14px;border-top: dashed 1px #000">
+                                    <h6>{$vo.username}的评论:</h6>
+                                    <span style="font-size:16px">{$vo.content}</span>
+                                </div>
+                                <foreach name="requests" item="v">
+                                    <?php
+                        $followid = $v['followid'];
+                        $id = $vo['id'];
+                        if($followid == $id)
+                        {
+                        ?>
+                                    <div>
+                                        <h6>{$v.username}的回复:</h6>
+                                        <span style="font-size:16px">{$v.content}</span>
+                                    </div>
+                                    <?php
+                        }
+                        ?>
+                                </foreach>
+
+                                <br>
+                            </foreach>
+                        </div>
+                        <div class="col-sm-12">
+                            <form method="get" action="{:U('AgentTrain/Knowledges/comment')}" />
+                            <div><lable>评论:</lable></div>
+                            <br>
+                            <div>
+                                <textarea class="form-control" rows="7"  class="col-sm-12" name="comment" class="col-sm-12" ></textarea>
+                            </div>
+                            <input type="hidden" name="newsid" value="{$news.id}" />
+                            <div style="margin-top: 5px"><input style ="width:100px;height:30px" class='btn btn-xs btn-success' type="submit" value="提交"/></div>
+                            </form>
+                        </div>
+                    </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <include file="./Application/Common/View/pagefooter.html" />
+
+    <script type="text/javascript" src="/Public/res/template/js/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+        function readyup(){
+            ajaxFileUpload();
+        }
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                    {
+                        url: '/News/Newscon//upload', //用于文件上传的服务器端请求地址
+                        secureuri: false, //是否需要安全协议，一般设置为false
+                        fileElementId: 'file1', //文件上传域的ID
+                        dataType: 'json', //返回值类型 一般设置为json
+                        success: function (data, status)  //服务器成功响应处理函数
+                        {
+                            $("#img1").attr("src", data.imgurl);
+                            $(":input[name=thumb]").val(data.imgurl);
+                            if (typeof (data.error) != 'undefined') {
+                                if (data.error != '') {
+                                    alert(data.error);
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        },
+                        error: function (data, status, e)//服务器响应失败处理函数
+                        {
+                            alert(e);
+                        }
+                    }
+            )
+            return false;
+        }
+    </script>
+    <script>
+        var recoder = 0;
+        function zan() {
+            if (recoder < 1) {
+                $.ajax({
+                    method: "POST",
+                    url: "{:U('AgentTrain/Knowledges/zan')}",
+                    data: {id: "{$news.id}"}
+                }).done(function (msg) {
+                    recoder = recoder + 1;
+                    if (recoder > 0) {
+                        document.getElementById("thumb").className = "btn btn-default";
+                    }
+                    if(msg == 1) {
+                        layer.msg('+1');
+                    }
+                });
+            }
+        }
+    </script>

@@ -1,0 +1,56 @@
+<include file="./Application/Common/View/pageheader.html" />
+	
+	<div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>账户管理</h5>
+                        </div>
+                        <div class="ibox-content">
+							 <h2>{$agent['username']}</h2>
+							 <p><span>账户ID:</span> <span>{$agent['id']}</span></p>
+							 <p><span>注册时间:</span> <span>{:date('Y-m-d',$agent['createtime'])}</span></p>
+                        </div>
+
+                        <div class="ibox-content">
+                             
+                        	审核状态：<switch name='agent.reviewstatus'>
+                        					<case value="0">
+                        						未审核 <a class='btn btn-primary' href='{:U('AgentAdmin/Review/editPage')}'>提交审核资料</a> 
+                        					</case>
+                        					<case value="1">
+                        						审核通过
+                        					</case>
+                        					<case value="2">
+                        						审核未通过
+                                                 <a class='btn btn-primary' href='{:U('AgentAdmin/Review/editPage')}'>补充审核资料</a> 
+
+                                                 <p>
+                                                    审核意见：<p class='text-warning'>{$agent.reviewnote}</p>
+                                                </p>
+                        					</case>
+                        			  </switch>
+                        </div>
+							
+                    </div>
+                </div>
+        </div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+        	"paging": {
+				"enabled": false
+				}
+		});
+
+    });
+
+</script>

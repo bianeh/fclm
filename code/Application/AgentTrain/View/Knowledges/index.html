@@ -1,0 +1,169 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>知识中心</h5>
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        <a href="{:U('AgentTrain/Knowledges/index')}"><strong>返回上一页</strong></a>
+                    </li>
+                </ol>
+
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal col-sm-5" action="{:U('AgentTrain/Knowledges/index')}" method='get'>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">关键字：</label>
+                        <div class="col-sm-7">
+                            <input type="text" name='keyword' placeholder="请输入知识标题含有的关键字" class="form-control row">
+                        </div>
+                        <div class="col-sm-2 row">
+                            <button class="btn btn-sm btn-primary" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="ibox-content" >
+                <table  data-page-navigation=".nopagination" style="width: 96%;" data-paging="false">
+                    <foreach name="news" item="vo">
+                        <tr style="font-size:22px;border-bottom: 1px solid #dddddd;">
+                            <td>【{$vo.time}】&nbsp;&nbsp;<a style="color:inherit" href="{:U('AgentTrain/Knowledges/editPage',['id'=>$vo['id']])}">{$vo.title}</a></td>
+
+                        </tr>
+                    </foreach>
+                    <tfoot>
+                    <if condition="count($news) gt 0">
+                        <tr>
+                            <td colspan="7">
+                                <div style="font-size:14px" class="pull-right">{$Pageshow}</div>
+                            </td>
+                        </tr>
+                        <else/>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td colspan="7">
+                                没有任何内容
+                            </td>
+                        </tr>
+                    </if>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            },
+            "pageSize": {$pageSize},
+        });
+
+    });
+
+    checkedList = [];
+    status = '0'; 				// 全选状态：1:全部选定，0：全部选定或部分选定
+
+    function switchAllChecked(){
+        switch(status){
+            case '0': allChecked();
+                status = '1';
+                break;
+
+            case '1': unAllChecked();
+                status = '0';
+                break;
+
+            default: break;
+        }
+    }
+
+    function allChecked(){
+        $("#fc-all").prop("checked", true);
+        var list = $(".fc-item");
+        list.prop("checked", true);
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unAllChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item");
+        list.prop("checked", false)
+        checkedList = Array();
+    }
+
+    function switchItemChecked(){
+        checkedList = Array();
+        if( $(this).attr("checked") != false ){
+            $(this).prop("checked", false);
+            unItemChecked();
+        }else{
+            $(this).prop("checked", true);
+            itemChecked();
+        }
+    }
+
+    function itemChecked(){
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function unItemChecked(){
+        $("#fc-all").prop("checked", false);
+        var list = $(".fc-item:checked");
+        list.each(function(n){
+            var itemId = list.eq(n).val();
+            checkedList.push(itemId);
+        });
+    }
+
+    function checkIfNone(){
+        if(checkedList.length <= 0){
+            return {status:false , msg: "至少选择一项！"}
+        }else{
+            return {status:true}
+        }
+    }
+
+    function refreshLoad(){
+        location.reload();
+    }
+
+    function batchDelete(){
+        var checkStatus = checkIfNone();
+        if(checkStatus.status == false) {
+            alert(checkStatus.msg);
+            return;
+        }
+        $.post("{:U('Train/Knowledges/batchDelete')}",{'request': checkedList}, function(data){
+            if(data.status == '1') {
+                alert(data.msg);
+                refreshLoad();
+            }else{
+                alert(data.msg);
+            }
+        }, "json");
+    }
+</script>

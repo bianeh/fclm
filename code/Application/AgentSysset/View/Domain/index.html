@@ -1,0 +1,64 @@
+<include file="./Application/Common/View/pageheader.html" />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>域名管理</h5><br>
+            </div>
+            <div class="ibox-content">
+                <div style="padding-bottom:5px; padding-top:5px; border-bottom:#ECECEC solid 1px; margin-bottom:10px">
+                    <a href="{:U('AgentSysset/Domain/applydomain')}" class="btn btn-primary " ><i class="fa fa fa-plus"></i> 域名申请</a>
+                </div>
+                <table class="footable table table-stripped toggle-arrow-tiny" data-page-navigation=".nopagination" data-paging="false">
+                    <thead>
+                    <tr>
+                        <th>用户ID</th>
+                        <th>申请人</th>
+                        <th>申请域名</th>
+                        <th>申请时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="domains" item="vo">
+                        <tr>
+                            <td>{$vo.agentid}</td>
+                            <td>{$vo.agentname}</td>
+                            <td>{$vo.userdomain}</td>
+                            <td>{$vo.userdomaincreatetime|date="Y-m-d H:i:s",###}</td>
+                            <td><if condition = "$vo.status == 0"><span class='btn btn-xs btn-default'>未启用</span><else /><span class='btn btn-xs btn-success'>已启用</span></if></td>
+                            <if condition = "$vo.status == 0"><td><a class='btn btn-xs btn-danger'' href="{:U('AgentSysset/Domain/delete',array('id'=>$vo['id']))}">删除</a></td></if>
+                            <if condition = "$vo.status == 1"><td><a class='btn btn-xs btn-default' >已锁定</a></td></if>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="pull-right">{$Pageshow}</div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Application/Common/View/pagefooter.html" />
+
+<script src="/Public/res/template/js/plugins/footable/footable.all.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable({
+            "paging": {
+                "enabled": false
+            }
+        });
+
+    });
+
+</script>

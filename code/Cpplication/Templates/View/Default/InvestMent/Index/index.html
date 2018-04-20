@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>我要投资-蜂巢联盟</title>
+<meta name="keywords" content="我要投资">
+<meta name="description" content="我要投资">
+<link href="/Public/res/Default/css/common.css" rel="stylesheet" type="text/css">
+<link href="/Public/res/Default/css/bootstrap.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+.inventout {
+	margin-top: 18px;
+}
+.inventout>.width1200 {
+	background-color: #ffffff;
+}
+.inventout>.width1200>div>ul[role=tablist] {
+	width: 558px;
+	border-bottom: 2px solid #DDDDDD;
+	margin-top: 21px;
+	margin-left: 42px;
+}
+.inventout>.width1200>div>ul[role=tablist]>li:first-child {
+	margin-right: 0;
+	margin-left: 42px;
+}
+.inventout>.width1200>div>ul[role=tablist]>li {
+	margin-right: 0;
+	margin-left: 13px;
+}
+.inventout>.width1200>div>ul[role=tablist]>li.active>a {
+	border: 0;
+	padding: 6px 20px;
+	border-bottom: 5px solid #339097;
+	font-size: 18px;
+	font-weight: 400;
+	color: #474747;
+}
+.inventout>.width1200>div>ul[role=tablist]>li.active>a:hover {
+	border: 0;
+	border-bottom: 5px solid #339097;
+}
+.inventout>.width1200>div>ul[role=tablist]>li>a {
+	border: 0;
+	padding: 6px 20px;
+	font-size: 18px;
+	font-weight: 400;
+	color: #474747;
+}
+.inventout>.width1200>div>ul[role=tablist]>li>a:hover {
+	border: 0;
+	border-bottom: 5px solid #EEEEEE;
+}
+#invent-sort {
+	list-style: none;
+	padding: 26px 86px 18px;
+}
+#invent-sort>li {
+	height: 40px;
+	line-height: 40px;
+	font-size: 15px;
+}
+.tabContent1 {
+	margin-top: 16px;
+}
+.tabContent1>ul{
+	width:1104px;
+	margin:0 auto;
+}
+.tabContent1>ul>li>a {
+	margin-top: 20px;
+}
+#invent-sort>li>a {
+	margin: 0 14px;
+	padding: 8px;
+	color: #474747;
+}
+
+#invent-sort>li>a.active {
+	background-color: #EEEEEE;
+}
+
+#invent-sort>li>a:hover,#invent-sort>li>a:focus {
+	background-color: #EEEEEE;
+	text-decoration: none;
+}
+
+/*列表控制*/
+
+.product {
+	padding: 0;
+	list-style-type: none;
+	background-color: #ffffff;
+}
+.product>li {
+	margin:0 auto;
+	width:1104px;
+	height: 200px;
+	color: #474749;
+	border-bottom: solid 2px #E9EAEF;
+	clear:both;
+}
+.product>li>.column{
+	padding:0 5px;
+}
+.immediately {
+	line-height:200px;
+	height: 200px;
+	text-align:right;
+	padding:0;
+}
+.immediately a {
+	padding-left: 38px;
+	padding-right: 38px;
+	background-color: #328E95;
+	border-color: #328E95;
+	font-size: 18px;
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+.product>li .column .productname {
+	color: #339097;
+	font-size: 20px;
+	margin-top: 45px;
+}
+.product>li>.column>ul {
+	list-style:none;
+	padding:0;
+}
+
+.product>li>.column>ul>li {
+	float:left;
+	margin:14px 4px;
+	width:112px;
+	overflow:hidden;
+	color:#48484A;
+}
+.product>li>.column>ul.d-title>li {
+	color:#797979;
+}
+.product>li>.column>ul>li.last-li {
+	overflow:auto;
+	text-align:center;
+	width:180px;
+	margin-top:18px;
+	overflow:visible;
+}
+.product>li>.column>ul>li.last-li>.progress{
+	width:135px;
+	height:10px;
+	margin:0;
+}
+.product>li>.column>ul>li.last-li>.progress-tips{
+	font-size:14px;
+	float:right;
+	margin-top:-16px;
+	margin-right:15px;
+}
+
+</style>
+</head>
+<body>
+
+<include file="./Cpplication/Templates/View/Default/Publics/home_header.html" />
+
+<div class="out inventout">
+  <div class="width1200">
+    <div role="tabpanel" class="clearfix">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#home1" data-toggle="tab" role="tab">投资列表</a></li>
+        <li><a href="#paneTwo1" data-toggle="tab" role="tab">新手专享</a></li>
+      </ul>
+      <ul id="invent-sort">
+        <li><b>产品期限：</b><a href="#">不限</a><a href="#">小于一个月</a><a href="#">2~3个月</a><a href="#">4~6个月</a><a href="#">7~12个月</a></li>
+        <li><b>产品状态：</b><a href="#">不限</a><a class="active" href="#">状态1</a><a href="#">状态2</a><a href="#">已售罄</a></li>
+        <li><b>产品类型：</b><a href="#">不限</a><a href="#">固定收益</a><a href="#">浮动收益</a><a href="#">保本/固定收益+浮动</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="width1200 clearfix tabContent1">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="#">排序</a></li>
+      <li role="presentation"><a href="#">综合排序</a></li>
+      <li role="presentation" class="active"><a href="#">收益率</a></li>
+      <li role="presentation"><a href="#">发布时间</a></li>
+      <li role="presentation"><a href="#">期限</a></li>
+    </ul>
+	<div id="tabContent1" class="tab-content">
+      <div class="tab-pane fade in active" id="home1">
+        <ul class="product">
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+          </ul>
+		<nav class="turn-page">
+		  <!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->
+		  <ul class="pagination">
+          <li><a href="#">首页</a></li>
+		    <li><a href="#" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li><a href="#" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>
+            <li><a href="#">尾页</a></li>
+	      </ul>
+	    </nav>
+      </div>
+      <div class="tab-pane fade" id="paneTwo1">
+        <ul class="product">
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 28%;"> </div>
+                          </div>
+                          <span class="progress-tips">28%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 80%;"> </div>
+                          </div>
+                          <span class="progress-tips">80%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+            <li>
+              <div class="col-xs-10 column">
+                  <h3 class="productname">产品名称【000001】</h3>
+                  <ul class="clearfix d-title">
+                  	<li>产品类型</li>
+                  	<li>预期年化收益率</li>
+                    <li>投资期限</li>
+                  	<li>风险级别</li>
+                    <li>金额</li>
+                  	<li>剩余份数</li>
+                    <li class="last-li">进度</li>
+                  </ul>
+                  <ul class="clearfix">
+                  	<li>固定收益...</li>
+                  	<li>6%</li>
+                    <li>8个月</li>
+                  	<li>LV6</li>
+                    <li>1000000000</li>
+                  	<li>500000</li>
+                    <li class="last-li">
+                    	<div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;"> </div>
+                          </div>
+                          <span class="progress-tips">20%</span>
+                    </li>
+                  </ul>
+              </div>
+              <div class="col-xs-2 column immediately"> 
+                <a type="button" class="btn btn-default btn-primary">立即投资</a> 
+                </div>
+            </li>
+          </ul>
+          <nav class="turn-page">
+		  <!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->
+		  <ul class="pagination">
+          <li><a href="#">首页</a></li>
+		    <li><a href="#" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li><a href="#" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>
+            <li><a href="#">尾页</a></li>
+	      </ul>
+	    </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--帮助中心-->
+<div class="out" id="aboutout">
+  <div class="width1200"> &nbsp;
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+      <li><a href="#">帮助中心</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+      <li><a href="#">安全保障</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">关于我们</a></li>
+    </ul>
+    <ul class="helpname">
+      <li class="helpfirst"><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+      <li><a href="#">个人中心</a></li>
+    </ul>
+  </div>
+</div>
+<!--帮助中心end--> 
+<!--版权 和 底部-->
+<div class="out" id="copyrightout">
+  <div class="width1200">Copyright©2016 fengmeng.com.All Rights Reserved V1.8.5 沪ICP:0000000号-1</div>
+</div>
+<!--版权 和 底部end--> 
+
+<script src="js/jquery-1.11.2.min.js" type="text/javascript"></script> 
+<script src="js/bootstrap.js" type="text/javascript"></script>
+</body>
+</html>

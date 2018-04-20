@@ -1,0 +1,121 @@
+<include file="./Application/Common/View/header.html" />
+<style type="text/css">
+#main-box .row.detail h2,#main-box .row.detail>div>p{
+	text-align:center;
+}
+#main-box .row.detail h2{
+	margin-top:4px;
+}
+#main-box .row.detail>div>p{
+	color:#999999;
+	font-size:15px;
+	margin:20px;
+}
+#main-box .detail article{
+	font-size:18px;
+	color:#616161;
+	line-height:40px;
+    min-height: 221px;
+}
+#main-box .detail .artice-menu,#main-box .detail article{
+	margin:0 4%;
+}
+#main-box .detail .artice-menu,#main-box .detail article img{
+    max-width: 100%;
+}
+@media (max-width: 767px) {
+	#main-box .row.detail>p{
+		font-size:13px;
+	}
+}
+#main-box .detail .artice-menu>div{
+	line-height:40px;
+	padding:0;
+}
+#main-box .detail .artice-menu>div>b{
+	font-size:18px;
+	color:#616161;
+}
+#main-box .detail .artice-menu>div>a{
+	color:#329195;
+	font-size:18px;
+}
+#main-box .detail .artice-menu>div>span.item{
+	margin-left:20px;
+	font-size:15px;
+}
+#main-box .detail .artice-menu>div>span.item:first-child{
+	margin-left:0;
+}
+#main-box .detail .artice-menu>div:first-child{
+	line-height:60px;
+}
+</style>
+<div class="container-fluid banner-outer hidden-xs">
+  
+</div>
+<div class="container" id="main-box">
+  <div class="row">
+      <ol class="breadcrumb">
+        <li><a href="/"><span class="glyphicon glyphicon-home"></span>首 页</a></li>
+        <li><a href="{:U('News/Index')}">新闻中心</a></li>
+        <li class="active"><a href="">新闻详情</a>
+        </li>
+      </ol>
+  </div>
+  <div class="row detail">
+    <div class="col-md-12 center-block">
+      <h2>{$detail.title}</h2>
+      <p><b>发布日期:</b>{$detail.format_publishtime}&nbsp;&nbsp;&nbsp;&nbsp;<b>信息来源:</b>{$detail.source}</p>
+      <article>
+          {$detail.content}
+      </article>
+      <div class="row artice-menu">
+      	<div class="col-lg-12">
+            <span class="item"><img src="/Public/res/Btemplate/images/news_detail_03.gif" width="32" height="27" alt=""/>{$detail.view}</span>
+            <span class="item"><img id="thumb" src="/Public/res/Btemplate/images/news_detail_05.gif" width="32" height="27" alt=""/>{$detail.thumb}</span>
+            <span class="item">分享到：<img src="/Public/res/Btemplate/images/news_detail_08.png" width="32" height="27" alt=""/></span>
+        </div>
+        <div class="col-lg-12"><b>上一页：</b>
+            <if condition="$ambo.previous eq null">
+                没有了!
+            <else />
+                <a href="{$ambo.previous.id}">{$ambo.previous.title}</a>
+            </if>
+        </div>
+        <div class="col-lg-12"><b>下一页：</b>
+            <if condition="$ambo.next eq null">
+                没有了!
+            <else />
+                <a href="{$ambo.next.id}">{$ambo.next.title}</a>
+            </if>
+        </div>
+          
+        <div>&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
+<include file="./Application/Common/View/footer.html" />
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$("#thumb").click(function(e) {
+      $.post(
+	  	  '{:U('Home/News/thumb')}',
+		  {id:'{$detail.id}'},
+		  function(data,status){
+			 alert(data.msg);
+		  },
+		  'json')
+	 });
+	 
+	 
+	 
+	 $("#thumb").mouseover(function(){
+		 $(this).attr('src','/Public/res/Btemplate/images/news_detail_05_.gif');
+	  });
+	  $("#thumb").mouseout(function(){
+		 $(this).attr('src','/Public/res/Btemplate/images/news_detail_05.gif');
+	  });
+});
+</script>
